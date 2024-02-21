@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HotelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomTypeController;
 use Illuminate\Foundation\Application;
@@ -23,3 +24,15 @@ Route::get("/",[HomeController::class,"index"])->name("dashboard");
 Route::prefix('room-type')->group(function () {
     Route::get("/",[RoomTypeController::class,"index"])->name("roomType.index");
 });
+
+Route::prefix('hotel')->group(function (){
+    Route::get("/",[HotelController::class,"index"])->name('hotel.index');
+});
+
+require __DIR__ . '/auth.php';
+
+
+Route::get('/', function () {
+    return Inertia::render('Dashboard/index');
+})->middleware(['auth', 'verified'])->name('dashboard');
+

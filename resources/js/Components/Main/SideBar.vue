@@ -33,7 +33,7 @@
                                     </Link>
                                 </li>
                                 <li class="nav-item">
-                                    <Link class="nav-link active-preloader">
+                                    <Link  class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
                                     <span class="ml-2 hide-menu">Hotel Types</span>
                                     </Link>
@@ -41,7 +41,7 @@
                             </ul>
                         </li>
                         <!-- <li class="nav-item" v-if="can('read_vendor')"> -->
-                        <Link class="nav-link active-preloader">
+                        <Link :href="route('hotel.index')" class="nav-link active-preloader">
                         <font-awesome-icon icon="fa-solid fa-building-user" />
                         <span class="ml-2 nav-link-text font-weight-400">Hotels</span>
                         </Link>

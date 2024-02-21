@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class HomeController extends ParentController
+class HotelController extends Controller
 {
     public function index(){
-        return Inertia::render("Dashboard/index");
+        return Inertia::render("Hotel/index");
     }
 }
