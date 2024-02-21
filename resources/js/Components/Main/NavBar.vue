@@ -49,14 +49,14 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
-// import { library } from '@fortawesome/fontawseme-svg-core';
-// import { faUser } from '@fortawesome/free-solid-svg-icons'
+// import { library } from '@fortawesome/fontawesome-svg-core';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
-// const userLibrary = () => {
-//     library.add(faUser);
-// }
+const userLibrary = () => {
+    library.add(faUser);
+}
 
-// onMounted(userLibrary);
+onMounted(userLibrary);
 </script>
 
 <style lang="css">

@@ -1,20 +1,17 @@
 <template>
     <AppLayout title="Room Types">
         <template #header>
-            <div class="pb-6 header">
+            <div class="pb-6 mt header">
                 <div class="container-fluid">
                     <div class="header-body row">
-                        <div class="py-4 col-lg-8 align-items-center">
-                            <h6 class="mb-0 h2 text-dark d-inline-block">Good Receive Note Management</h6>
+                        <div class="py-4 mt-5 col-lg-8 align-items-center">
                             <nav aria-label="breadcrumb" class="d-none d-md-block">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item">
-                                        <Link href="/">
-                                        <font-awesome-icon icon="fa-solid fa-house" color="#505050" />
-                                        </Link>
+                                        <i class="fa-solid fa-house"></i>
                                     </li>
                                     <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                        Hotel Type Management
+                                        Dashboard
                                     </li>
                                 </ol>
                             </nav>
@@ -179,6 +176,7 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 </script>
 
 <style scoped>
