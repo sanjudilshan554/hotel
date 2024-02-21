@@ -52,11 +52,11 @@ import { onMounted } from 'vue';
 // import { library } from '@fortawesome/fontawseme-svg-core';
 // import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-const userLibrary = () => {
-    library.add(faUser);
-}
+// const userLibrary = () => {
+//     library.add(faUser);
+// }
 
-onMounted(userLibrary);
+// onMounted(userLibrary);
 </script>
 
 <style lang="css">

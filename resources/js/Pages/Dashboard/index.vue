@@ -1,8 +1,4 @@
 <template>
-    <!-- <div>
-        <h1>hello</h1>
-        <Link :href="route('dashboard')">im dash</Link>
-    </div> -->
     <AppLayout title="Hotel-Management">
         <template #header>
             <div class="pb-6 header">
@@ -17,7 +13,7 @@
                                         <font-awesome-icon icon="fa-solid fa-house" color="#505050" />
                                         </Link>
                                     </li>
-                                    <Link :href="route('dashboard')">im dash</Link>
+                                    <Link :href="route('dashboard')"></Link>
                                     <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
                                         Dashboard
                                     </li>
@@ -38,7 +34,7 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Materials
+                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total hotel types
                                                 </p>
                                                 <h5 class="font-weight-bolder">
                                                     <!-- {{ this.total_materials }} -->
@@ -61,7 +57,7 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total BOM Sheets
+                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Room types
                                                 </p>
                                                 <h5 class="font-weight-bolder">
                                                     <!-- {{ this.total_boms }} -->
@@ -84,7 +80,7 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Vendors
+                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Hotels
                                                 </p>
                                                 <h5 class="font-weight-bolder">
                                                     <!-- {{ this.total_vendors }} -->
@@ -107,7 +103,7 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total PO</p>
+                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Hotel images</p>
                                                 <h5 class="font-weight-bolder">
                                                     <!-- {{ this.total_pos }} -->
                                                 </h5>

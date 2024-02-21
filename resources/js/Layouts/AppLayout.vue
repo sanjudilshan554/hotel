@@ -12,6 +12,7 @@
                 <slot name="content" />
             </div>
         </div>
+        <slot name="modals" />
         <Footer />
     </div>
 </template>
