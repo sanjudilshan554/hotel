@@ -51,7 +51,6 @@
     float: left;
     overflow: hidden;
     margin: 2vh;
-
 }
 </style>
   

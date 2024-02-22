@@ -27,6 +27,25 @@
                     </div>
                 </div>
                 <div class="row mb-1">
+                    <div for="name" class="col-md-2 col-form-label">PHONE</div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-lg-6 column__right___padding">
+                                <label>NUMBER 1</label>
+                                <input class="form-control form-control-sm" type="text" name="contact_1" id="inp_contact_1"
+                                    placeholder="Number 1" />
+                                <small id="msg_contact_1" class="text-danger form-text text-error-msg error"></small>
+                            </div>
+                            <div class="col-lg-6 column__left___padding">
+                                <label>NUMBER 2</label>
+                                <input class="form-control form-control-sm" type="text" name="contact_2" id="inp_contact_2"
+                                    placeholder="Number 2" />
+                                <small id="msg_contact_2" class="text-danger form-text text-error-msg error"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">CATEGORY</div>
                     <div class="col-md-10">
                         <input type="email" class="form-control form-control-sm" name="email" id="email" />
@@ -92,15 +111,6 @@
   
 <script setup>
 import { Link } from "@inertiajs/vue3";
-//   import Multiselect from "vue-multiselect";
-//   import Swal from "sweetalert2";
-//   import { library } from "@fortawesome/fontawesome-svg-core";
-//   import {
-//     faHouse,
-//     faFloppyDisk,
-//     faTrash,
-//   } from "@fortawesome/free-solid-svg-icons";
-
 
 </script>
   
