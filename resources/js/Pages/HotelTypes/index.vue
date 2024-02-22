@@ -119,12 +119,11 @@
                                             <td class="textClassBody">
 
                                                 <div class="float-left">
-                                                    <button><i class="fas fa-edit"></i></button>
+                                                    <a href="javascript:void(0)" class="edit" @click.prevent="editHotelType(value.id)"> <i class="fas fa-edit"></i></a>
                                                 </div>
                                                 <div class="float-left">
-                                                    <button> <i class="fa-solid fa-trash"></i></button>
+                                                    <a href="javascript:void(0)" class="delete" @click.prevent="deleteHotelType(value.id)"> <i class="fa-solid fa-trash"></i></a>
                                                 </div>
-                                               
                                             </td>
                                         </tr>
                                     </tbody>
@@ -225,7 +224,7 @@
                                         </div>
                                         <div class="text-right mt-2">
                                             <div class="text-right">
-                                                <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0">
+                                                <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0" @click.prevent="restHotelTypeFields()">
                                                     <font-awesome-icon />
                                                     RESET
                                                 </button>
@@ -261,11 +260,16 @@ const hotelTypes = ref({
 
 const hotelTypeData = ref([]);
 
+const editHotelType = async (hotelId) => {
+    window.location.href=route('HotelType.edit',hotelId);
+}
+
 const createHotelType = async () => {
     try {
         const response = await axios.post(route('HotelType.store'), hotelTypes.value);
-        console.log(response.data);
-        // hotelTypes.value = response.data.hotel_types;
+        getHotelTypes();
+        restHotelTypeFields();
+        
     } catch (error) {
         console.log('Error:', error);
     }
@@ -277,6 +281,22 @@ const getHotelTypes = async () => {
     console.log(hotelTypeData.value);
 }
 
+const deleteHotelType = async (id) => {
+    try {
+        const response = await axios.delete(route('HotelType.delete', id));
+        getHotelTypes();
+    } catch(error) {
+        console.log('Error:', error);
+    }
+};
+
+const restHotelTypeFields = () => {
+    hotelTypes.value.name='';
+    hotelTypes.value.price_range='';
+    hotelTypes.value.max_occupancy='';
+    hotelTypes.value.amenities='';
+    hotelTypes.value.extra='';
+}
 onMounted(getHotelTypes);
 </script>
 
@@ -284,5 +304,14 @@ onMounted(getHotelTypes);
 .float-left{
     float: left;
     margin-right: 10px;
+}
+.edit{
+    color:blue;
+    background-color: none;
+    border: none;
+    border-style: none;
+}
+.delete{
+    color:red;
 }
 </style>

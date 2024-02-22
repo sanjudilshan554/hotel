@@ -35,6 +35,11 @@ Route::prefix('hotel-types')->group(function (){
     Route::get('/',[HotelTypeController::class,'index'])->name('HotelType.index');
     Route::post('/store',[HotelTypeController::class,'store'])->name('HotelType.store');
     Route::get('/all',[HotelTypeController::class,'all'])->name('HotelType.all');
+    Route::delete('/{hotel_type_id}/delete',[HotelTypeController::class,'delete'])->name('HotelType.delete');
+    Route::get('/{hotel_type_id}/edit',[HotelTypeController::class,'edit'])->name('HotelType.edit');
+    Route::get('/{hotel_id}/get',[HotelTypeController::class,'get'])->name('HotelType.get');
+    Route::get('/{hotel_id}/delete',[HotelTypeController::class,'delete'])->name('HotelType.delete');
+    Route::post('/{hotel_id}/update',[HotelTypeController::class,'update'])->name('HotelType.update');
 });
 
 require __DIR__ . '/auth.php';

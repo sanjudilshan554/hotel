@@ -19,4 +19,16 @@ class HotelTypeService{
         return $this->hotel_type->all();
     }
 
+    public function delete($id){
+        $this->hotel_type->destroy($id);
+    }
+
+    public function get($id){
+        return $this->hotel_type->find($id);
+    }
+
+    public function update($id, array $data){
+        $hotelType=$this->hotel_type->find($id);
+        return $hotelType->update($data);
+    }
 }
