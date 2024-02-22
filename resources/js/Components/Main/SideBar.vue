@@ -33,7 +33,7 @@
                                     </Link>
                                 </li>
                                 <li class="nav-item">
-                                    <Link :href="route('HotelType.index')" class="nav-link active-preloader">
+                                    <Link :href="route('hotelType.index')" class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
                                     <span class="ml-2 hide-menu">Hotel Types</span>
                                     </Link>

@@ -58,7 +58,7 @@
                         </button>
                         <button type="submit" class="btn btn-primary btn btn-sm btn-neutral"
                             @click.prevent="updateHotelTypeData(hotelTypes.id)">
-                            EDIT
+                            UPDATE
                         </button>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ const hotelTypes = ref([]);
 const getHotelType = async () => {
 
     try {
-        const response = await axios.get(route('HotelType.get', props.hotelTypeId));
+        const response = await axios.get(route('hotelType.get', props.hotelTypeId));
         hotelTypes.value = response.data.hotelTypes;
         console.log(response.data.hotelTypes);
     } catch (error) {
@@ -94,7 +94,7 @@ const getHotelType = async () => {
 
 const deleteHotelType = async (id) => {
     try {
-        const response = await axios.delete(route('HotelType.delete', id));
+        const response = await axios.delete(route('hotelType.delete', id));
         resetData();
     } catch (error) {
         console.log('Error:', error);
@@ -103,7 +103,7 @@ const deleteHotelType = async (id) => {
 
 const updateHotelTypeData = async (id) => {
     try {
-        const response = await axios.post(route('HotelType.update', id), hotelTypes.value);
+        const response = await axios.post(route('hotelType.update', id), hotelTypes.value);
         console.log(response);
     } catch (error) {
         console.log(error);

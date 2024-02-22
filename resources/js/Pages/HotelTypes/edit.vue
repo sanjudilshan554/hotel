@@ -83,12 +83,6 @@ const props = defineProps({
         required:true
     }
 });
-
-// const res = () => {
-//     console.log(props.hotelType.id);
-// };
-
-// onBeforeMount(res);
 </script>
 
 

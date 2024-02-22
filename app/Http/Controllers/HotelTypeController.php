@@ -18,8 +18,10 @@ class HotelTypeController extends Controller
         return HotelTypeFacade::store($request->all());
     }
 
+    // I changed pleaeschange others
     public function all(){
-        return HotelTypeFacade::all();
+        $response['hotel_types']=HotelTypeFacade::all();
+        return $response;
     }
 
     public function delete($id){

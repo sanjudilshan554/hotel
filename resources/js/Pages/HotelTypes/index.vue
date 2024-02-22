@@ -31,7 +31,7 @@
                 </div>
             </div>
         </template>
-
+        
         <template #content>
             <div class="row ">
                 <div class="col-lg-12 mt-5">
@@ -119,10 +119,14 @@
                                             <td class="textClassBody">
 
                                                 <div class="float-left">
-                                                    <a href="javascript:void(0)" class="edit" @click.prevent="editHotelType(value.id)"> <i class="fas fa-edit"></i></a>
+                                                    <a href="javascript:void(0)" class="edit"
+                                                        @click.prevent="editHotelType(value.id)"> <i
+                                                            class="fas fa-edit"></i></a>
                                                 </div>
                                                 <div class="float-left">
-                                                    <a href="javascript:void(0)" class="delete" @click.prevent="deleteHotelType(value.id)"> <i class="fa-solid fa-trash"></i></a>
+                                                    <a href="javascript:void(0)" class="delete"
+                                                        @click.prevent="deleteHotelType(value.id)"> <i
+                                                            class="fa-solid fa-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -224,7 +228,8 @@
                                         </div>
                                         <div class="text-right mt-2">
                                             <div class="text-right">
-                                                <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0" @click.prevent="restHotelTypeFields()">
+                                                <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0"
+                                                    @click.prevent="restHotelTypeFields()">
                                                     <font-awesome-icon />
                                                     RESET
                                                 </button>
@@ -248,7 +253,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 
 const hotelTypes = ref({
     name: '',
@@ -261,57 +266,58 @@ const hotelTypes = ref({
 const hotelTypeData = ref([]);
 
 const editHotelType = async (hotelId) => {
-    window.location.href=route('HotelType.edit',hotelId);
+    window.location.href = route('hotelType.edit', hotelId);
 }
 
 const createHotelType = async () => {
     try {
-        const response = await axios.post(route('HotelType.store'), hotelTypes.value);
+        const response = await axios.post(route('hotelType.store'), hotelTypes.value);
         getHotelTypes();
         restHotelTypeFields();
-        
+
     } catch (error) {
         console.log('Error:', error);
     }
 }
 
 const getHotelTypes = async () => {
-    const response = await axios.get(route('HotelType.all'));
-    hotelTypeData.value = response.data;
+    const response = await axios.get(route('hotelType.all'));
+    hotelTypeData.value = response.data.hotel_types;
     console.log(hotelTypeData.value);
 }
 
 const deleteHotelType = async (id) => {
     try {
-        const response = await axios.delete(route('HotelType.delete', id));
+        const response = await axios.delete(route('hotelType.delete', id));
         getHotelTypes();
-    } catch(error) {
+    } catch (error) {
         console.log('Error:', error);
     }
 };
 
 const restHotelTypeFields = () => {
-    hotelTypes.value.name='';
-    hotelTypes.value.price_range='';
-    hotelTypes.value.max_occupancy='';
-    hotelTypes.value.amenities='';
-    hotelTypes.value.extra='';
+    hotelTypes.value.name = '';
+    hotelTypes.value.price_range = '';
+    hotelTypes.value.max_occupancy = '';
+    hotelTypes.value.amenities = '';
+    hotelTypes.value.extra = '';
 }
-onMounted(getHotelTypes);
+onBeforeMount(getHotelTypes);
 </script>
 
 <style>
-.float-left{
+.float-left {
     float: left;
     margin-right: 10px;
 }
-.edit{
-    color:blue;
+
+.edit {
+    color: blue;
     background-color: none;
     border: none;
     border-style: none;
 }
-.delete{
-    color:red;
-}
-</style>
+
+.delete {
+    color: red;
+}</style>
