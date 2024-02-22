@@ -35,7 +35,7 @@ const props = defineProps({
 
 <style >
 body {
-    /* background-image: url('@/../src/img/banner/bg.png');??? */
+     background-image: url('@/../src/img/banner/bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

@@ -33,6 +33,7 @@ Route::prefix('hotel')->group(function (){
 
 Route::prefix('hotel-types')->group(function (){
     Route::get('/',[HotelTypeController::class,'index'])->name('HotelType.index');
+    Route::post('/store',[HotelTypeController::class,'store'])->name('HotelType.store');
 });
 
 require __DIR__ . '/auth.php';

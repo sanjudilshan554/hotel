@@ -31,6 +31,7 @@
                 </div>
             </div>
         </template>
+
         <template #content>
             <div class="row ">
                 <div class="col-lg-12 mt-5">
@@ -44,26 +45,26 @@
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-arrow-up-from-bracket icon_item-icon" color="#505050"></i>
-            
+
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-cloud-arrow-down icon_item-icon" color="#505050"></i>
-                                           
+
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-wrench icon_item-icon" color="#505050"></i>
-                                            
+
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-check icon_item-icon" color="#505050"></i>
-                                                
+
                                             </a>
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-minus icon_item-icon" color="#505050"></i>
-                                           
+
                                             </a>
                                         </div>
                                         <div class="p-2 border icon_item">
@@ -172,52 +173,63 @@
                         <div class="modal-body p-0">
                             <div class="card-plain">
                                 <div class="card-body">
-                                    <form role="form text-left" enctype="multipart/form-data">
+                                    <form>
                                         <div class="row mb-1">
-                                            <div for="code" class="col-md-3 col-form-label">NAME</div>
+                                            <div for="name" class="col-md-3 col-form-label">NAME</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="Luxury" required />
+                                                <input type="text" class="form-control form-control-sm" name="name"
+                                                    id="name" placeholder="Luxury" v-model="hotelTypes.name" required />
                                             </div>
-                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                            <!-- <small id="msg_" class="text-danger form-text text-error-msg error"></small> -->
                                         </div>
                                         <div class="row mb-1">
-                                            <div for="code" class="col-md-3 col-form-label">PRICE RANGE</div>
+                                            <div for="price_range" class="col-md-3 col-form-label">PRICE RANGE</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="Code" required />
+                                                <select class="form-control form-control-sm" aria-label="Default select example" v-model="hotelTypes.price_range">
+                                                    <option value="1" class="text-dark">Budget: Rs.40,000 - 80,000 per day</option>
+                                                    <option value="2" class="text-warning">Standard: Rs.100,000 - 300,000 per day</option>
+                                                    <option value="3" class="text-success">Luxury: Rs.300,000 - 500,000 per day</option>
+                                                </select>
                                             </div>
-                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                            <!-- <small id="msg_" class="text-danger form-text text-error-msg error"></small> -->
                                         </div>
                                         <div class="row mb-1">
-                                            <div for="code" class="col-md-3 col-form-label">MAX OCCUPANCY</div>
+                                            <div for="max_occupancy" class="col-md-3 col-form-label">MAX OCCUPANCY</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="100-500" placeholder="100-400" required />
+                                                <input type="text" class="form-control form-control-sm" name="max_occupancy"
+                                                    id="max_occupancy" placeholder="100-400"
+                                                    v-model="hotelTypes.max_occupancy" required />
                                             </div>
-                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                            <!-- <small id="msg_" class="text-danger form-text text-error-msg error"></small> -->
                                         </div>
                                         <div class="row mb-1">
-                                            <div for="code" class="col-md-3 col-form-label">AMENITIES</div>
+                                            <div for="amenities" class="col-md-3 col-form-label">AMENITIES</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="Private beach, Golf course, Kids club" required />
+                                                <input type="text" class="form-control form-control-sm" name="amenities"
+                                                    id="amenities" placeholder="Private beach, Golf course, Kids club"
+                                                    v-model="hotelTypes.amenities" required />
                                             </div>
-                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                            <small id="msg_" class="text-danger form-text text-error-msg error"></small>
                                         </div>
                                         <div class="row mb-1">
-                                            <div for="code" class="col-md-3 col-form-label">EXTRA</div>
+                                            <div for="extra" class="col-md-3 col-form-label">EXTRA</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="All-inclusive packages available" required />
+                                                <input type="text" class="form-control form-control-sm" name="extra"
+                                                    id="extra" placeholder="All-inclusive packages available"
+                                                    v-model="hotelTypes.extra" required />
                                             </div>
-                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                            <small id="msg_" class="text-danger form-text text-error-msg error"></small>
                                         </div>
-                                        <div class="text-right mt-2" >
-                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
-                                                <font-awesome-icon icon="fa-solid fa-floppy-disk" />
-                                                CREATE
-                                            </button>
+                                        <div class="text-right mt-2">
+                                            <div class="text-right">
+                                                <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0">
+                                                    <font-awesome-icon />
+                                                    RESET
+                                                </button>
+                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral" @click.prevent="createHotelType()">
+                                                    CREATE
+                                                </button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -231,5 +243,26 @@
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AppLayout from '@/Layouts/AppLayout.vue';
+import axios from 'axios';
+import { ref } from 'vue';
+
+const hotelTypes = ref({
+    name: '',
+    price_range: '',
+    max_occupancy: '',
+    amenities: '',
+    extra: '',
+});
+
+const createHotelType = async () => {
+    try {
+        const response = await axios.post(route('HotelType.store'),hotelTypes.value);
+        console.log(response.data);
+        // hotelTypes.value = response.data.hotel_types;
+    } catch (error) {
+        console.log('Error:', error);
+    }
+
+}
 </script>

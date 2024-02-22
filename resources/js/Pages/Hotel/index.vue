@@ -250,23 +250,3 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 
 
 </script>
-
-
-<!-- <script>
- import AppLayout from '@/Layouts/AppLayout.vue'
-
-export default{
-   
-    components:{
-        AppLayout,
-    },
-
-    methods:{
-        async newCustomer() {
-                $("#newCustomerModal").modal("show");
-             
-            },
-    }
-}
-
-</script> -->
