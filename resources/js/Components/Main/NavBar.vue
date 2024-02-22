@@ -53,7 +53,7 @@ import { onMounted } from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 const userLibrary = () => {
-    library.add(faUser);
+    // library.add(faUser);
 }
 
 onMounted(userLibrary);

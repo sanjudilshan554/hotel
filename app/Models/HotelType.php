@@ -15,4 +15,6 @@ class HotelType extends Model
         'amenities',
         'extra',
     ];
+
+
 }

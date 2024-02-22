@@ -20,7 +20,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get("/",[HomeController::class,"index"])->name("dashboard");
+Route::get("/dashboard",[HomeController::class,"index"])->name("dashboard");
 
 Route::prefix('room-type')->group(function () {
     Route::get("/",[RoomTypeController::class,"index"])->name("roomType.index");
@@ -34,6 +34,7 @@ Route::prefix('hotel')->group(function (){
 Route::prefix('hotel-types')->group(function (){
     Route::get('/',[HotelTypeController::class,'index'])->name('HotelType.index');
     Route::post('/store',[HotelTypeController::class,'store'])->name('HotelType.store');
+    Route::get('/all',[HotelTypeController::class,'all'])->name('HotelType.all');
 });
 
 require __DIR__ . '/auth.php';

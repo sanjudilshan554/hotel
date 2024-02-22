@@ -15,4 +15,8 @@ class HotelTypeService{
         return $this->hotel_type->create($data);
     }
 
+    public function all(){
+        return $this->hotel_type->all();
+    }
+
 }

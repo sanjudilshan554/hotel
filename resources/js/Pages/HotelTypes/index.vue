@@ -82,11 +82,6 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="checkArea">
-                                                <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" />
-                                                </div>
-                                            </th>
                                             <th class="iconClassHead">#</th>
                                             <th class="textClassHead">Name</th>
                                             <th class="textClassHead">Price range</th>
@@ -98,34 +93,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr v-for="value in hotelTypeData" class="">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
                                                     <input class="form-check-input" type="checkbox" />
                                                 </div>
                                             </td>
-                                            <td class="iconClassBody pt-2">
-
+                                            <td class="textClassBody">
+                                                {{ value.name }}
+                                            </td>
+                                            <td class="textClassBody">
+                                                <div class="" v-if="value.price_range == 1"> Budjet</div>
+                                                <div class="" v-else-if="value.price_range == 2"> Standard</div>
+                                                <div class="" v-else> Luxury</div>
+                                            </td>
+                                            <td class="textClassBody">
+                                                {{ value.max_occupancy }}
+                                            </td>
+                                            <td class="textClassBody">
+                                                {{ value.amenities }}
+                                            </td>
+                                            <td class="textClassBody">
+                                                {{ value.extra }}
                                             </td>
                                             <td class="textClassBody">
 
-                                            </td>
-                                            <td class="textClassBody">
-
-                                            </td>
-                                            <td class="textClassBody">
-
-                                            </td>
-                                            <td class="textClassBody">
-
-                                            </td>
-                                            <td class="textClassBody">
-
-                                            </td>
-                                            <td class="textClassBody">
-                                                <a href="javascript:void(0)">
-                                                    <font-awesome-icon icon="fa-solid fa-pen" class="text-ash" />
-                                                </a>
+                                                <div class="float-left">
+                                                    <button><i class="fas fa-edit"></i></button>
+                                                </div>
+                                                <div class="float-left">
+                                                    <button> <i class="fa-solid fa-trash"></i></button>
+                                                </div>
+                                               
                                             </td>
                                         </tr>
                                     </tbody>
@@ -185,10 +184,14 @@
                                         <div class="row mb-1">
                                             <div for="price_range" class="col-md-3 col-form-label">PRICE RANGE</div>
                                             <div class="col-md-9">
-                                                <select class="form-control form-control-sm" aria-label="Default select example" v-model="hotelTypes.price_range">
-                                                    <option value="1" class="text-dark">Budget: Rs.40,000 - 80,000 per day</option>
-                                                    <option value="2" class="text-warning">Standard: Rs.100,000 - 300,000 per day</option>
-                                                    <option value="3" class="text-success">Luxury: Rs.300,000 - 500,000 per day</option>
+                                                <select class="form-control form-control-sm"
+                                                    aria-label="Default select example" v-model="hotelTypes.price_range">
+                                                    <option value="1" class="text-dark">Budget: Rs.40,000 - 80,000 per day
+                                                    </option>
+                                                    <option value="2" class="text-warning">Standard: Rs.100,000 - 300,000
+                                                        per day</option>
+                                                    <option value="3" class="text-success">Luxury: Rs.300,000 - 500,000 per
+                                                        day</option>
                                                 </select>
                                             </div>
                                             <!-- <small id="msg_" class="text-danger form-text text-error-msg error"></small> -->
@@ -226,7 +229,8 @@
                                                     <font-awesome-icon />
                                                     RESET
                                                 </button>
-                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral" @click.prevent="createHotelType()">
+                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral"
+                                                    @click.prevent="createHotelType()">
                                                     CREATE
                                                 </button>
                                             </div>
@@ -245,7 +249,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const hotelTypes = ref({
     name: '',
@@ -255,14 +259,30 @@ const hotelTypes = ref({
     extra: '',
 });
 
+const hotelTypeData = ref([]);
+
 const createHotelType = async () => {
     try {
-        const response = await axios.post(route('HotelType.store'),hotelTypes.value);
+        const response = await axios.post(route('HotelType.store'), hotelTypes.value);
         console.log(response.data);
         // hotelTypes.value = response.data.hotel_types;
     } catch (error) {
         console.log('Error:', error);
     }
-
 }
+
+const getHotelTypes = async () => {
+    const response = await axios.get(route('HotelType.all'));
+    hotelTypeData.value = response.data;
+    console.log(hotelTypeData.value);
+}
+
+onMounted(getHotelTypes);
 </script>
+
+<style>
+.float-left{
+    float: left;
+    margin-right: 10px;
+}
+</style>
