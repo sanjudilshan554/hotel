@@ -40,12 +40,17 @@
                             <li class="mb-2 nav-item">
                                 <a class="nav-link active" id="basic-data-tab" data-toggle="tab" href="#basic-data"
                                     role="tab" aria-controls="basic-data" aria-selected="true">
-                                    Hotels Data</a>
+                                    Hotel's Data</a>
                             </li>
                             <li class="mb-2 nav-item">
-                                <a class="nav-link" id="contact-book-tab" data-toggle="tab" href="#contact-book" role="tab"
-                                    aria-controls="contact-book" aria-selected="true">
-                                    Hotel Images</a>
+                                <a class="nav-link" id="hotel-images-tab" data-toggle="tab" href="#hotel-images" role="tab"
+                                    aria-controls="hotel-images" aria-selected="true">
+                                    Hotel's Images</a>
+                            </li>
+                            <li class="mb-2 nav-item">
+                                <a class="nav-link" id="hotel-rooms-tab" data-toggle="tab" href="#hotel-rooms" role="tab"
+                                    aria-controls="hotel-rooms" aria-selected="true">
+                                    Hotel's Rooms</a>
                             </li>
                             <li hidden></li>
                         </ul>
@@ -59,8 +64,11 @@
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
                                     <BasicEditForm />
                                 </div>
-                                <div class="tab-pane fade show" id="contact-book" role="tabpanel">
+                                <div class="tab-pane fade show" id="hotel-images" role="tabpanel">
                                     <HotelImagesAll />
+                                </div>
+                                <div class="tab-pane fade show" id="hotel-rooms" role="tabpanel">
+                                    <HotelRoomsAll />
                                 </div>
                             </div>
                         </div>
@@ -77,6 +85,7 @@ import { Link } from "@inertiajs/vue3";
 
 import BasicEditForm from '@/Pages/Hotel/Components/Basic/EditForm.vue';
 import HotelImagesAll from '@/Pages/Hotel/Components/HotelImages/All.vue';
+import HotelRoomsAll from '@/Pages/Hotel/Components/HotelRooms/All.vue';
 
 </script>
 

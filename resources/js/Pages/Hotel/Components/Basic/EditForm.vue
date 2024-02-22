@@ -67,24 +67,29 @@
                     </div>
                 </div>
                 <div class="row mb-1">
-                    <div for="name" class="col-md-2 col-form-label">CONTACT NUMBER</div>
+                    <div for="name" class="col-md-2 col-form-label">CITY</div>
                     <div class="col-md-10">
                         <input type="text" class="form-control form-control-sm" name="city" id="city" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
-                    <div for="name" class="col-md-2 col-form-label">LOCATION</div>
+                    <div for="name" class="col-md-2 col-form-label">CHECK IN/OUT DATE</div>
                     <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="city" id="city" />
-                        <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div for="name" class="col-md-2 col-form-label">CHECK IN/OUT TIME</div>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="city" id="city" />
-                        <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
+                        <div class="row">
+                            <div class="col-lg-6 column__right___padding">
+                                <label>CHECK IN</label>
+                                <input class="form-control form-control-sm" type="date" name="contact_1" id="inp_contact_1"
+                                    placeholder="Number 1" />
+                                <small id="msg_contact_1" class="text-danger form-text text-error-msg error"></small>
+                            </div>
+                            <div class="col-lg-6 column__left___padding">
+                                <label>CHECK OUT</label>
+                                <input class="form-control form-control-sm" type="date" name="contact_2" id="inp_contact_2"
+                                    placeholder="Number 2" />
+                                <small id="msg_contact_2" class="text-danger form-text text-error-msg error"></small>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-1">
@@ -95,9 +100,9 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="button" class="btn btn-sm btn-round btn-outline-danger mb-0">
+                    <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0">
                         <font-awesome-icon icon="fa-solid fa-trash" />
-                        DELETE
+                        RESET
                     </button>
                     <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />

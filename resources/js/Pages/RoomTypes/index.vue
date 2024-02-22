@@ -1,27 +1,31 @@
 <template>
     <AppLayout title="Room Types">
+
         <template #header>
-            <div class="pb-6 mt header">
-                <div class="container-fluid">
-                    <div class="header-body row">
-                        <div class="py-4 mt-5 col-lg-8 align-items-center">
-                            <nav aria-label="breadcrumb" class="d-none d-md-block">
-                                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                    <li class="breadcrumb-item">
-                                        <i class="fa-solid fa-house"></i>
-                                    </li>
-                                    <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                        Dashboard
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                       
-                        <div class="py-4 text-right col-lg-4">
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#newGrnModal"
-                                class="btn btn-sm btn-neutral float-end">
-                                <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
-                            </a>
+            <div class="header  pb-6">
+                <div class="container-fluid ">
+                    <div class="header-body ">
+                        <div class="row align-items-center mb-1 ">
+                            <div class="col-lg-8 mt-5">
+                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Room Types</h6>
+                                <nav aria-label="breadcrumb" class="d-none d-md-block">
+                                    <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                        <li class="breadcrumb-item">
+                                            <i class="fa-solid fa-house"></i>
+                                        </li>
+                                        <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
+                                            Room Type
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class="col-lg-4 text-right py-4">
+
+                                <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
+                                    data-toggle="modal" data-target="#exampleModal">
+                                    <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -32,46 +36,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shadow card">
-                        <div class="row my-3 mx-2">
-                            <div class="col-md-2 column__left___padding column__right___padding">
-                                <div for="to_date" class=" col-form-label">STATUS</div>
-                                <select class="form-control form-control-sm">
-                                    <option value=0 selected>All</option>
-                                    <option value=1>Draft</option>
-                                    <option value=2>Approved</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 column__right___padding">
-                                <div for="barcode" class=" col-form-label">CODE</div>
-                                <input type="text" class="form-control form-control-sm" name="code" id="code"
-                                    placeholder="Code" />
-                            </div>
-                            <div class="col-md-2 column__left___padding column__right___padding">
-                                <div for="purchase_uom" class=" col-form-label">WAREHOUSE</div>
-
-                            </div>
-                            <div class="col-md-2 column__left___padding column__right___padding">
-                                <div for="purchase_uom" class=" col-form-label">TYPE</div>
-
-                            </div>
-                            <div class="col-md-2  column__left___padding column__right___padding">
-                                <div for="created_by" class=" col-form-label">EFF DATE</div>
-                                <input type="date" class="form-control form-control-sm" name="name" id="name"
-                                    v-model="search_date" placeholder="Date" @keyup="getSearch" />
-                            </div>
-                            <div class="col-md-1 mt-4 column__left___padding">
-                                <a href="javascript:void(0)" @click.prevent="clearFilters"
-                                    class="btn btn-sm btn-ash float-end mt-2 pt-2"> CLEAR
-                                </a>
-                            </div>
-                            <div class="flex ml-auto mt-4 text-muted">
-                                <div class="inline-block mt-2 mx-2">
-                                    <select class="form-control form-control-sm per-page-entry">
-                                        <option />
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mx-4 mt-4">
                             <div class="table-responsive">
                                 <table class="table">
@@ -81,6 +45,7 @@
                                             <th :class="textClassHead">Name</th>
                                             <th :class="textClassHead">Price range</th>
                                             <th :class="textClassHead">Max Occupancy</th>
+                                            <th :class="valueClassHead">BED STEP</th>
                                             <th :class="valueClassHead">Extra</th>
                                             <th :class="textClassHead">Action</th>
                                         </tr>
@@ -113,52 +78,74 @@
         </template>
 
         <template #modals>
-            <div class="modal fade" id="newGrnModal" data-backdrop="static" tabindex="-1" role="dialog"
-                aria-labelledby="newGrnModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-                    <div class="modal-content">
+            <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+                aria-labelledby="newVendorModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-mb" role="document">
+                    <div class="modal-content p-2">
                         <div class="modal-header">
-                            <h5 class="modal-title font-weight-bolder text-info text-gradient" id="add_brandLabel">
-                                New GRN Form
+                            <h5 class="modal-title font-weight-bolder breadcrumb-text text-gradient" id="add_brandLabel">
+                                New Room Type
                             </h5>
                             <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">
-                                    <font-awesome-icon icon="fa-solid fa-xmark" />
+                                    <i class="fa fa-times"></i>
                                 </span>
                             </button>
                         </div>
-                        <div class="p-0 modal-body">
+                        <div class="modal-body p-0">
                             <div class="card-plain">
-                                <div class="m-2 card-body">
-                                    <form role="form text-left" enctype="multipart/form-data">
-                                        <div class="mb-1 row">
-                                            <div for="transaction_type_id" class="col-md-4 col-form-label">
-                                                TRANSACTION TYPE
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row mb-1">
+                                            <div for="code" class="col-md-3 col-form-label">NAME</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="code"
+                                                    id="code" placeholder="Single room" required />
                                             </div>
-                                            <div class="col-md-8">
-
-                                            </div>
+                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
-                                        <div class="mb-1 row">
-                                            <div for="warehouse_id" class="col-md-4 col-form-label">
-                                                WAREHOUSE
+                                        <div class="row mb-1">
+                                            <div for="code" class="col-md-3 col-form-label">PRICE RANGE</div>
+                                            <div class="col-md-9">
+                                                <select class="form-control form-control-sm" aria-label="Default select example"
+                                                    required>
+                                                    <option value="1">Rs.4000 - 8000 per day</option>
+                                                    <option value="2">Rs.1000 - 3000 per day</option>
+                                                    <option value="3">Rs.3000 - 5000 per day</option>
+                                                </select>
                                             </div>
-                                            <div class="col-md-8">
-                                            </div>
+                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
-                                        <div class="mb-1 row">
-                                            <div for="date" class="col-md-4 col-form-label">EFF DATE</div>
-                                            <div class="col-md-8">
-                                                <input type="date" class="form-control form-control-sm" name="date"
-                                                    id="date"/>
-                                                <small v id="msg_date"
-                                                    class="text-danger form-text text-error-msg error">
-                                                </small>
+                                        <div class="row mb-1">
+                                            <div for="code" class="col-md-3 col-form-label">MAX-OCCUPANCY</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="code"
+                                                    id="code" placeholder="1-8" required />
                                             </div>
+                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
-                                        <div class="mt-2 text-right">
-                                            <button type="submit" class="mb-0 btn btn-round custom-button btn-sm"
-                                                >
+                                        <div class="row mb-1">
+                                            <div for="code" class="col-md-3 col-form-label">BED STEP</div>
+                                            <div class="col-md-9">
+                                                <select class="form-control form-control-sm" aria-label="Default select example"
+                                                required>
+                                                    <option value="1">1 King. 2Twins</option>
+                                                    <option value="2">1 Queen</option>
+                                                    <option value="3">1King, 1Twin</option>
+                                                </select>
+                                            </div>
+                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <div for="code" class="col-md-3 col-form-label">EXTRA</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="code"
+                                                    id="code" placeholder="Extra..." required />
+                                            </div>
+                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                        </div>
+                                        <div class="text-right mt-2" >
+                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                                                 CREATE
                                             </button>

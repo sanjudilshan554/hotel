@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\HotelTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomTypeController;
 use Illuminate\Foundation\Application;
@@ -28,6 +29,10 @@ Route::prefix('room-type')->group(function () {
 Route::prefix('hotel')->group(function (){
     Route::get("/",[HotelController::class,"index"])->name('hotel.index');
     Route::get("/edit",[HotelController::class,"edit"])->name('hotel.edit');
+});
+
+Route::prefix('hotel-types')->group(function (){
+    Route::get('/',[HotelTypeController::class,'index'])->name('HotelType.index');
 });
 
 require __DIR__ . '/auth.php';
