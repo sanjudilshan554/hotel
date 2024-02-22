@@ -6,7 +6,7 @@
                     <div class="header-body ">
                         <div class="row align-items-center mb-1 ">
                             <div class="col-lg-8 mt-5">
-                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Customer</h6>
+                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Hotel</h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
@@ -15,16 +15,17 @@
                                             </Link>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            Customer Management
+                                            Hotel Management
                                         </li>
                                     </ol>
                                 </nav>
                             </div>
                             <div class="col-lg-4 text-right py-4">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-neutral float-end">
-                                    <font-awesome-icon icon="fa-solid fa-circle-plus" />
-                                    ADD NEW
-                                </a>
+
+                                <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
+                                    data-toggle="modal" data-target="#exampleModal">
+                                    <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -188,14 +189,15 @@
                 </div>
             </div>
         </template>
+
         <template #modals>
-            <div class="modal fade" id="newCustomerModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+            <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
                 aria-labelledby="newVendorModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-mb" role="document">
                     <div class="modal-content p-2">
                         <div class="modal-header">
                             <h5 class="modal-title font-weight-bolder breadcrumb-text text-gradient" id="add_brandLabel">
-                                New Customer
+                                New Hotel
                             </h5>
                             <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">
@@ -206,7 +208,40 @@
                         <div class="modal-body p-0">
                             <div class="card-plain">
                                 <div class="card-body">
-                                    <!-- card data -->
+                                    <form role="form text-left" enctype="multipart/form-data">
+                                        <div class="row mb-1">
+                                            <div for="code" class="col-md-3 col-form-label">NAME</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="code"
+                                                    id="code" placeholder="Code" required />
+                                            </div>
+
+                                            <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">CATEGORY</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="name"
+                                                    id="name" placeholder="Name" required />
+                                            </div>
+
+                                            <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">LOCATION</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="email"
+                                                    id="email" placeholder="Email" required />
+                                            </div>
+                                            <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
+                                        </div>
+                                        <div class="text-right mt-2" >
+                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
+                                                <font-awesome-icon icon="fa-solid fa-floppy-disk" />
+                                                CREATE
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -219,4 +254,26 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
+
+
 </script>
+
+
+<!-- <script>
+ import AppLayout from '@/Layouts/AppLayout.vue'
+
+export default{
+   
+    components:{
+        AppLayout,
+    },
+
+    methods:{
+        async newCustomer() {
+                $("#newCustomerModal").modal("show");
+             
+            },
+    }
+}
+
+</script> -->

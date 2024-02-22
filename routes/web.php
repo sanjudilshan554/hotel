@@ -27,6 +27,7 @@ Route::prefix('room-type')->group(function () {
 
 Route::prefix('hotel')->group(function (){
     Route::get("/",[HotelController::class,"index"])->name('hotel.index');
+    Route::get("/edit",[HotelController::class,"edit"])->name('hotel.edit');
 });
 
 require __DIR__ . '/auth.php';
