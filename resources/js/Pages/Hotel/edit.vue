@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6 mt-5">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                    Hotel {{ hotels.name }} {{ hotels.id }}
+                                    Hotel {{ hotels.id }}
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -22,7 +22,7 @@
                                             </Link>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            <!-- #{{ this.customer.code }} -->
+                                            Hotel : {{ hotels.name }} 
                                         </li>
                                     </ol>
                                 </nav>
@@ -68,7 +68,7 @@
                                     <HotelImagesAll :hotelId="hotels.id"/>
                                 </div>
                                 <div class="tab-pane fade show" id="hotel-rooms" role="tabpanel">
-                                    <HotelRoomsAll />
+                                    <HotelRoomsAll :hotelId="hotels.id"/>
                                 </div>
                             </div>
                         </div>
@@ -86,9 +86,6 @@ import { defineProps, onMounted } from 'vue';
 import BasicEditForm from '@/Pages/Hotel/Components/Basic/EditForm.vue';
 import HotelImagesAll from '@/Pages/Hotel/Components/HotelImages/All.vue';
 import HotelRoomsAll from '@/Pages/Hotel/Components/HotelRooms/All.vue';
-import axios from "axios";
-
-
 
 const props = defineProps({
     hotels:{
@@ -96,7 +93,6 @@ const props = defineProps({
         required:true
     }
 });
-
 
 </script>
 

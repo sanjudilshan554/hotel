@@ -20,7 +20,7 @@ class HotelImageService {
                 $image_extention = strtolower($profile_image->getClientOriginalExtension());
                 if ($image_extention == 'png' || $image_extention == 'jpeg' || $image_extention == 'jpg') {
                     $image_name = $name_generation . '.' . $image_extention;
-                    $upload_location = 'image/hotel_images/';
+                    $upload_location = 'img/hotel_images/';
                     $url = $upload_location . $image_name;
                     $profile_image->move(public_path($upload_location), $image_name);
                     $hotel_id = $data->hotel_id;
@@ -36,7 +36,7 @@ class HotelImageService {
     }
 
     public function all(){
-        return $this->hotel_image->all();
+        return $this->hotel_image->orderBy('status', 'desc')->get();
     }
 
     public function delete($id){

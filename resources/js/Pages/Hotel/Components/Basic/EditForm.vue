@@ -139,7 +139,8 @@ const props = defineProps({
 const getHotelType = async (id) => {
     try {
         const response = await axios.get(route('hotelType.get', id));
-        const selectedHotelType = response.data.hotelTypes;
+        console.log(response.data);
+        const selectedHotelType = response.data.hotel_type
         hotelData.value.typeName = selectedHotelType.name;
         hotelData.value.type = selectedHotelType.id;
     } catch (error) {
@@ -151,7 +152,7 @@ const getHotelTypes = async () => {
     try {
         const response = await axios.get(route('hotelType.all'));
         hotelTypes.value = response.data.hotel_types;
-        console.log(hotelTypes.value);
+        console.log('hotel types:',hotelTypes.value);
     } catch (error) {
         console.log(error);
     }

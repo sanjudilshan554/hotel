@@ -11,9 +11,9 @@
                     class="btn btn-sm btn-round btn-outline-success">Upload</button>
                 </div>
             </div>
-            <div class="image-setup image-section border ">
-                <div  v-for="value in hotelImageData" class="card card-img-top image-section text-center" style="width: 14rem; height: 14rem;">
-                    <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 10rem; height: 10rem;">
+            <div class="image-setup image-top-header border ">
+                <div  v-for="value in hotelImageData" class="card image-section text-center" style="width: 22rem; height: 18rem;">
+                    <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 20rem; height: 20rem;">
                     <div class="image-card-body pt-4">
                         <div class="">
                             <div class="" v-if="value.id == firstImageId">
@@ -23,7 +23,6 @@
                                 <button class="btn btn-round custom-button btn-sm mb-0"
                                  disabled>MAKE PRIMARY</button>
                             </div>   
-
                             <div class="" v-else>
                                 <button class="btn btn-sm btn-round btn-outline-danger mb-0"
                                  @click.prevent="deleteImage(value.id)">DELETE</button>
@@ -152,8 +151,5 @@ onMounted(() => {
     justify-content: center;
 }
 
-.card-img-top{
-    
-}
 </style>
   

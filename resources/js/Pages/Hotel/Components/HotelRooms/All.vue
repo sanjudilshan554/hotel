@@ -4,19 +4,22 @@
             <h5>Hotel Rooms</h5>
         </div>
         <div class="card-body pt-0 mt-3">
-            <form>
+            <form enctype="multipart/form-data">
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM TYPE</div>
                     <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="name" id="name"
-                            placeholder="comming from back end" />
+                        <select class="form-control form-control-sm" aria-label="Default select example"
+                            v-model="hotelRoom.room_type" >
+                            <option value="" class="text-dark" selected hidden> Select Room Type </option>
+                            <option v-for="value in roomTypes" :key="value.id" :value="value.id">{{ value.name }}</option>
+                        </select>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM NUMBER</div>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="city" id="city" placeholder="101" />
+                    <div class="col-md-2">
+                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" name="city" id="city" placeholder="101"/>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -24,13 +27,13 @@
                     <div for="name" class="col-md-2 col-form-label">AVILABILITY</div>
                     <div class="col-md-10">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1">
+                            <input class="form-check-input" v-model="hotelRoom.avilability" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                value="1">
                             <label class="form-check-label" for="inlineRadio1">Avilable </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2" checked>
+                                value="0" checked>
                             <label class="form-check-label" for="inlineRadio2">Not Avilable</label>
                         </div>
                         <small id="msg_name" class="text-danger form-text text-error-msg error "></small>
@@ -39,21 +42,21 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">VIEW</div>
                     <div class="col-md-10">
-                        <input type="email" class="form-control form-control-sm" name="email" id="email" placeholder="Ocean View" />
+                        <input type="text" v-model="hotelRoom.view" class="form-control form-control-sm" name="name" id="name" placeholder="Ocean View" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">AMENITIES</div>
                     <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="city" id="city" placeholder="Wi-Fi, TV, Mini Fridge" />
+                        <input type="text" v-model="hotelRoom.amenities" class="form-control form-control-sm" name="city" id="city" placeholder="Wi-Fi, TV, Mini Fridge" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">IMAGE</div>
                     <div class="col-md-10">
-                        <input type="file" class="form-control form-control-sm" name="city" id="city"/>
+                        <input type="file" class="form-control form-control-sm" name="city" id="city" @change="onImageChange"/>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -62,9 +65,9 @@
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         RESET
                     </button>
-                    <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
+                    <button  class="btn btn-round custom-button btn-sm mb-0" @click.prevent="createHotelRoom()">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />
-                        SAVE
+                        CREATE
                     </button>
                 </div>
             </form>
@@ -73,7 +76,83 @@
 </template>
   
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import axios from 'axios';
+import { ref, onMounted, defineProps } from 'vue'
+
+const roomTypes = ref([]);
+
+const props = defineProps({
+    hotelId:{
+        type:Number,
+        required:true
+    }
+});
+
+const hotelRoom = ref({
+    room_type:'',
+    room_number:'',
+    avilability:'',
+    view:'',
+    amenities:'',
+    image:'',
+    hotel_id:'',
+
+});
+
+
+const hotelImage =ref([]);
+
+const room_type_id = ref({});
+
+const getRoomTypes = async () => {
+    try{
+        const response = await axios.get(route('roomType.all'));
+        roomTypes.value = response.data.room_types;
+    }catch(error){
+        console.log('Error:',error);
+    }
+}
+
+const getRoomTyepId = async (id) => {
+    try{
+        const response = await axios.get(route('roomType.get',id));
+        console.log(response);
+        room_type_id.value= response.data.room_type.id;
+        console.log('room types Id :', hotelRoom.value.room_type_id);
+    }catch(error){
+        console.log('Error:',error);
+    }
+}
+
+const createHotelRoom = async () => {
+    try{
+        getRoomTyepId(hotelRoom.value.room_type);
+        const formData = new FormData();
+        formData.append('room_type', hotelRoom.value.room_type);
+        formData.append('room_number', hotelRoom.value.room_number);
+        formData.append('avilability', hotelRoom.value.avilability);
+        formData.append('amenities', hotelRoom.value.amenities);
+        formData.append('view', hotelRoom.value.view);
+        formData.append('image', hotelRoom.value.image);
+        formData.append('hotel_id', props.hotelId);
+        formData.append('room_type_id', room_type_id.value);
+        const response = await axios.post(route('hotel.rooms.store'),formData);
+            console.log('response',response);
+            }catch(error){
+                console.log(error);
+            }
+        }
+
+const onImageChange = (e) => {
+    console.log(e.target.files[0]);
+    hotelRoom.value.image = e.target.files[0];
+
+}
+
+onMounted(() => {
+    getRoomTypes();
+});
+
 
 </script>
   
