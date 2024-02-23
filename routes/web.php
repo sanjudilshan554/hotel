@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\HotelImageController;
 use App\Http\Controllers\HotelTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomTypeController;
@@ -51,6 +52,13 @@ Route::prefix('hotel-types')->group(function (){
     Route::post('/{hotel_id}/update',[HotelTypeController::class,'update'])->name('hotelType.update');
 });
 
+
+Route::prefix('hotel-images')->group(function (){
+    Route::post('/store',[HotelImageController::class,'store'])->name('hotel.image.store');
+    Route::get('/all',[HotelImageController::class,'all'])->name('hotel.image.all');
+    Route::get('/{hootel_image_id}/delete',[HotelImageController::class,'delete'])->name('hotel_image.delete');
+    Route::post('/update',[HotelImageController::class,'update'])->name('hotel.image.update');
+});
 require __DIR__ . '/auth.php';
 
 Route::get('/', function () {
