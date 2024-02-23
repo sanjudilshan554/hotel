@@ -124,7 +124,6 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
                                                     <input class="form-check-input" type="checkbox" />
