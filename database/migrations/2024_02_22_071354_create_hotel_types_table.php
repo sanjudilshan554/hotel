@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('hotel_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->integer('price_range')->nullable();
-            $table->integer('max_occupancy')->nullable();
+            $table->integer('price_range')->nullable()->default(1);
+            $table->integer('max_occupancy')->nullable()->default(1);
             $table->string('amenities')->nullable();
             $table->string('extra')->nullable();
             $table->softDeletes();

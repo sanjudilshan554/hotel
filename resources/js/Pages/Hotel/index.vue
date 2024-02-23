@@ -204,18 +204,17 @@
                                         <div class="row mb-1">
                                             <div for="code" class="col-md-3 col-form-label">NAME</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="Code" required />
+                                                <input type="text" class="form-control form-control-sm" name="name"
+                                                    id="name" placeholder="Mount Lavania" v-model="hotel.name" required />
                                             </div>
                                             <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
                                         <div class="row mb-1">
-                                            <div for="name" class="col-md-3 col-form-label">CATEGORY</div>
+                                            <div for="name" class="col-md-3 col-form-label">TYPE</div>
                                             <div class="col-md-9">
-                                                <select class="form-control form-control-sm" aria-label="Default select example" required>
-                                                    <option value="1">Comming from hotel types</option>
-                                                    <option value="2">Comming from hotel types</option>
-                                                    <option value="3">Comming from hotel types</option>
+                                                <select  class="form-control form-control-sm" aria-label="Default select example" v-model="hotel.type" required>
+                                                    <option value="" disabled selected>Select a type</option>
+                                                    <option v-for="value in hotelTypes" :value="value.id"> {{ value.name }} </option>
                                                 </select>
                                             </div>
                                             <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
@@ -223,13 +222,13 @@
                                         <div class="row mb-1">
                                             <div for="name" class="col-md-3 col-form-label">CITY</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="email"
-                                                    id="location" placeholder="Embilipitiya" required />
+                                                <input type="text" class="form-control form-control-sm" name="city"
+                                                    id="city" placeholder="Embilipitiya" v-model="hotel.city" required />
                                             </div>
                                             <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                                         </div>
                                         <div class="text-right mt-2">
-                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
+                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0" @click.prevent="createHotel()">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                                                 CREATE
                                             </button>
@@ -247,6 +246,36 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
+import axios from 'axios';
+import { ref, onMounted } from 'vue'
 
+const hotel = ref({
+    name:'',
+    type:'',
+    city:'',
+});
+
+const hotelTypes = ref([]);
+
+const getHotelTypes = async () => {
+    try{
+        const response = await axios.get(route('hotelType.all'));
+        hotelTypes.value=response.data.hotel_types;
+    }catch(error){
+        console.log('Error:',error);
+    }
+}
+
+const createHotel = async (id) => {
+    try{
+        const response= await axios.post(route('hotels.store'),hotel.value);
+        const hotelId=response.data.id;
+        window.location.href = route('hotels.edit',hotelId);
+    }catch(error){
+        console.log('Error:', error);
+    }
+}
+
+onMounted(getHotelTypes);
 
 </script>

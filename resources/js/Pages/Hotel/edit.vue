@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6 mt-5">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                    Hotel
+                                    Hotel {{ hotels.name }}
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -62,7 +62,7 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
-                                    <BasicEditForm />
+                                    <BasicEditForm :hotelId="hotels.id"/>
                                 </div>
                                 <div class="tab-pane fade show" id="hotel-images" role="tabpanel">
                                     <HotelImagesAll />
@@ -82,10 +82,21 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from "@inertiajs/vue3";
-
+import { defineProps, onMounted } from 'vue';
 import BasicEditForm from '@/Pages/Hotel/Components/Basic/EditForm.vue';
 import HotelImagesAll from '@/Pages/Hotel/Components/HotelImages/All.vue';
 import HotelRoomsAll from '@/Pages/Hotel/Components/HotelRooms/All.vue';
+import axios from "axios";
+
+
+
+const props = defineProps({
+    hotels:{
+        type:Object,
+        required:true
+    }
+});
+
 
 </script>
 

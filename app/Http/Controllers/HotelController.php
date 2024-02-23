@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use domain\Facades\HotelFacade\HotelFacade;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,8 +12,18 @@ class HotelController extends Controller
         return Inertia::render("Hotel/index");
     }
 
-    public function edit(){
-        // need to authenticate with cutsomter id up to now..
-        return Inertia::render("Hotel/edit");
+    public function edit(int $id){
+        $response['hotels']=HotelFacade::get($id);
+        return Inertia::render("Hotel/edit",$response);
+    }
+
+    public function store(Request $request){
+        $response =HotelFacade::store($request->all());
+        return $response;
+    }
+
+    public function get(int $id){
+        $response['hotels']=HotelFacade::get($id);
+        return $response;
     }
 }
