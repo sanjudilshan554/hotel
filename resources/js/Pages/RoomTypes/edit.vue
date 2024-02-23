@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6 mt-5">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                    Hotel {{ hotelType.name }}
+                                    Rooms - {{ roomType.name }}
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -18,7 +18,7 @@
                                         </li>
                                         <li class="breadcrumb-item">
                                             <Link class="breadcrumb-text">
-                                            Hotel Management
+                                            Room Management
                                             </Link>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
@@ -41,24 +41,19 @@
                             <li class="mb-2 nav-item">
                                 <a class="nav-link active" id="basic-data-tab" data-toggle="tab" href="#basic-data"
                                     role="tab" aria-controls="basic-data" aria-selected="true">
-                                    Hotel Type data</a>
+                                    Room Type data</a>
                             </li>
                             <li hidden></li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-lg-10 col-md-10">
                     <div class="shadow card"> 
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
-                                    <BasicEditForm :hotelTypeId="hotelType.id"/>
-                                </div>
-                                <div class="tab-pane fade show" id="hotel-images" role="tabpanel">
-                                    <HotelImagesAll />
-                                </div>
-                                <div class="tab-pane fade show" id="hotel-rooms" role="tabpanel">
-                                    <HotelRoomsAll />
+                                    <BasicEditForm :roomTypeId="roomType.id"/>
                                 </div>
                             </div>
                         </div>
@@ -74,18 +69,15 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from "@inertiajs/vue3";
 import { defineProps,onBeforeMount } from 'vue'
 
-import BasicEditForm from '@/Pages/HotelTypes/Components/Basic/EditForm.vue';
+import BasicEditForm from '@/Pages/RoomTypes/Components/Basic/EditForm.vue'
 
 const props = defineProps({
-    hotelType:{
+    roomType:{
         type:Object,
         required:true
     }
 });
 </script>
-
-
- 
 
 <style lang="scss" scoped>
 .breadcrumb-text {

@@ -1,17 +1,17 @@
 <template>
     <AppLayout title="Room Types">
-
         <template #header>
             <div class="header  pb-6">
                 <div class="container-fluid ">
                     <div class="header-body ">
                         <div class="row align-items-center mb-1 ">
                             <div class="col-lg-8 mt-5">
-                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Room Types</h6>
+                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Rooms</h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
-                                            <i class="fa-solid fa-house"></i>
+                                            <i class="fas fa-home"></i>
+                                            
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
                                             Room Type
@@ -20,7 +20,6 @@
                                 </nav>
                             </div>
                             <div class="col-lg-4 text-right py-4">
-
                                 <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
                                     data-toggle="modal" data-target="#exampleModal">
                                     <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
@@ -80,12 +79,12 @@
 
                                                 <div class="float-left">
                                                     <a href="javascript:void(0)" class="edit"
-                                                        @click.prevent="editHotelType(value.id)"> <i
+                                                        @click.prevent="editRoomType(value.id)"> <i
                                                             class="fas fa-edit"></i></a>
                                                 </div>
                                                 <div class="float-left">
                                                     <a href="javascript:void(0)" class="delete"
-                                                        @click.prevent="deleteHotelType(value.id)"> <i
+                                                        @click.prevent="deleteRoomType(value.id)"> <i
                                                             class="fa-solid fa-trash"></i></a>
                                                 </div>
                                             </td>
@@ -215,21 +214,43 @@ const roomTypeData = ref([]);
 const createRoomType = async () => {
     try{
         const response = await axios.post(route('roomType.store'),roomType.value);
+        getRoomTypes();
+        resetData();
     }catch(error){
         console.log('Error:',error);
     }
 }
 
+const resetData = () => {
+    roomType.value = {
+        name: '',
+        price_range:'',
+        max_occupancy:'',
+        bed_step:'',
+        extra:'',
+    };
+}
 const getRoomTypes = async () => {
     try{
         const response = await axios.get(route('roomType.all'));
-
-        console.log(response);
         roomTypeData.value=response.data.room_types;
-        console.log(roomTypeData.value);
     }catch(error){
         console.log('Error:',error);
     }
+}
+
+const deleteRoomType = async (id) => {
+    try {
+        const response = await axios.delete(route('roomType.delete', id));
+        getRoomTypes();
+        console.log(response.data);
+    } catch (error) {
+        console.log('Eroor:', error);
+    }
+}
+
+const editRoomType = async (roomTypeId) => {
+    window.location.href = route('roomType.edit',roomTypeId);
 }
 
 onMounted(getRoomTypes);

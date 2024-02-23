@@ -26,6 +26,10 @@ Route::prefix('room-type')->group(function () {
     Route::get("/",[RoomTypeController::class,"index"])->name("roomType.index");
     Route::post("/store",[RoomTypeController::class,"store"])->name("roomType.store");
     Route::get("/all",[RoomTypeController::class,"all"])->name("roomType.all");
+    Route::delete("/{room_type_id}/delete",[RoomTypeController::class,"delete"])->name("roomType.delete");
+    Route::get("/{room_type_id}/edit",[RoomTypeController::class,"edit"])->name("roomType.edit");
+    Route::get("/{room_type_id}/get",[RoomTypeController::class,"get"])->name("roomType.get");
+    Route::post("/{room_type_id}/update",[RoomTypeController::class,"update"])->name("roomType.update");
 });
 
 Route::prefix('hotel')->group(function (){
@@ -33,20 +37,17 @@ Route::prefix('hotel')->group(function (){
     Route::get("/edit",[HotelController::class,"edit"])->name('hotel.edit');
 });
 
-// need to be fix name
 Route::prefix('hotel-types')->group(function (){
     Route::get('/',[HotelTypeController::class,'index'])->name('hotelType.index');
     Route::post('/store',[HotelTypeController::class,'store'])->name('hotelType.store');
-    Route::get('/all',[HotelTypeController::class,'all'])->name('hotelType.all');
+    Route::get('/all',[HotelTypeController::class,'all'])->name('hotelType.all'); 
     Route::delete('/{hotel_type_id}/delete',[HotelTypeController::class,'delete'])->name('hotelType.delete');
     Route::get('/{hotel_type_id}/edit',[HotelTypeController::class,'edit'])->name('hotelType.edit');
     Route::get('/{hotel_id}/get',[HotelTypeController::class,'get'])->name('hotelType.get');
-    Route::get('/{hotel_id}/delete',[HotelTypeController::class,'delete'])->name('hotelType.delete');
     Route::post('/{hotel_id}/update',[HotelTypeController::class,'update'])->name('hotelType.update');
 });
 
 require __DIR__ . '/auth.php';
-
 
 Route::get('/', function () {
     return Inertia::render('Dashboard/index');

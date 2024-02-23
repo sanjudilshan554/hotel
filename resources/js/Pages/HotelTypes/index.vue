@@ -6,16 +6,14 @@
                     <div class="header-body ">
                         <div class="row align-items-center mb-1 ">
                             <div class="col-lg-8 mt-5">
-                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Hotel Types</h6>
+                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Hotels</h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
-                                            <Link href="/">
-                                            <font-awesome-icon icon="fa-solid fa-house" color="#505050" />
-                                            </Link>
+                                            <i class="fas fa-home"></i>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            Hotel Types
+                                            Hotel Type
                                         </li>
                                     </ol>
                                 </nav>
@@ -31,7 +29,7 @@
                 </div>
             </div>
         </template>
-        
+
         <template #content>
             <div class="row ">
                 <div class="col-lg-12 mt-5">
@@ -306,6 +304,21 @@ onBeforeMount(getHotelTypes);
 </script>
 
 <style>
+.breadcrumb-text {
+    color: #6343e9 !important;
+}
+
+.custom-button {
+    background-color: #ffffff;
+    border-color: #6343e9;
+    color: #6343e9 !important;
+}
+
+.custom-button:hover {
+    background-color: #6343e9;
+    color: #ffffff !important;
+}
+
 .float-left {
     float: left;
     margin-right: 10px;
@@ -320,4 +333,5 @@ onBeforeMount(getHotelTypes);
 
 .delete {
     color: red;
-}</style>
+}
+</style>

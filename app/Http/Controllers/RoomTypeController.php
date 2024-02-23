@@ -20,4 +20,23 @@ class RoomTypeController extends Controller
         $response['room_types']=RoomTypeFacade::all();
         return $response;
     }
+
+    public function delete($id){
+        return RoomTypeFacade::delete($id); 
+    }
+
+    public function edit($id) {
+        $response['roomType'] = RoomTypeFacade::get($id);
+        return inertia::render('RoomTypes/edit',$response);
+    }
+
+    public function get($id) {
+        $response['roomType'] = RoomTypeFacade::get($id);
+        return $response;
+    }
+
+    public function update($id,Request $request) {
+        $response= RoomTypeFacade::update($id, $request->all());
+        return $response;
+    }
 }

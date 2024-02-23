@@ -18,7 +18,6 @@ class HotelTypeController extends Controller
         return HotelTypeFacade::store($request->all());
     }
 
-    // I changed pleaeschange others
     public function all(){
         $response['hotel_types']=HotelTypeFacade::all();
         return $response;
@@ -31,15 +30,14 @@ class HotelTypeController extends Controller
 
     public function edit(int $id)
     {
-        $response['hotelType'] = HotelTypeFacade::get($id);
-
+        //this name should be same as props name
+        $response['hotelType'] = HotelTypeFacade::get($id); 
         return inertia::render('HotelTypes/edit',$response);
     }
 
     public function get($id){
         $response['hotelTypes'] = HotelTypeFacade::get($id);
         return $response;
-        // return new DataResource($payload);
     }
 
     public function update($id, Request $request){
