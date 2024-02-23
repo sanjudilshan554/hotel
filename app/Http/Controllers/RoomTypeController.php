@@ -26,12 +26,12 @@ class RoomTypeController extends Controller
     }
 
     public function edit($id) {
-        $response['roomType'] = RoomTypeFacade::get($id);
+        $response['room_type'] = RoomTypeFacade::get($id);
         return inertia::render('RoomTypes/edit',$response);
     }
 
     public function get($id) {
-        $response['roomType'] = RoomTypeFacade::get($id);
+        $response['room_type'] = RoomTypeFacade::get($id);
         return $response;
     }
 

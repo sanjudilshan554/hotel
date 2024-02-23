@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6 mt-5">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                    Rooms - {{ roomType.name }}
+                                    Rooms - {{ room_type.name }}
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
-                                    <BasicEditForm :roomTypeId="roomType.id"/>
+                                    <BasicEditForm :roomTypeId="room_type.id"/>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ import { defineProps,onBeforeMount } from 'vue'
 import BasicEditForm from '@/Pages/RoomTypes/Components/Basic/EditForm.vue'
 
 const props = defineProps({
-    roomType:{
+    room_type:{
         type:Object,
         required:true
     }

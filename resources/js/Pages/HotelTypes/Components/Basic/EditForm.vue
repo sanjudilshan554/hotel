@@ -84,9 +84,10 @@ const hotelTypes = ref([]);
 const getHotelType = async () => {
 
     try {
+        console.log('hello',props.hotelTypeId);
         const response = await axios.get(route('hotelType.get', props.hotelTypeId));
-        hotelTypes.value = response.data.hotelTypes;
-        console.log(response.data.hotelTypes);
+        hotelTypes.value = response.data.hotel_type;
+        console.log(response.data.hotel_types);
     } catch (error) {
         console.log('Error:', error);
     }

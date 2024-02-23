@@ -26,4 +26,12 @@ class HotelController extends Controller
         $response['hotels']=HotelFacade::get($id);
         return $response;
     }
+    public function basicUpdate(int $id, Request $request){
+        
+         return HotelFacade::update($id,$request->all());
+    }
+
+    public function basicDelete(int $id){
+        return HotelFacade::delete($id);
+    }
 }

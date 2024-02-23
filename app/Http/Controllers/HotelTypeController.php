@@ -24,19 +24,18 @@ class HotelTypeController extends Controller
     }
 
     public function delete($id){
-        
         return HotelTypeFacade::delete($id);
     }
 
     public function edit(int $id)
     {
         //this name should be same as props name
-        $response['hotelType'] = HotelTypeFacade::get($id); 
+        $response['hotel_type'] = HotelTypeFacade::get($id); 
         return inertia::render('HotelTypes/edit',$response);
     }
 
     public function get($id){
-        $response['hotelTypes'] = HotelTypeFacade::get($id);
+        $response['hotel_type'] = HotelTypeFacade::get($id);
         return $response;
     }
 

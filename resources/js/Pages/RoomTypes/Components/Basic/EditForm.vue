@@ -84,7 +84,7 @@ const roomType = ref([]);
 const getRoomType = async () => {
     try {
         const response = await axios.get(route('roomType.get', props.roomTypeId));
-        roomType.value = response.data.roomType;
+        roomType.value = response.data.room_type;
         console.log(roomType.value);
     } catch (error) {
         console.log('Error:', error);

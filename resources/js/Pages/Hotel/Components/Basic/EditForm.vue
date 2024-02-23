@@ -52,9 +52,9 @@
                     <div for="name" class="col-md-2 col-form-label">HOTEL TYPE</div>
                     <div class="col-md-10">
                         <select class="form-control form-control-sm" aria-label="Default select example"
-                        v-model="hotelData.type" >
-                        <option :value="hotelData.type" class="text-dark" hidden>{{ hotelData.type }}</option>
-                        <option v-for="value in hotelTypes" :key="value.id" :value="value.name">{{ value.name }}</option>
+                            v-model="hotelData.type" >
+                            <option :value="hotelData.type" class="text-dark" hidden>{{ hotelData.typeName }}</option>
+                            <option v-for="value in hotelTypes" :key="value.id" :value="value.id">{{ value.name }}</option>
                         </select>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
@@ -103,11 +103,15 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0">
+                    <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0" @click.prevent=resetData()>
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         RESET
                     </button>
-                    <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
+                    <button type="button" class="btn btn-sm btn-round btn-outline-danger mb-0" @click.prevent=deleteHotel(hotelData.id)>
+                        <font-awesome-icon icon="fa-solid fa-trash" />
+                        DELETE
+                    </button>
+                    <button type="submit" class="btn btn-round custom-button btn-sm mb-0" @click.prevent="updateBasicData(hotelData.id)">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                         SAVE
                     </button>
@@ -136,7 +140,8 @@ const getHotelType = async (id) => {
     try {
         const response = await axios.get(route('hotelType.get', id));
         const selectedHotelType = response.data.hotelTypes;
-        hotelData.value.type = selectedHotelType.name;
+        hotelData.value.typeName = selectedHotelType.name;
+        hotelData.value.type = selectedHotelType.id;
     } catch (error) {
         console.log('Error:', error);
     }
@@ -160,6 +165,46 @@ const getHotelData = async () => {
         getHotelType(hotelTypeId);
     } catch (error) {
         console.log(error);
+    }
+}
+
+const updateBasicData = async (id) => {
+    try{
+        const response = await axios.post(route('hotels.basic.update',id),hotelData.value);
+        resetData();
+        resetSavedData();
+        console.log(response);
+    }catch(error){
+        console.log('Error:',error);
+    }
+}
+
+const resetData = () =>{
+    hotelData.value.email = '';
+    hotelData.value.address = '';
+    hotelData.value.contact_1 = '';
+    hotelData.value.contact_2 = '';
+    hotelData.value.web_site = '';
+    hotelData.value.check_in_date = '';
+    hotelData.value.check_oute_date ='';
+    hotelData.value.description ='';
+}
+
+const resetSavedData = () =>{
+    hotelData.value.name = '';
+    hotelData.value.type = '';
+    hotelData.value.city = '';
+    hotelData.value.typeName = '';
+
+}
+
+const deleteHotel = async (id) => {
+    try{
+        const response = await axios.delete(route('hotels.basic.delete',id));
+        resetData();
+        resetSavedData();
+    }catch(error){
+        console.log('Error:',error);
     }
 }
 

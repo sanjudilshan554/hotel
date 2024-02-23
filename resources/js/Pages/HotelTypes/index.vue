@@ -258,7 +258,7 @@ const hotelTypes = ref({
     price_range: '',
     max_occupancy: '',
     amenities: '',
-    extra: '',
+    extra: '', 
 });
 
 const hotelTypeData = ref([]);
