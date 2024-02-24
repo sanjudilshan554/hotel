@@ -19,8 +19,8 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM NUMBER</div>
                     <div class="col-md-2">
-                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" name="number" id="number" placeholder="101"/>
-                        <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
+                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" min="1" name="number" id="number" placeholder="101"/>
+                        <small id="msg_name" class="text-danger form-text text-error-msg error" ></small>
                     </div>
                 </div>
                 <div class="row">
@@ -32,8 +32,8 @@
                             <label class="form-check-label" for="inlineRadio1">Avilable </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="0" checked>
+                            <input class="form-check-input" v-model="hotelRoom.avilability" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                value="0">
                             <label class="form-check-label" for="inlineRadio2">Not Avilable</label>
                         </div>
                         <small id="msg_name" class="text-danger form-text text-error-msg error "></small>
@@ -65,9 +65,13 @@
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         RESET
                     </button>
+                    <button  class="btn btn-round btn-outline-danger btn-sm mb-0" @click.prevent="createHotelRoom()">
+                        <font-awesome-icon icon="fa-solid fa-floppy-disk" />
+                        DELETE
+                    </button>
                     <button  class="btn btn-round custom-button btn-sm mb-0" @click.prevent="createHotelRoom()">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />
-                        CREATE
+                        SAVE
                     </button>
                 </div>
             </form>
@@ -97,7 +101,17 @@ const hotelRoom = ref({
     amenities:'',
     image:'',
     hotel_id:'',
+    avilability: 0,
 });
+
+const getHotelRooms = async () => {
+    try{
+        const response = await axios.get(route('hotel.rooms.get',props.hotelId));
+        hotelRoom.value = response.data.hotel_rooms[0];
+    }catch(error){
+        console.log('Error: ', error);
+    }
+} 
 
 const resetData = () => {
     hotelRoom.value.view = '';
@@ -148,19 +162,18 @@ const createHotelRoom = async () => {
         formData.append('room_type_id', room_type_id.value);
         const response = await axios.post(route('hotel.rooms.store'),formData);
         console.log('response',response);
-        resetData();
     }catch(error){
         console.log(error);
         }
 }
 
 const onImageChange = (e) => {
-    console.log(e.target.files[0]);
     hotelRoom.value.image = e.target.files[0];
 }
 
 onMounted(() => {
     getRoomTypes();
+    getHotelRooms();
 });
 
 

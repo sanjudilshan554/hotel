@@ -10,4 +10,9 @@ class HotelRoomesController extends Controller
     public function store(Request $request){
         return HotelRoomFacade::store( $request);
     }
+
+    public function get($hotelId){
+        $response['hotel_rooms']=HotelRoomFacade::get($hotelId);
+        return $response;
+    }
 }

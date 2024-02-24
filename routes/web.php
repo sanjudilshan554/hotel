@@ -66,6 +66,7 @@ Route::prefix('hotel-images')->group(function (){
 
 Route::prefix('hotel-rooms')->group(function (){
     Route::post('/store',[HotelRoomesController::class,'store'])->name('hotel.rooms.store');
+    Route::get('/{hotel_id}/get',[HotelRoomesController::class,'get'])->name('hotel.rooms.get');
 });
 require __DIR__ . '/auth.php';
 
