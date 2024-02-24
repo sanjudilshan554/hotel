@@ -39,4 +39,10 @@ class HotelController extends Controller
     public function basicDelete(int $id){
         return HotelFacade::delete($id);
     }
+
+    public function deleteSelectedItems(Request $request){
+
+        return HotelFacade::deleteSelected($request);
+       
+    }
 }

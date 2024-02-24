@@ -42,6 +42,7 @@ Route::prefix('hotel')->group(function (){
     Route::get("{hotel_id}/edit",[HotelController::class,"edit"])->name('hotels.edit');
     Route::post("{hotel_id}/basic/update",[HotelController::class,"basicUpdate"])->name('hotels.basic.update');
     Route::delete("{hotel_id}/basic/delete",[HotelController::class,"basicDelete"])->name('hotels.basic.delete');
+    Route::delete("/select/hotel/delete",[HotelController::class,"deleteSelectedItems"])->name('hotels.delete.selected');
 });
 
 Route::prefix('hotel-types')->group(function (){

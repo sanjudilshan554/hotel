@@ -93,9 +93,9 @@
 
                                             </a>
                                         </div>
-                                        <div class="p-2 border icon_item">
-                                            <a href="javascript:void(0)">
-                                                <i class="fa-solid fa-trash-can icon_item-icon" color="#505050"></i>
+                                        <div class="p-2 border ">
+                                            <a href="javascript:void(0)" @click="deleteSelectedItems">
+                                                <i class="fa-solid fa-trash-can icon_item-icon btn btn-danger btn-sm" color="#505050"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                         <tr>
                                             <th class="checkArea">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" />
+                                                    <input class="form-check-input" type="checkbox" @change="selectAllItems"/>
                                                 </div>
                                             </th>
                                             <th class="textClassHead">Name</th>
@@ -122,10 +122,10 @@
                                         </tr>
                                     </thead>   
                                     <tbody>
-                                        <tr v-for="value in hotelsData">
+                                        <tr v-for="value, index in hotelsData" :key="index">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" />
+                                                    <input class="form-check-input" type="checkbox" :value="index" v-model="selectedItems"/>
                                                 </div>
                                             </td>
                                             <td class="iconClassBody pt-2">
@@ -254,6 +254,8 @@ const hotelTypes = ref([]);
 
 const hotelsData = ref([]);
 
+const selectedItems = ref([]);
+
 const getHotelTypes = async () => {
     try{
         const response = await axios.get(route('hotelType.all'));
@@ -282,6 +284,27 @@ const getHotelData = async () => {
         console.log('Error',error);
     }
 }
+
+
+const deleteSelectedItems = async () => {
+
+  const selectedIds = selectedItems.value.map(index => hotelsData.value[index].id);
+
+  try {
+    const hotelId = 123;
+    const response = await axios.delete(route('hotels.delete.selected'), { data: { ids: selectedIds } });
+
+    if(response.data.success){
+      hotelsData.value = hotelsData.value.filter(item => !selectedIds.includes(item.id));
+      selectedItems.value = [];
+    } else {
+      console.error('Failed to delete items', response.data.message);
+    }
+  } catch(error) {
+    console.log('Error:', error);
+  }
+}
+
 
 onMounted(() => {
     getHotelTypes();

@@ -34,4 +34,15 @@ class HotelService{
     public function delete(int $id){
         return $this->hotel->destroy($id);
     }
+
+    public function deleteSelected($data){
+        $ids= $data->input('ids');
+        Hotel::whereIn('id',$ids)->delete();
+
+        return response()->json([ 
+            'success'=> true,
+            'message' => 'Item deleted successfully'
+        
+        ]);
+    }
 }
