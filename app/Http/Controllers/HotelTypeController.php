@@ -39,6 +39,11 @@ class HotelTypeController extends Controller
         return $response;
     }
 
+    public function find($type){
+        $response['hotel_type']=HotelTypeFacade::find($type);
+        return $response;
+    }
+
     public function update($id, Request $request){
         return HotelTypeFacade::update($id, $request->all());
     }

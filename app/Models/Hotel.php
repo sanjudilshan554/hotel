@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\HotelType;
 
 class Hotel extends Model
 {
@@ -22,4 +23,10 @@ class Hotel extends Model
         'description',
         'hotel_type_id'
     ];
+
+    public function hotelType()
+    {
+        //opposit of the has one 
+        return $this->belongsTo(HotelType::class, 'hotel_type_id', 'id');
+    }
 }

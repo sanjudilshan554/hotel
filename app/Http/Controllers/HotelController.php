@@ -12,6 +12,11 @@ class HotelController extends Controller
         return Inertia::render("Hotel/index");
     }
 
+    public function all(){
+        $response['hotels']=HotelFacade::all();
+        return $response;
+    }
+
     public function edit(int $id){
         $response['hotels']=HotelFacade::get($id);
         return Inertia::render("Hotel/edit",$response);

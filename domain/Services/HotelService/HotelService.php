@@ -15,6 +15,10 @@ class HotelService{
         return $this->hotel->create($data);
     }
 
+    public function all(){
+        return $this->hotel->with('hotelType')->get();
+    }
+
     public function get(int $id){
         return $this->hotel->find($id);
     }

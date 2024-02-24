@@ -9,14 +9,14 @@
                     <div for="name" class="col-md-2 col-form-label">NAME</div>
                     <div class="col-md-10">
                         <input type="text" class="form-control form-control-sm" name="name" id="name"
-                            v-model="hotelData.name" />
+                            v-model="hotelData.name" disabled/>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">EMAIL</div>
                     <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" placeholder="mountlavinia@gmail.com"
+                        <input type="email" class="form-control form-control-sm" placeholder="mountlavinia@gmail.com"
                             name="email" id="email" v-model="hotelData.email" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
@@ -51,9 +51,9 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">HOTEL TYPE</div>
                     <div class="col-md-10">
-                        <select class="form-control form-control-sm" aria-label="Default select example"
-                            v-model="hotelData.type" >
-                            <option :value="hotelData.type" class="text-dark" hidden>{{ hotelData.typeName }}</option>
+                        <select class="form-control form-control-sm" aria-label="Default select example" disabled
+                            v-model="hotelData.type " >
+                            <option :value="hotelData.typeName " class="text-dark" hidden>{{ hotelData.typeName }}</option>
                             <option v-for="value in hotelTypes" :key="value.id" :value="value.id">{{ value.name }}</option>
                         </select>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
@@ -62,7 +62,7 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">WEBSITE</div>
                     <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="city" id="city"
+                        <input type="text" class="form-control form-control-sm" name="web_site" id="web_site"
                             placeholder="www.mountlavinia.com" v-model="hotelData.web_site" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
@@ -71,7 +71,7 @@
                     <div for="name" class="col-md-2 col-form-label">CITY</div>
                     <div class="col-md-10">
                         <input type="text" class="form-control form-control-sm" name="city" id="city"
-                            v-model="hotelData.city" />
+                            v-model="hotelData.city" disabled/>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">DESCRIPTION</div>
                     <div class="col-md-10">
-                        <input type="text" class="form-control form-control-sm" name="city" id="city"
+                        <input type="text" class="form-control form-control-sm" name="description" id="description"
                             placeholder="descript..." v-model="hotelData.description" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
@@ -136,13 +136,14 @@ const props = defineProps({
     }
 });
 
-const getHotelType = async (id) => {
+const getHotelType = async (hotelTypeId) => {
     try {
-        const response = await axios.get(route('hotelType.get', id));
-        console.log(response.data);
+        const response = await axios.get(route('hotelType.get', hotelTypeId));
+        console.log('selected hotel type data',response.data);
         const selectedHotelType = response.data.hotel_type
         hotelData.value.typeName = selectedHotelType.name;
-        hotelData.value.type = selectedHotelType.id;
+        hotelData.value.type  = selectedHotelType.name;
+        console.log(hotelData.hotelData.value.hotel_type_id );
     } catch (error) {
         console.log('Error:', error);
     }
@@ -162,7 +163,8 @@ const getHotelData = async () => {
     try {
         const response = await axios.get(route('hotels.get', props.hotelId));
         hotelData.value = response.data.hotels;
-        const hotelTypeId = hotelData.value.type;
+        console.log('hotel data before edit', hotelData.value);
+        const hotelTypeId = hotelData.value.hotel_type_id;
         getHotelType(hotelTypeId);
     } catch (error) {
         console.log(error);
@@ -212,6 +214,7 @@ const deleteHotel = async (id) => {
 onMounted(() => {
     getHotelData();
     getHotelTypes();
+    getHotelType();
 });
 </script>
   

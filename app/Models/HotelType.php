@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Hotel;
 
 class HotelType extends Model
 {
@@ -16,5 +17,8 @@ class HotelType extends Model
         'extra',
     ];
 
+    public function hotels(){
+        return $this->hasMany(Hotel::class, 'hotel_type_id', 'id');
+    }
 
 }

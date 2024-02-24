@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('contact_1')->nullable();
             $table->string('contact_2')->nullable();
-            $table->integer('type')->nullable();
+            $table->string('type')->nullable();
             $table->string('web_site')->nullable();
             $table->string('city')->nullable();
             $table->date('check_in_date')->nullable();

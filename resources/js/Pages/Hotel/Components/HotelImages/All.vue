@@ -13,7 +13,7 @@
             </div>
             <div class="image-setup image-top-header border ">
                 <div  v-for="value in hotelImageData" class="card image-section text-center" style="width: 22rem; height: 18rem;">
-                    <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 20rem; height: 20rem;">
+                    <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
                     <div class="image-card-body pt-4">
                         <div class="">
                             <div class="" v-if="value.id == firstImageId">

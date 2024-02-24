@@ -19,7 +19,7 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM NUMBER</div>
                     <div class="col-md-2">
-                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" name="city" id="city" placeholder="101"/>
+                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" name="number" id="number" placeholder="101"/>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -42,26 +42,26 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">VIEW</div>
                     <div class="col-md-10">
-                        <input type="text" v-model="hotelRoom.view" class="form-control form-control-sm" name="name" id="name" placeholder="Ocean View" />
+                        <input type="text" v-model="hotelRoom.view" class="form-control form-control-sm" name="view" id="view" placeholder="Ocean View" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">AMENITIES</div>
                     <div class="col-md-10">
-                        <input type="text" v-model="hotelRoom.amenities" class="form-control form-control-sm" name="city" id="city" placeholder="Wi-Fi, TV, Mini Fridge" />
+                        <input type="text" v-model="hotelRoom.amenities" class="form-control form-control-sm" name="amenities" id="amenities" placeholder="Wi-Fi, TV, Mini Fridge" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">IMAGE</div>
                     <div class="col-md-10">
-                        <input type="file" class="form-control form-control-sm" name="city" id="city" @change="onImageChange"/>
+                        <input type="file" class="form-control form-control-sm" name="image" id="image" @change="onImageChange"/>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0">
+                    <button type="button" class="btn btn-sm btn-round btn-outline-dark mb-0" @click.prevent="resetData()">
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         RESET
                     </button>
@@ -88,21 +88,31 @@ const props = defineProps({
     }
 });
 
+const room_type_id = ref({});
+
 const hotelRoom = ref({
     room_type:'',
     room_number:'',
-    avilability:'',
     view:'',
     amenities:'',
     image:'',
     hotel_id:'',
-
 });
 
+const resetData = () => {
+    hotelRoom.value.view = '';
+    hotelRoom.value.room_type = '';
+    hotelRoom.value.avilability = 0;
+    hotelRoom.value.room_number = '';
+    hotelRoom.value.amenities = '';
 
-const hotelImage =ref([]);
+    const inputElement = document.getElementById('image');
+    if(inputElement){
+        inputElement.value='';
+    }
 
-const room_type_id = ref({});
+    hotelRoom.value.image = null;
+}
 
 const getRoomTypes = async () => {
     try{
@@ -146,7 +156,6 @@ const createHotelRoom = async () => {
 const onImageChange = (e) => {
     console.log(e.target.files[0]);
     hotelRoom.value.image = e.target.files[0];
-
 }
 
 onMounted(() => {

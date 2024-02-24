@@ -51,7 +51,7 @@
                                 <a href="javascript:void(0)" class="btn btn-sm btn-ash float-end mt-2 pt-2">
                                     CLEAR
                                 </a>
-                            </div>
+                            </div> 
                             <div class="text-muted ml-auto mx-4 mt-4">
                                 <div class="inline-block">
                                     <select class="form-control form-control-sm per-page-entry mt-2" :value="100">
@@ -113,39 +113,35 @@
                                                     <input class="form-check-input" type="checkbox" />
                                                 </div>
                                             </th>
-                                            <th class="iconClassHead">#</th>
                                             <th class="textClassHead">Name</th>
-                                            <th class="textClassHead">Location</th>
+                                            <th class="textClassHead">City</th>
                                             <th class="textClassHead">Contact</th>
                                             <th class="textClassHead">Address</th>
                                             <th class="textClassHead">Category</th>
                                             <th></th>
                                         </tr>
-                                    </thead>
+                                    </thead>   
                                     <tbody>
-                                        <tr>
+                                        <tr v-for="value in hotelsData">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
                                                     <input class="form-check-input" type="checkbox" />
                                                 </div>
                                             </td>
                                             <td class="iconClassBody pt-2">
-
+                                                {{ value.name }}
                                             </td>
                                             <td class="textClassBody">
-
+                                                {{ value.city }}
                                             </td>
                                             <td class="textClassBody">
-
+                                                {{ value.contact_1 }}
                                             </td>
                                             <td class="textClassBody">
-
+                                                {{ value.address }}
                                             </td>
                                             <td class="textClassBody">
-
-                                            </td>
-                                            <td class="textClassBody">
-
+                                                {{ value.hotel_type?.name }}
                                             </td>
                                             <td class="textClassBody">
                                                 <a href="javascript:void(0)">
@@ -156,7 +152,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> 
 
                         <div class="flex mt-1 px-3 mx-1 card-footer table-footer align-items-center">
                             <div class="col-sm-12 col-md-6 p-0">
@@ -211,7 +207,7 @@
                                         <div class="row mb-1">
                                             <div for="name" class="col-md-3 col-form-label">TYPE</div>
                                             <div class="col-md-9">
-                                                <select  class="form-control form-control-sm" aria-label="Default select example" v-model="hotel.type" required>
+                                                <select  class="form-control form-control-sm" aria-label="Default select example" v-model="hotel.hotel_type_id" required>
                                                     <option value="" disabled selected>Select a type</option>
                                                     <option v-for="value in hotelTypes" :value="value.id"> {{ value.name }} </option>
                                                 </select>
@@ -250,11 +246,13 @@ import { ref, onMounted } from 'vue'
 
 const hotel = ref({
     name:'',
-    type:'',
+    hotel_type_id:'',
     city:'',
 });
 
 const hotelTypes = ref([]);
+
+const hotelsData = ref([]);
 
 const getHotelTypes = async () => {
     try{
@@ -275,6 +273,19 @@ const createHotel = async (id) => {
     }
 }
 
-onMounted(getHotelTypes);
+const getHotelData = async () => {
+    try{
+        const response = await axios.get(route('hotel.all'));
+        hotelsData.value= response.data.hotels;
+        console.log('hotels data',hotelsData.value);
+    }catch(error){
+        console.log('Error',error);
+    }
+}
+
+onMounted(() => {
+    getHotelTypes();
+    getHotelData();
+});
 
 </script>

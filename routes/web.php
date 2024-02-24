@@ -36,6 +36,7 @@ Route::prefix('room-type')->group(function () {
 
 Route::prefix('hotel')->group(function (){
     Route::get("/",[HotelController::class,"index"])->name('hotel.index');
+    Route::get("/all",[HotelController::class,"all"])->name('hotel.all');
     Route::post("/store",[HotelController::class,"store"])->name('hotels.store');
     Route::get("{hotel_id}/get",[HotelController::class,"get"])->name('hotels.get');
     Route::get("{hotel_id}/edit",[HotelController::class,"edit"])->name('hotels.edit');
@@ -50,6 +51,7 @@ Route::prefix('hotel-types')->group(function (){
     Route::delete('/{hotel_type_id}/delete',[HotelTypeController::class,'delete'])->name('hotelType.delete');
     Route::get('/{hotel_type_id}/edit',[HotelTypeController::class,'edit'])->name('hotelType.edit');
     Route::get('/{hotel_id}/get',[HotelTypeController::class,'get'])->name('hotelType.get');
+    Route::get('/{hotel_type}/find',[HotelTypeController::class,'find'])->name('hotelType.find');
     Route::post('/{hotel_id}/update',[HotelTypeController::class,'update'])->name('hotelType.update');
 });
 
