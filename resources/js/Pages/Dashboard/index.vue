@@ -80,7 +80,7 @@
                                                 <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Hotels
                                                 </p>
                                                 <h5 class="font-weight-bolder">
-                                                    {{ hotels ? hotels: 0}}
+                                                   {{ hotels ? hotels: 0 }}
                                                 </h5>
                                             </div>
                                         </div>
@@ -139,13 +139,15 @@ const getCount = async () => {
     try {
         const hotel_types = await axios.get(route('hotelType.count'));
         const room_types = await axios.get(route('roomType.count'));
-        const hotels = await axios.get(route('hotels.count'));
+        const hotel = await axios.get(route('hotels.count'));
         const hotel_rooms = await axios.get(route('hotel.rooms.count'));
 
         roomTypes.value=room_types.data;
         hotelTypes.value=hotel_types.data;
-        hotelCount.value=hotels.data;
+        hotels.value=hotel.data;
         hotelRooms.value=hotel_rooms.data;
+
+        console.log('hotel',hotels.value);
         
     } catch (error) {
         console.log('Error:', error);
