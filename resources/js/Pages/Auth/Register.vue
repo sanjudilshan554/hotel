@@ -94,10 +94,21 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ms-4 btn-outline-dark btn-sm" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
 </template>
+
+<style scoped>
+
+.login{
+    color:rgb(0, 0, 0);
+}
+
+.login:hover{
+    color:rgb(243, 243, 243);
+}
+</style>

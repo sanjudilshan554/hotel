@@ -85,10 +85,21 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ms-4 btn btn-outline-dark btn-sm" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
 </template>
+
+<style scoped>
+
+.login{
+    color:black;
+}
+
+.login:hover{
+    color:rgb(255, 255, 255);
+}
+</style>
