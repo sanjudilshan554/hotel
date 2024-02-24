@@ -44,7 +44,7 @@ const submit = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full form-control form-control-sm"
                     v-model="form.email"
                     required
                     autofocus
@@ -60,7 +60,7 @@ const submit = () => {
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full form-control form-control-sm "
                     v-model="form.password"
                     required
                     autocomplete="current-password"
@@ -72,7 +72,7 @@ const submit = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600">Remember me</span>
+                    <span class="ms-2 text-sm text-gray-600 remember-me">Remember me</span>
                 </label>
             </div>
 
@@ -101,5 +101,9 @@ const submit = () => {
 
 .login:hover{
     color:rgb(255, 255, 255);
+}
+
+.remember-me{
+    margin-left: 1rem;
 }
 </style>

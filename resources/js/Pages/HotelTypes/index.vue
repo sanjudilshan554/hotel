@@ -1,12 +1,12 @@
 <template>
-    <AppLayout>
+    <AppLayout title="Hotel Types">
         <template #header>
             <div class="header  pb-6">
                 <div class="container-fluid ">
                     <div class="header-body ">
                         <div class="row align-items-center mb-1 ">
                             <div class="col-lg-8 mt-5">
-                                <h6 class="h2 text-dark d-inline-block mb-0 mt-5">Hotels</h6>
+                                <h6 class="h2 text-dark d-inline-block mb-0 mt-4">Hotels</h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
