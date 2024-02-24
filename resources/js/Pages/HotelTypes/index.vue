@@ -65,9 +65,10 @@
 
                                             </a>
                                         </div>
-                                        <div class="p-2 border icon_item">
-                                            <a href="javascript:void(0)">
-                                                <i class="fa-solid fa-trash-can icon_item-icon" color="#505050"></i>
+                                        <div class="p-2 border ">
+                                            <a href="javascript:void(0)" @click="deleteSelectedItems">
+                                                <i class="fa-solid fa-trash-can icon_item-icon btn btn-danger btn-sm"
+                                                    color="#505050"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -80,7 +81,12 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="iconClassHead">#</th>
+                                            <th class="checkArea">
+                                                <div class="form-check mb-4">
+                                                    <input class="form-check-input" type="checkbox" @change="selectAllItems"
+                                                        v-model="selectAll" />
+                                                </div>
+                                            </th>
                                             <th class="textClassHead">Name</th>
                                             <th class="textClassHead">Price range</th>
                                             <th class="textClassHead">Mac Occupancy</th>
@@ -91,10 +97,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="value in hotelTypeData" class="">
+                                        <tr v-for="value, index in hotelTypeData"  :key="index" class="">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" />
+                                                    <input class="form-check-input" type="checkbox" :value="index"
+                                                        v-model="selectedItems" />
                                                 </div>
                                             </td>
                                             <td class="textClassBody">
@@ -254,6 +261,9 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import axios from 'axios';
 import { ref, onBeforeMount } from 'vue';
 
+const selectedItems = ref([]);
+const selectAll = ref(false);
+
 const hotelTypes = ref({
     name: '',
     price_range: '',
@@ -301,6 +311,35 @@ const restHotelTypeFields = () => {
     hotelTypes.value.amenities = '';
     hotelTypes.value.extra = '';
 }
+
+const deleteSelectedItems = async () => {
+
+    console.log('for deleted',hotelTypeData.value);
+const selectedIds = selectedItems.value.map(index => hotelTypeData.value[index].id);
+
+try {
+    const response = await axios.delete(route('hotelTypes.delete.selected'), { data: { ids: selectedIds } });
+
+    if (response.data.success) {
+        hotelTypeData.value = hotelTypeData.value.filter(item => !selectedIds.includes(item.id));
+        selectedItems.value = [];
+        selectAll.value = false;
+    } else {
+        console.error('Failed to delete items', response.data.message);
+    }
+} catch (error) {
+    console.log('Error:', error);
+}
+}
+
+const selectAllItems = () => {
+if (selectAll.value) {
+    selectedItems.value = hotelTypeData.value.map((_, index) => index);
+} else {
+    selectedItems.value = [];
+}
+}
+
 onBeforeMount(getHotelTypes);
 </script>
 

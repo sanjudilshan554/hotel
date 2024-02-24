@@ -11,7 +11,7 @@
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
                                             <i class="fas fa-home"></i>
-                                            
+
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
                                             Types / Room Type
@@ -37,10 +37,57 @@
                     <div class="shadow card">
                         <div class="row mx-4 mt-4">
                             <div class="table-responsive">
+                                <div class="d-flex flex-row mb-3 rounded">
+                                    <div class="left d-flex">
+                                        <div class="p-2 border icon_item">
+                                            <i class="fa-solid fa-clone icon_item-icon" color="#505050"></i>
+                                        </div>
+                                        <div class="p-2 border icon_item">
+                                            <i class="fa-solid fa-arrow-up-from-bracket icon_item-icon" color="#505050"></i>
+
+                                        </div>
+                                        <div class="p-2 border icon_item">
+                                            <i class="fa-solid fa-cloud-arrow-down icon_item-icon" color="#505050"></i>
+
+                                        </div>
+                                        <div class="p-2 border icon_item">
+                                            <i class="fa-solid fa-wrench icon_item-icon" color="#505050"></i>
+
+                                        </div>
+                                        <div class="p-2 border icon_item">
+                                            <a>
+                                                <i class="fa-solid fa-circle-check icon_item-icon" color="#505050"></i>
+
+                                            </a>
+                                        </div>
+                                        <div class="p-2 border icon_item">
+                                            <a>
+                                                <i class="fa-solid fa-circle-minus icon_item-icon" color="#505050"></i>
+
+                                            </a>
+                                        </div>
+                                        <div class="p-2 border ">
+                                            <a href="javascript:void(0)" @click="deleteSelectedItems">
+                                                <i class="fa-solid fa-trash-can icon_item-icon btn btn-danger btn-sm"
+                                                    color="#505050"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="right d-flex ml-auto">
+                                        <div class="p-2 border icon_item">
+                                            <i class="fa-solid fa-print icon_item-icon" color="#505050"></i>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th :class="iconClassHead">#</th>
+                                            <th class="checkArea">
+                                                <div class="form-check mb-4">
+                                                    <input class="form-check-input" type="checkbox" @change="selectAllItems"
+                                                        v-model="selectAll" />
+                                                </div>
+                                            </th>
                                             <th :class="textClassHead">Name</th>
                                             <th :class="textClassHead">Price range</th>
                                             <th :class="textClassHead">Max Occupancy</th>
@@ -50,10 +97,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="value in roomTypeData" class="">
+                                        <tr v-for="value, index in roomTypeData" :key=index class="">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" />
+                                                    <input class="form-check-input" type="checkbox" :value="index"
+                                                        v-model="selectedItems" />
                                                 </div>
                                             </td>{{ room_types }}
                                             <td class="textClassBody">
@@ -134,15 +182,16 @@
                                         <div class="row mb-1">
                                             <div for="code" class="col-md-3 col-form-label">NAME</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code" v-model="roomType.name"
-                                                    id="code" placeholder="Single room" required />
+                                                <input type="text" class="form-control form-control-sm" name="code"
+                                                    v-model="roomType.name" id="code" placeholder="Single room" required />
                                             </div>
                                             <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
                                         <div class="row mb-1">
                                             <div for="code" class="col-md-3 col-form-label">PRICE RANGE</div>
                                             <div class="col-md-9">
-                                                <select class="form-control form-control-sm" aria-label="Default select example" v-model="roomType.price_range"
+                                                <select class="form-control form-control-sm"
+                                                    aria-label="Default select example" v-model="roomType.price_range"
                                                     required>
                                                     <option value="" selected hidden> Standard</option>
                                                     <option value="1">Budget: Rs.4000 - Rs.8000 per day</option>
@@ -156,15 +205,17 @@
                                             <div for="code" class="col-md-3 col-form-label">MAX-OCCUPANCY</div>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="1-6" v-model="roomType.max_occupancy" min="1" max="6" required />
+                                                    id="code" placeholder="1-6" v-model="roomType.max_occupancy" min="1"
+                                                    max="6" required />
                                             </div>
                                             <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
                                         <div class="row mb-1">
                                             <div for="code" class="col-md-3 col-form-label">BED STEP</div>
                                             <div class="col-md-9">
-                                                <select class="form-control form-control-sm" aria-label="Default select example" v-model="roomType.bed_step"
-                                                required>
+                                                <select class="form-control form-control-sm"
+                                                    aria-label="Default select example" v-model="roomType.bed_step"
+                                                    required>
                                                     <option value="1">1 King. 2Twins</option>
                                                     <option value="2">1 Queen</option>
                                                     <option value="3">1King, 1Twin</option>
@@ -180,8 +231,9 @@
                                             </div>
                                             <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>
-                                        <div class="text-right mt-2" >
-                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0" @click.prevent="createRoomType()">
+                                        <div class="text-right mt-2">
+                                            <button type="submit" class="btn btn-round custom-button btn-sm mb-0"
+                                                @click.prevent="createRoomType()">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                                                 CREATE
                                             </button>
@@ -203,40 +255,42 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
 const roomType = ref({
-    name:'',
-    price_range:'',
-    max_occupancy:'',
-    bed_step:'',
-    extra:'',
+    name: '',
+    price_range: '',
+    max_occupancy: '',
+    bed_step: '',
+    extra: '',
 });
 
 const roomTypeData = ref([]);
+const selectedItems = ref([]);
+const selectAll = ref(false);
 
 const createRoomType = async () => {
-    try{
-        const response = await axios.post(route('roomType.store'),roomType.value);
+    try {
+        const response = await axios.post(route('roomType.store'), roomType.value);
         getRoomTypes();
         resetData();
-    }catch(error){
-        console.log('Error:',error);
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
 const resetData = () => {
     roomType.value = {
         name: '',
-        price_range:'',
-        max_occupancy:'',
-        bed_step:'',
-        extra:'',
+        price_range: '',
+        max_occupancy: '',
+        bed_step: '',
+        extra: '',
     };
 }
 const getRoomTypes = async () => {
-    try{
+    try {
         const response = await axios.get(route('roomType.all'));
-        roomTypeData.value=response.data.room_types;
-    }catch(error){
-        console.log('Error:',error);
+        roomTypeData.value = response.data.room_types;
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
@@ -251,7 +305,35 @@ const deleteRoomType = async (id) => {
 }
 
 const editRoomType = async (roomTypeId) => {
-    window.location.href = route('roomType.edit',roomTypeId);
+    window.location.href = route('roomType.edit', roomTypeId);
+}
+
+const deleteSelectedItems = async () => {
+
+    console.log('for deleted', roomTypeData.value);
+    const selectedIds = selectedItems.value.map(index => roomTypeData.value[index].id);
+
+    try {
+        const response = await axios.delete(route('roomTypes.delete.selected'), { data: { ids: selectedIds } });
+
+        if (response.data.success) {
+            roomTypeData.value = roomTypeData.value.filter(item => !selectedIds.includes(item.id));
+            selectedItems.value = [];
+            selectAll.value = false;
+        } else {
+            console.error('Failed to delete items', response.data.message);
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+const selectAllItems = () => {
+    if (selectAll.value) {
+        selectedItems.value = roomTypeData.value.map((_, index) => index);
+    } else {
+        selectedItems.value = [];
+    }
 }
 
 onMounted(getRoomTypes);
@@ -272,6 +354,7 @@ onMounted(getRoomTypes);
     background-color: #6343e9;
     color: #ffffff !important;
 }
+
 .float-left {
     float: left;
     margin-right: 10px;
@@ -286,5 +369,4 @@ onMounted(getRoomTypes);
 
 .delete {
     color: red;
-}
-</style>
+}</style>

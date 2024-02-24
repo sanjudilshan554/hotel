@@ -35,4 +35,15 @@ class HotelTypeService{
         $hotelType=$this->hotel_type->find($id);
         return $hotelType->update($data);
     }
+
+    public function deleteSelected($data){
+        $ids= $data->input('ids');
+        HotelType::whereIn('id',$ids)->delete();
+
+        return response()->json([ 
+            'success'=> true,
+            'message' => 'Item deleted successfully'
+        
+        ]);
+    }
 }

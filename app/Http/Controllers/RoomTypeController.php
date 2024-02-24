@@ -39,4 +39,10 @@ class RoomTypeController extends Controller
         $response= RoomTypeFacade::update($id, $request->all());
         return $response;
     }
+
+    public function deleteSelectedItems(Request $request){
+
+        return RoomTypeFacade::deleteSelected($request);
+       
+    }
 }

@@ -52,10 +52,7 @@
                             </div>
                             <div class="text-muted ml-auto mx-4 mt-4">
                                 <div class="inline-block">
-                                    <select class="form-control form-control-sm per-page-entry mt-2" :value="100">
-                                        <option v-for="perPageCount in perPage" :key="perPageCount" :value="perPageCount"
-                                            v-text="perPageCount" />
-                                    </select>
+                                    
                                 </div>
                             </div>
                         </div>

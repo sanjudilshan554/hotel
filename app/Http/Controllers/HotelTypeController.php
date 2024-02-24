@@ -33,7 +33,7 @@ class HotelTypeController extends Controller
         $response['hotel_type'] = HotelTypeFacade::get($id); 
         return inertia::render('HotelTypes/edit',$response);
     }
-
+ 
     public function get($id){
         $response['hotel_type'] = HotelTypeFacade::get($id);
         return $response;
@@ -46,5 +46,10 @@ class HotelTypeController extends Controller
 
     public function update($id, Request $request){
         return HotelTypeFacade::update($id, $request->all());
+    }
+
+    public function deleteSelectedItems(Request $request){
+        return HotelTypeFacade::deleteSelected($request);
+       
     }
 }

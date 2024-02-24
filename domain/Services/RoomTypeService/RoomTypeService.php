@@ -35,4 +35,15 @@ class RoomTypeService {
     public function get($data){
         return $this->room_type->find($data);
     }
+
+    public function deleteSelected($data){
+        $ids= $data->input('ids');
+        RoomType::whereIn('id',$ids)->delete();
+
+        return response()->json([ 
+            'success'=> true,
+            'message' => 'Item deleted successfully'
+        
+        ]);
+    }
 }
