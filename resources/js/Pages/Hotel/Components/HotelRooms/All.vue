@@ -3,14 +3,16 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                        <h5>Hotel Rooms</h5>
+                    <h5>Hotel Rooms</h5>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group col-form-label">
-                    <label for="exampleFormControlSelect2">Avilable room</label>
-                    <select  v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2" @click="getHotelRooms">
-                        <option v-for="value in roomCount" :key="value.id" :value="value.id">{{ value.room_number }}</option>
-                    </select>
+                        <label for="exampleFormControlSelect2">Avilable room</label>
+                        <select v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2"
+                            @click="getHotelRooms">
+                            <option v-for="value in roomCount" :key="value.id" :value="value.id">{{ value.room_number }}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -109,7 +111,6 @@ const props = defineProps({
 });
 
 const room_type_id = ref({});
-
 const hotel_room_id = ref({});
 const roomCount = ref([]);
 
@@ -127,18 +128,14 @@ const getHotelRooms = async () => {
     try {
         const response = await axios.get(route('hotel.rooms.get', props.hotelId));
         roomCount.value = response.data.hotel_rooms;
-        // console.log('selected room id', hotel_room_id.value);
-        // console.log('room count', roomCount.value);
 
         const selectedRoom = roomCount.value.find(room => room.id === hotel_room_id.value);
         if (selectedRoom) {
-
-                const roomKeys = Object.keys(selectedRoom);
-                for(let i=0; i<roomKeys.length; i++){
-                    const key = roomKeys[i];
-                    hotelRoom.value[key] = selectedRoom[key];
-                    // console.log('rooom:',hotelRoom.value[key], 'rooms',selectedRoom[key] );
-                }
+            const roomKeys = Object.keys(selectedRoom);
+            for (let i = 0; i < roomKeys.length; i++) {
+                const key = roomKeys[i];
+                hotelRoom.value[key] = selectedRoom[key];
+            }
         }
     } catch (error) {
         console.log('Error: ', error);
@@ -146,8 +143,10 @@ const getHotelRooms = async () => {
 }
 
 
-
 const resetData = () => {
+
+    hotel_room_id.value = ','
+    room_type_id.value = '',
     hotelRoom.value.view = '';
     hotelRoom.value.room_type = '';
     hotelRoom.value.avilability = 0;
@@ -176,7 +175,6 @@ const getRoomTyepId = async (id) => {
         const response = await axios.get(route('roomType.get', id));
         console.log(response);
         room_type_id.value = response.data.room_type.id;
-        // console.log('room types Id :', hotelRoom.value.room_type_id);
     } catch (error) {
         console.log('Error:', error);
     }
@@ -194,6 +192,7 @@ const createHotelRoom = async () => {
         formData.append('image', hotelRoom.value.image);
         formData.append('hotel_id', props.hotelId);
         formData.append('room_type_id', room_type_id.value);
+        formData.append('exist_id', hotel_room_id.value);
         const response = await axios.post(route('hotel.rooms.store'), formData);
         getHotelRooms();
         console.log('response', response);
@@ -230,16 +229,6 @@ onMounted(() => {
 .custom-button:hover {
     background-color: #6343e9;
     color: #ffffff !important;
-}
-
-.main-header{
- 
-}
-
-.header{
-   
-    
- 
 }
 </style>
   
