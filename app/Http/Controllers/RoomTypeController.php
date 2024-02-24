@@ -45,4 +45,8 @@ class RoomTypeController extends Controller
         return RoomTypeFacade::deleteSelected($request);
        
     }
+
+    public function count(){
+        return RoomTypeFacade::count();
+    }
 }

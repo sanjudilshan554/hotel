@@ -46,4 +46,8 @@ class HotelTypeService{
         
         ]);
     }
+
+    public function count(){
+        return $this->hotel_type->count();
+    }
 }

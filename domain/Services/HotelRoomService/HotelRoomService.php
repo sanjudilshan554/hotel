@@ -62,4 +62,8 @@ class HotelRoomService {
     public function get($hotelId){
         return $this->hotel_room->where('hotel_id',$hotelId)->get();
     }
+
+    public function count(){
+        return $this->hotel_room->count();
+    }
 }

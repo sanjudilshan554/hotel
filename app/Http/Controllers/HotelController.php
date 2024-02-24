@@ -45,4 +45,9 @@ class HotelController extends Controller
         return HotelFacade::deleteSelected($request);
        
     }
+
+    public function count(){
+        return HotelFacade::count();
+    }
+    
 }

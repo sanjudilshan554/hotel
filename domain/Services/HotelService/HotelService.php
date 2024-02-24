@@ -45,4 +45,8 @@ class HotelService{
         
         ]);
     }
+
+    public function count(){
+        return $this->hotel->count();
+    }
 }

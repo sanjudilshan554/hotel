@@ -63,4 +63,8 @@ class HotelRoomesController extends Controller
         $response['hotel_rooms']=HotelRoomFacade::get($hotelId);
         return $response;
     }
+
+    public function count(){
+        return HotelRoomFacade::count();
+    }
 }

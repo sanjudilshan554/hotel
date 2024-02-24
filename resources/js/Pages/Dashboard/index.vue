@@ -34,14 +34,14 @@
                                                 <p class="mb-0 text-sm text-uppercase font-weight-bold">Total hotel types
                                                 </p>
                                                 <h5 class="font-weight-bolder">
-                                                    <!-- {{ this.total_materials }} -->
+                                                    {{ hotelTypes ? hotelTypes: 0 }}
                                                 </h5>
                                             </div>
                                         </div>
                                         <div class="col-4 text-end">
                                             <div
                                                 class="text-center icon icon-shape bg-gradient-danger shadow-danger rounded-circle">
-                                                <i class="text-lg ni ni-world opacity-10" aria-hidden="true"></i>
+                                              <i class="fa-solid fa-hotel"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -57,14 +57,14 @@
                                                 <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Room types
                                                 </p>
                                                 <h5 class="font-weight-bolder">
-                                                    <!-- {{ this.total_boms }} -->
+                                                    {{ roomTypes ? roomTypes: 0}}
                                                 </h5>
                                             </div>
                                         </div>
                                         <div class="col-4 text-end">
                                             <div
                                                 class="text-center icon icon-shape bg-gradient-primary shadow-primary rounded-circle">
-                                                <i class="text-lg ni ni-money-coins opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-shower"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                                 <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Hotels
                                                 </p>
                                                 <h5 class="font-weight-bolder">
-                                                    <!-- {{ this.total_vendors }} -->
+                                                    {{ hotels ? hotels: 0}}
                                                 </h5>
                                             </div>
                                         </div>
@@ -100,16 +100,16 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Hotel images</p>
+                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Hotel Rooms</p>
                                                 <h5 class="font-weight-bolder">
-                                                    <!-- {{ this.total_pos }} -->
+                                                    {{hotelRooms ? hotelRooms : 0}}
                                                 </h5>
                                             </div>
                                         </div>
                                         <div class="col-4 text-end">
                                             <div
                                                 class="text-center icon icon-shape bg-gradient-warning shadow-warning rounded-circle">
-                                                <i class="text-lg ni ni-cart opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-box"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -124,14 +124,44 @@
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import AppLayout from "@/Layouts/AppLayout.vue";
+import axios from 'axios';
+import { ref,onMounted } from 'vue';
 
+const hotelTypes = ref(null);
+const roomTypes = ref(null);
+const hotels = ref(null);
+const hotelRooms = ref(null);
+
+
+const getCount = async () => {
+   
+    try {
+        const hotel_types = await axios.get(route('hotelType.count'));
+        const room_types = await axios.get(route('roomType.count'));
+        const hotels = await axios.get(route('hotels.count'));
+        const hotel_rooms = await axios.get(route('hotel.rooms.count'));
+
+        roomTypes.value=room_types.data;
+        hotelTypes.value=hotel_types.data;
+        hotelCount.value=hotels.data;
+        hotelRooms.value=hotel_rooms.data;
+        
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+
+onMounted(getCount)
 </script>
 
 <style scoped>
 .breadcrumb-text {
     color: #6343e9 !important;
+}
+
+.icon{
+    color: white;
 }
 </style>

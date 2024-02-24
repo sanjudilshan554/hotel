@@ -28,10 +28,6 @@ class RoomTypeService {
         return $hotelType->update($data);
     }
 
-    public function count(){
-        return $this->room_type->count();
-    }
-
     public function get($data){
         return $this->room_type->find($data);
     }
@@ -45,5 +41,9 @@ class RoomTypeService {
             'message' => 'Item deleted successfully'
         
         ]);
+    }
+
+    public function count(){
+        return $this->room_type->count();
     }
 }

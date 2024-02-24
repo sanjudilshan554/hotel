@@ -47,4 +47,5 @@ class HotelImageController extends Controller
 
         return HotelImageFacade::update( $currentPrimaryImageId,$requiredPrimaryImageId);
     }
+
 }
