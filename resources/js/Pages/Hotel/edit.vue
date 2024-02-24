@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6 mt-5">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                    Hotel {{ hotels.name }} 
+                                    Hotel {{ hotels.name }}
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -22,7 +22,7 @@
                                             </Link>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            Hotel : {{ hotels.name }} 
+                                            Hotel : {{ hotels.name }}
                                         </li>
                                     </ol>
                                 </nav>
@@ -32,6 +32,7 @@
                 </div>
             </div>
         </template>
+
         <template #content>
             <div class="mt-4 row">
                 <div class="col-lg-2 col-md-2">
@@ -62,13 +63,13 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
-                                    <BasicEditForm :hotelId="hotels.id"/>
+                                    <BasicEditForm :hotelId="hotels.id" />
                                 </div>
                                 <div class="tab-pane fade show" id="hotel-images" role="tabpanel">
-                                    <HotelImagesAll :hotelId="hotels.id"/>
+                                    <HotelImagesAll :hotelId="hotels.id" />
                                 </div>
                                 <div class="tab-pane fade show" id="hotel-rooms" role="tabpanel">
-                                    <HotelRoomsAll :hotelId="hotels.id"/>
+                                    <HotelRoomsAll :hotelId="hotels.id" />
                                 </div>
                             </div>
                         </div>
@@ -88,9 +89,9 @@ import HotelImagesAll from '@/Pages/Hotel/Components/HotelImages/All.vue';
 import HotelRoomsAll from '@/Pages/Hotel/Components/HotelRooms/All.vue';
 
 const props = defineProps({
-    hotels:{
-        type:Object,
-        required:true
+    hotels: {
+        type: Object,
+        required: true
     }
 });
 

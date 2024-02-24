@@ -6,7 +6,7 @@
         <SideBar />
         <div class="main-content" id="panel">
             <NavBar />
-
+            <Loader />
             <slot name="header" />
             <div class="container-fluid mt--6">
                 <slot name="content" />
@@ -22,15 +22,13 @@ import { Head, Link } from "@inertiajs/vue3"
 import SideBar from '@/Components/Main/SideBar.vue';
 import Footer from '@/Components/Main/Footer.vue';
 import NavBar from '@/Components/Main/NavBar.vue';
-import { defineProps, onMounted } from 'vue';
+import { defineProps, onMounted, ref } from 'vue';
 
 
 const props = defineProps({
     title: String,
 });
 
-
-// onMounted();
 </script>
 
 <style >

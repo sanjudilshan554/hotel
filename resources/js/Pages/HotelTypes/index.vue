@@ -13,17 +13,17 @@
                                             <i class="fas fa-home"></i>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                             Types / Hotel Type
+                                            Types / Hotel Type
                                         </li>
                                     </ol>
                                 </nav>
                             </div>
-                            <div class="col-lg-4 text-right py-4">
-                                <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
-                                    data-toggle="modal" data-target="#exampleModal">
-                                    <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
-                                </button>
-                            </div>
+                        </div>
+                        <div class="col-lg-12 text-right py-1">
+                            <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
+                                data-toggle="modal" data-target="#exampleModal">
+                                <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
 
         <template #content>
             <div class="row ">
-                <div class="col-lg-12 mt-5">
+                <div class="col-lg-12 mt-3">
                     <div class="card shadow">
                         <div class="row my-3 mx-2 row mx-4">
                             <div class="table-responsive">
@@ -43,26 +43,21 @@
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-arrow-up-from-bracket icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-cloud-arrow-down icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-wrench icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-check icon_item-icon" color="#505050"></i>
-
                                             </a>
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-minus icon_item-icon" color="#505050"></i>
-
                                             </a>
                                         </div>
                                         <div class="p-2 border ">
@@ -97,7 +92,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="value, index in hotelTypeData"  :key="index" class="">
+                                        <tr v-for="value, index in hotelTypeData" :key="index" class="">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
                                                     <input class="form-check-input" type="checkbox" :value="index"
@@ -208,9 +203,9 @@
                                         <div class="row mb-1">
                                             <div for="max_occupancy" class="col-md-3 col-form-label">MAX OCCUPANCY</div>
                                             <div class="col-md-9">
-                                                <input type="number" class="form-control form-control-sm" name="max_occupancy"
-                                                    id="max_occupancy" placeholder="100-500" min="100" max="500"  step="50"
-                                                    v-model="hotelTypes.max_occupancy" required />
+                                                <input type="number" class="form-control form-control-sm"
+                                                    name="max_occupancy" id="max_occupancy" placeholder="100-500" min="100"
+                                                    max="500" step="50" v-model="hotelTypes.max_occupancy" required />
                                             </div>
                                             <!-- <small id="msg_" class="text-danger form-text text-error-msg error"></small> -->
                                         </div>
@@ -269,7 +264,7 @@ const hotelTypes = ref({
     price_range: '',
     max_occupancy: '',
     amenities: '',
-    extra: '', 
+    extra: '',
 });
 
 const hotelTypeData = ref([]);
@@ -314,30 +309,30 @@ const restHotelTypeFields = () => {
 
 const deleteSelectedItems = async () => {
 
-    console.log('for deleted',hotelTypeData.value);
-const selectedIds = selectedItems.value.map(index => hotelTypeData.value[index].id);
+    console.log('for deleted', hotelTypeData.value);
+    const selectedIds = selectedItems.value.map(index => hotelTypeData.value[index].id);
 
-try {
-    const response = await axios.delete(route('hotelTypes.delete.selected'), { data: { ids: selectedIds } });
+    try {
+        const response = await axios.delete(route('hotelTypes.delete.selected'), { data: { ids: selectedIds } });
 
-    if (response.data.success) {
-        hotelTypeData.value = hotelTypeData.value.filter(item => !selectedIds.includes(item.id));
-        selectedItems.value = [];
-        selectAll.value = false;
-    } else {
-        console.error('Failed to delete items', response.data.message);
+        if (response.data.success) {
+            hotelTypeData.value = hotelTypeData.value.filter(item => !selectedIds.includes(item.id));
+            selectedItems.value = [];
+            selectAll.value = false;
+        } else {
+            console.error('Failed to delete items', response.data.message);
+        }
+    } catch (error) {
+        console.log('Error:', error);
     }
-} catch (error) {
-    console.log('Error:', error);
-}
 }
 
 const selectAllItems = () => {
-if (selectAll.value) {
-    selectedItems.value = hotelTypeData.value.map((_, index) => index);
-} else {
-    selectedItems.value = [];
-}
+    if (selectAll.value) {
+        selectedItems.value = hotelTypeData.value.map((_, index) => index);
+    } else {
+        selectedItems.value = [];
+    }
 }
 
 onBeforeMount(getHotelTypes);

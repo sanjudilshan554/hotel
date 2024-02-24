@@ -16,4 +16,8 @@ class RoomType extends Model
         'bed_step',
         'extra',
     ];
+
+    public function rooms(){
+        return $this->hasMany(HotelRooms::class,'room_type_id','id');
+    }
 }

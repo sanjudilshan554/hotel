@@ -28,7 +28,7 @@
                 <div class="row mb-1">
                     <div for="max_occupancy" class="col-md-3 col-form-label">MAX OCCUPANCY</div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control form-control-sm" name="max_occupancy" id="max_occupancy"
+                        <input type="number" min="100" max="500" step="50" class="form-control form-control-sm" name="max_occupancy" id="max_occupancy"
                             v-model="hotelTypes.max_occupancy" placeholder="100-400" required />
                     </div>
 

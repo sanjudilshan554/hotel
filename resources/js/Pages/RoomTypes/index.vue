@@ -19,12 +19,12 @@
                                     </ol>
                                 </nav>
                             </div>
-                            <div class="col-lg-4 text-right py-4">
-                                <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
-                                    data-toggle="modal" data-target="#exampleModal">
-                                    <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
-                                </button>
-                            </div>
+                        </div>
+                        <div class="col-lg-12 text-right py-4">
+                            <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
+                                data-toggle="modal" data-target="#exampleModal">
+                                <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -369,4 +369,5 @@ onMounted(getRoomTypes);
 
 .delete {
     color: red;
-}</style>
+}
+</style>

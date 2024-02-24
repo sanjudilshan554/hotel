@@ -18,21 +18,21 @@
                                     </ol>
                                 </nav>
                             </div>
-                            <div class="col-lg-4 text-right py-4">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-right py-1">
                                 <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
                                     data-toggle="modal" data-target="#exampleModal">
                                     <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
                                 </button>
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </template>
 
         <template #content>
             <div class="row ">
-                <div class="col-lg-12 mt-5">
+                <div class="col-lg-12 mt-3">
                     <div class="card shadow">
                         <div class="row my-3 mx-2">
                             <div class="col-md-2 column__right___padding column__left___padding">

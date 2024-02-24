@@ -67,4 +67,8 @@ class HotelRoomesController extends Controller
     public function count(){
         return HotelRoomFacade::count();
     }
+
+    public function delete($id){
+        return HotelRoomFacade::delete($id);
+    }
 }

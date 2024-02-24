@@ -12,17 +12,10 @@
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
-                                            <Link href="/">
-                                            <font-awesome-icon icon="fa-solid fa-house" color="#505050" />
-                                            </Link>
-                                        </li>
-                                        <li class="breadcrumb-item">
-                                            <Link class="breadcrumb-text">
-                                            Hotel Management
-                                            </Link>
+                                            <i class="fas fa-home"></i>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            Edit info
+                                            Types / Hotel Type / Edit info
                                         </li>
                                     </ol>
                                 </nav>

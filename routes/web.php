@@ -24,6 +24,7 @@ use Inertia\Inertia;
 
 Route::get("/dashboard",[HomeController::class,"index"])->name("dashboard");
 
+// room types
 Route::prefix('room-type')->group(function () {
     Route::get("/",[RoomTypeController::class,"index"])->name("roomType.index");
     Route::post("/store",[RoomTypeController::class,"store"])->name("roomType.store");
@@ -36,6 +37,7 @@ Route::prefix('room-type')->group(function () {
     Route::delete("/select/hotel_types/delete",[RoomTypeController::class,"deleteSelectedItems"])->name('roomTypes.delete.selected');
 });
 
+// hotels
 Route::prefix('hotel')->group(function (){
     Route::get("/",[HotelController::class,"index"])->name('hotel.index');
     Route::get("/all",[HotelController::class,"all"])->name('hotel.all');
@@ -48,6 +50,7 @@ Route::prefix('hotel')->group(function (){
     Route::delete("/select/hotel/delete",[HotelController::class,"deleteSelectedItems"])->name('hotels.delete.selected');
 });
 
+// hotel types
 Route::prefix('hotel-types')->group(function (){
     Route::get('/',[HotelTypeController::class,'index'])->name('hotelType.index');
     Route::post('/store',[HotelTypeController::class,'store'])->name('hotelType.store');
@@ -61,7 +64,7 @@ Route::prefix('hotel-types')->group(function (){
     Route::delete("/select/hotel_types/delete",[HotelTypeController::class,"deleteSelectedItems"])->name('hotelTypes.delete.selected');
 });
 
-
+// hotel images
 Route::prefix('hotel-images')->group(function (){
     Route::post('/store',[HotelImageController::class,'store'])->name('hotel.image.store');
     Route::get('{hotel_id}/all',[HotelImageController::class,'all'])->name('hotel.image.all');
@@ -69,10 +72,12 @@ Route::prefix('hotel-images')->group(function (){
     Route::post('/update',[HotelImageController::class,'update'])->name('hotel.image.update');
 });
 
+// hotel rooms
 Route::prefix('hotel-rooms')->group(function (){
     Route::post('/store',[HotelRoomesController::class,'store'])->name('hotel.rooms.store');
     Route::get('/{hotel_id}/get',[HotelRoomesController::class,'get'])->name('hotel.rooms.get');
     Route::get('/count',[HotelRoomesController::class,'count'])->name('hotel.rooms.count');
+    Route::get('/{hotel_room_id}/delete',[HotelRoomesController::class,'delete'])->name('hotel.rooms.delete');
 });
 require __DIR__ . '/auth.php';
 

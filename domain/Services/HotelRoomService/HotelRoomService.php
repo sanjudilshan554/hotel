@@ -66,4 +66,8 @@ class HotelRoomService {
     public function count(){
         return $this->hotel_room->count();
     }
+
+    public function delete($id){
+        return $this->hotel_room->where('id',$id)->delete();
+    }
 }

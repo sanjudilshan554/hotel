@@ -27,10 +27,6 @@ class HotelTypeService{
         return $this->hotel_type->find($id);
     }
 
-    // public function find($type){
-    //     return $this->hotel_type->where('id', $type)->first();
-    // }
-
     public function update($id, array $data){
         $hotelType=$this->hotel_type->find($id);
         return $hotelType->update($data);
