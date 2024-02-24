@@ -1,15 +1,27 @@
 <template>
     <div id="basic-info">
         <div class="card-header">
-            <h5>Hotel Rooms</h5>
+            <div class="row">
+                <div class="col-md-2">
+                        <h5>Hotel Rooms</h5>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group col-form-label">
+                    <label for="exampleFormControlSelect2">Avilable room</label>
+                    <select  v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2" @click="getHotelRooms">
+                        <option v-for="value in roomCount" :key="value.id" :value="value.id">{{ value.room_number }}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body pt-0 mt-3">
+        <div class="card-body pt-0 mt-1">
             <form enctype="multipart/form-data">
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM TYPE</div>
                     <div class="col-md-10">
                         <select class="form-control form-control-sm" aria-label="Default select example"
-                            v-model="hotelRoom.room_type" >
+                            v-model="hotelRoom.room_type">
                             <option value="" class="text-dark" selected hidden> Select Room Type </option>
                             <option v-for="value in roomTypes" :key="value.id" :value="value.id">{{ value.name }}</option>
                         </select>
@@ -19,21 +31,22 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM NUMBER</div>
                     <div class="col-md-2">
-                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" min="1" name="number" id="number" placeholder="101"/>
-                        <small id="msg_name" class="text-danger form-text text-error-msg error" ></small>
+                        <input type="number" v-model="hotelRoom.room_number" class="form-control form-control-sm" min="1"
+                            name="number" id="number" placeholder="101" />
+                        <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row">
                     <div for="name" class="col-md-2 col-form-label">AVILABILITY</div>
                     <div class="col-md-10">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" v-model="hotelRoom.avilability" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="1">
+                            <input class="form-check-input" v-model="hotelRoom.avilability" type="radio"
+                                name="inlineRadioOptions" id="inlineRadio1" value="1">
                             <label class="form-check-label" for="inlineRadio1">Avilable </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" v-model="hotelRoom.avilability" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="0">
+                            <input class="form-check-input" v-model="hotelRoom.avilability" type="radio"
+                                name="inlineRadioOptions" id="inlineRadio2" value="0">
                             <label class="form-check-label" for="inlineRadio2">Not Avilable</label>
                         </div>
                         <small id="msg_name" class="text-danger form-text text-error-msg error "></small>
@@ -42,21 +55,24 @@
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">VIEW</div>
                     <div class="col-md-10">
-                        <input type="text" v-model="hotelRoom.view" class="form-control form-control-sm" name="view" id="view" placeholder="Ocean View" />
+                        <input type="text" v-model="hotelRoom.view" class="form-control form-control-sm" name="view"
+                            id="view" placeholder="Ocean View" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">AMENITIES</div>
                     <div class="col-md-10">
-                        <input type="text" v-model="hotelRoom.amenities" class="form-control form-control-sm" name="amenities" id="amenities" placeholder="Wi-Fi, TV, Mini Fridge" />
+                        <input type="text" v-model="hotelRoom.amenities" class="form-control form-control-sm"
+                            name="amenities" id="amenities" placeholder="Wi-Fi, TV, Mini Fridge" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">IMAGE</div>
                     <div class="col-md-10">
-                        <input type="file" class="form-control form-control-sm" name="image" id="image" @change="onImageChange"/>
+                        <input type="file" class="form-control form-control-sm" name="image" id="image"
+                            @change="onImageChange" />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -65,11 +81,11 @@
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         RESET
                     </button>
-                    <button  class="btn btn-round btn-outline-danger btn-sm mb-0" @click.prevent="createHotelRoom()">
+                    <button class="btn btn-round btn-outline-danger btn-sm mb-0" @click.prevent="deleteHotelRoom()">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                         DELETE
                     </button>
-                    <button  class="btn btn-round custom-button btn-sm mb-0" @click.prevent="createHotelRoom()">
+                    <button class="btn btn-round custom-button btn-sm mb-0" @click.prevent="createHotelRoom()">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                         SAVE
                     </button>
@@ -86,32 +102,50 @@ import { ref, onMounted, defineProps } from 'vue'
 const roomTypes = ref([]);
 
 const props = defineProps({
-    hotelId:{
-        type:Number,
-        required:true
+    hotelId: {
+        type: Number,
+        required: true
     }
 });
 
 const room_type_id = ref({});
 
+const hotel_room_id = ref({});
+const roomCount = ref([]);
+
 const hotelRoom = ref({
-    room_type:'',
-    room_number:'',
-    view:'',
-    amenities:'',
-    image:'',
-    hotel_id:'',
+    room_type: '',
+    room_number: '',
+    view: '',
+    amenities: '',
+    image: '',
+    hotel_id: '',
     avilability: 0,
 });
 
 const getHotelRooms = async () => {
-    try{
-        const response = await axios.get(route('hotel.rooms.get',props.hotelId));
-        hotelRoom.value = response.data.hotel_rooms[0];
-    }catch(error){
+    try {
+        const response = await axios.get(route('hotel.rooms.get', props.hotelId));
+        roomCount.value = response.data.hotel_rooms;
+        // console.log('selected room id', hotel_room_id.value);
+        // console.log('room count', roomCount.value);
+
+        const selectedRoom = roomCount.value.find(room => room.id === hotel_room_id.value);
+        if (selectedRoom) {
+
+                const roomKeys = Object.keys(selectedRoom);
+                for(let i=0; i<roomKeys.length; i++){
+                    const key = roomKeys[i];
+                    hotelRoom.value[key] = selectedRoom[key];
+                    // console.log('rooom:',hotelRoom.value[key], 'rooms',selectedRoom[key] );
+                }
+        }
+    } catch (error) {
         console.log('Error: ', error);
     }
-} 
+}
+
+
 
 const resetData = () => {
     hotelRoom.value.view = '';
@@ -121,35 +155,35 @@ const resetData = () => {
     hotelRoom.value.amenities = '';
 
     const inputElement = document.getElementById('image');
-    if(inputElement){
-        inputElement.value='';
+    if (inputElement) {
+        inputElement.value = '';
     }
 
     hotelRoom.value.image = null;
 }
 
 const getRoomTypes = async () => {
-    try{
+    try {
         const response = await axios.get(route('roomType.all'));
         roomTypes.value = response.data.room_types;
-    }catch(error){
-        console.log('Error:',error);
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
 const getRoomTyepId = async (id) => {
-    try{
-        const response = await axios.get(route('roomType.get',id));
+    try {
+        const response = await axios.get(route('roomType.get', id));
         console.log(response);
-        room_type_id.value= response.data.room_type.id;
-        console.log('room types Id :', hotelRoom.value.room_type_id);
-    }catch(error){
-        console.log('Error:',error);
+        room_type_id.value = response.data.room_type.id;
+        // console.log('room types Id :', hotelRoom.value.room_type_id);
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
 const createHotelRoom = async () => {
-    try{
+    try {
         getRoomTyepId(hotelRoom.value.room_type);
         const formData = new FormData();
         formData.append('room_type', hotelRoom.value.room_type);
@@ -160,15 +194,22 @@ const createHotelRoom = async () => {
         formData.append('image', hotelRoom.value.image);
         formData.append('hotel_id', props.hotelId);
         formData.append('room_type_id', room_type_id.value);
-        const response = await axios.post(route('hotel.rooms.store'),formData);
-        console.log('response',response);
-    }catch(error){
+        const response = await axios.post(route('hotel.rooms.store'), formData);
+        getHotelRooms();
+        console.log('response', response);
+    } catch (error) {
         console.log(error);
-        }
+    }
 }
 
 const onImageChange = (e) => {
     hotelRoom.value.image = e.target.files[0];
+}
+
+const deleteHotelRoom = async () => {
+    // try{
+    //     const response = await axios.get(route('hotel.rooms.delete'))
+    // }
 }
 
 onMounted(() => {
@@ -189,6 +230,16 @@ onMounted(() => {
 .custom-button:hover {
     background-color: #6343e9;
     color: #ffffff !important;
+}
+
+.main-header{
+ 
+}
+
+.header{
+   
+    
+ 
 }
 </style>
   
