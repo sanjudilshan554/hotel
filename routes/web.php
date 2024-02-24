@@ -59,7 +59,7 @@ Route::prefix('hotel-types')->group(function (){
 
 Route::prefix('hotel-images')->group(function (){
     Route::post('/store',[HotelImageController::class,'store'])->name('hotel.image.store');
-    Route::get('/all',[HotelImageController::class,'all'])->name('hotel.image.all');
+    Route::get('{hotel_id}/all',[HotelImageController::class,'all'])->name('hotel.image.all');
     Route::get('/{hootel_image_id}/delete',[HotelImageController::class,'delete'])->name('hotel_image.delete');
     Route::post('/update',[HotelImageController::class,'update'])->name('hotel.image.update');
 });

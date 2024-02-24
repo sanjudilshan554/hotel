@@ -35,10 +35,10 @@ class HotelImageService {
         }
     }
 
-    public function all(){
-        return $this->hotel_image->orderBy('status', 'desc')->get();
+    public function all($id){
+        $hotelImge= $this->hotel_image->where('hotel_id',$id)->orderBy('status', 'desc')->get();
+        return $hotelImge;
     }
-
     public function delete($id){
         $this->hotel_image->destroy($id);
     }

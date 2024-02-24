@@ -15,8 +15,10 @@ class HotelImageController extends Controller
     }
 
     public function store(Request $request){
+        
+        $hotelId= $request->input("hotel_id");
 
-        $firstImageid= $this->image->first();
+        $firstImageid= $this->image->where('hotel_id',$hotelId)->first();
         
         if($firstImageid){
             $response['hotel_image']=HotelImageFacade::store($request);
@@ -29,8 +31,8 @@ class HotelImageController extends Controller
         } 
     }
 
-    public function all(){
-        $response['hotel_images']=HotelImageFacade::all();
+    public function all($id){
+        $response['hotel_images']=HotelImageFacade::all($id);
         return $response;
     }
 

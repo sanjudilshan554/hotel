@@ -13,7 +13,7 @@
                                             <i class="fas fa-home"></i>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            Hotel Type
+                                             Types / Hotel Type
                                         </li>
                                     </ol>
                                 </nav>
@@ -187,6 +187,7 @@
                                             <div class="col-md-9">
                                                 <select class="form-control form-control-sm"
                                                     aria-label="Default select example" v-model="hotelTypes.price_range">
+                                                    <option value="" selected hidden> Luxury </option>
                                                     <option value="1" class="text-dark">Budget: Rs.40,000 - 80,000 per day
                                                     </option>
                                                     <option value="2" class="text-warning">Standard: Rs.100,000 - 300,000
@@ -200,8 +201,8 @@
                                         <div class="row mb-1">
                                             <div for="max_occupancy" class="col-md-3 col-form-label">MAX OCCUPANCY</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="max_occupancy"
-                                                    id="max_occupancy" placeholder="100-400"
+                                                <input type="number" class="form-control form-control-sm" name="max_occupancy"
+                                                    id="max_occupancy" placeholder="100-500" min="100" max="500"  step="50"
                                                     v-model="hotelTypes.max_occupancy" required />
                                             </div>
                                             <!-- <small id="msg_" class="text-danger form-text text-error-msg error"></small> -->

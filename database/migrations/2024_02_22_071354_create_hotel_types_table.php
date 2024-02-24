@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->integer('price_range')->nullable()->default(1);
-            $table->integer('max_occupancy')->nullable()->default(1);
+            $table->integer('max_occupancy')->nullable()->default(100);
             $table->string('amenities')->nullable();
             $table->string('extra')->nullable();
             $table->softDeletes();

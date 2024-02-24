@@ -11,7 +11,7 @@
                     class="btn btn-sm btn-round btn-outline-success">Upload</button>
                 </div>
             </div>
-            <div class="image-setup image-top-header border ">
+            <div class="image-setup image-top-header border mt-2">
                 <div  v-for="value in hotelImageData" class="card image-section text-center" style="width: 22rem; height: 18rem;">
                     <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
                     <div class="image-card-body pt-4">
@@ -62,15 +62,15 @@ const createHotelImage = async () => {
         formData.append('hotel_id', props.hotelId);
         formData.append('status', 0);
         const response = await axios.post(route('hotel.image.store'), formData);
-        getHotelImages();
+        getHotelImages(props.hotelId);
     } catch (error) {
         console.log('Error:', error);
     }
 }
 
-const getHotelImages = async () => {
+const getHotelImages = async (id) => {
     try{
-        const response = await axios.get(route('hotel.image.all'));
+        const response = await axios.get(route('hotel.image.all',id));
         hotelImageData.value=response.data.hotel_images;
 
         for(let i=0; i<hotelImageData.value.length; i++){
@@ -99,7 +99,7 @@ const updateImageStatus = async (firstImageId, imageId) => {
         console.log(imageId);
         const response = await axios.post(route('hotel.image.update', {firstImageId,imageId}));
         console.log(response);
-        getHotelImages();
+        getHotelImages(props.hotelId);
     } catch (error) {
         console.log('Error:', error);
     }
@@ -115,7 +115,7 @@ const deleteImage = async (id) => {
     console.log('hi');
     try {
         const response = await axios.get(route('hotel_image.delete', id));
-        getHotelImages();
+        getHotelImages(props.hotelId);
         console.log(response);
     } catch (error) {
         console.log('Error:', error);
@@ -123,7 +123,7 @@ const deleteImage = async (id) => {
 }
 
 onMounted(() => {
-    getHotelImages();
+    getHotelImages(props.hotelId);
 });
 </script>
 

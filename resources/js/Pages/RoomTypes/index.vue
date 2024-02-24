@@ -14,7 +14,7 @@
                                             
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                            Room Type
+                                            Types / Room Type
                                         </li>
                                     </ol>
                                 </nav>
@@ -144,6 +144,7 @@
                                             <div class="col-md-9">
                                                 <select class="form-control form-control-sm" aria-label="Default select example" v-model="roomType.price_range"
                                                     required>
+                                                    <option value="" selected hidden> Standard</option>
                                                     <option value="1">Budget: Rs.4000 - Rs.8000 per day</option>
                                                     <option value="2">Standard: Rs.10000 - Rs.30000 per day</option>
                                                     <option value="3">Luxury: Rs.30000 - Rs.50000 per day</option>
@@ -154,8 +155,8 @@
                                         <div class="row mb-1">
                                             <div for="code" class="col-md-3 col-form-label">MAX-OCCUPANCY</div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    id="code" placeholder="1-8" v-model="roomType.max_occupancy" required />
+                                                <input type="number" class="form-control form-control-sm" name="code"
+                                                    id="code" placeholder="1-6" v-model="roomType.max_occupancy" min="1" max="6" required />
                                             </div>
                                             <small id="msg_code" class="text-danger form-text text-error-msg error"></small>
                                         </div>

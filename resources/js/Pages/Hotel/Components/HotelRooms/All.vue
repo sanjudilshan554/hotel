@@ -147,11 +147,12 @@ const createHotelRoom = async () => {
         formData.append('hotel_id', props.hotelId);
         formData.append('room_type_id', room_type_id.value);
         const response = await axios.post(route('hotel.rooms.store'),formData);
-            console.log('response',response);
-            }catch(error){
-                console.log(error);
-            }
+        console.log('response',response);
+        resetData();
+    }catch(error){
+        console.log(error);
         }
+}
 
 const onImageChange = (e) => {
     console.log(e.target.files[0]);

@@ -12,7 +12,7 @@
                                         <i class="fa-solid fa-house"></i>
                                     </li>
                                     <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
-                                        Hotel Type Management
+                                        Hotel Management System
                                     </li>
                                 </ol>
                             </nav>
