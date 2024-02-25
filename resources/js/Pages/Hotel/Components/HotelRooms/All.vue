@@ -10,7 +10,7 @@
                         <label for="exampleFormControlSelect2">Avilable room</label>
                         <select v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2"
                             @click="getHotelRooms">
-                            <option v-for="value in roomCount" :key="value.id" :value="value.id">{{ value.room_number }}
+                            <option v-for="value in roomCount" :key="value.id" :value="value.id">RN: {{ value.room_number }}
                             </option>
                         </select>
                     </div>
