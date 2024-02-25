@@ -191,7 +191,7 @@ const createHotelRoom = async () => {
         formData.append('view', hotelRoom.value.view);
         formData.append('image', hotelRoom.value.image);
         formData.append('hotel_id', props.hotelId);
-        formData.append('room_type_id', room_type_id.value);
+        formData.append('room_type_id', hotelRoom.value.room_type);
         formData.append('exist_id', hotel_room_id.value);
         const response = await axios.post(route('hotel.rooms.store'), formData);
         getHotelRooms();
