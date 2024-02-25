@@ -209,6 +209,7 @@ const deleteHotelRoom = async () => {
     try{
         const response = await axios.get(route('hotel.rooms.delete',hotel_room_id.value));
         resetData();
+        getHotelRooms();
         console.log('heelo',response);
     }catch(error){
         console.log('Error:',error);
