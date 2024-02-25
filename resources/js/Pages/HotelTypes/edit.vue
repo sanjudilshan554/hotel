@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Vendor - Edit">
+    <AppLayout title="Hote-Type - Edit">
         <template #header>
             <div class="pb-6 header">
                 <div class="container-fluid">

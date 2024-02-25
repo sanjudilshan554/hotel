@@ -114,7 +114,7 @@
                                             <th class="textClassHead">City</th>
                                             <th class="textClassHead">Contact</th>
                                             <th class="textClassHead">Address</th>
-                                            <th class="textClassHead">Category</th>
+                                            <th class="textClassHead">Hotel Type</th>
                                             <th class="textClassHead"></th>
                                             <th></th>
                                         </tr>
