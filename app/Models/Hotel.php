@@ -29,4 +29,12 @@ class Hotel extends Model
         //opposit of the has one 
         return $this->belongsTo(HotelType::class, 'hotel_type_id', 'id');
     }
+
+    public function hotelRooms(){
+        return $this->hasMany(HotelRooms::class,'hotel_id','id');
+    }
+
+    public function hotelImages(){
+        return $this->hasMany(HotelImages::class,'hotel_id','id');
+    }
 }
