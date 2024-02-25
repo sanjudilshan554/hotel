@@ -23,7 +23,7 @@ class HotelRoomesController extends Controller
                         
                     if ($image_extention == 'png' || $image_extention == 'jpeg' || $image_extention == 'jpg') {
                         $image_name = $name_generation . '.' . $image_extention;
-                        $upload_location = 'image/hotel_images/';
+                        $upload_location = 'img/hotel_rooms_images/';
                         $url = $upload_location . $image_name;
                         $profile_image->move(public_path($upload_location), $image_name);
                  
@@ -46,7 +46,7 @@ class HotelRoomesController extends Controller
                         
                     if ($image_extention == 'png' || $image_extention == 'jpeg' || $image_extention == 'jpg') {
                         $image_name = $name_generation . '.' . $image_extention;
-                        $upload_location = 'image/hotel_images/';
+                        $upload_location = 'img/hotel_rooms_images/';
                         $url = $upload_location . $image_name;
                         $profile_image->move(public_path($upload_location), $image_name);
                  
