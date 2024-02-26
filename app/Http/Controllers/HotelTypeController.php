@@ -15,7 +15,16 @@ class HotelTypeController extends Controller
     }
 
     public function store(Request $request){
-        return HotelTypeFacade::store($request->all());
+
+        $existHotelId = $request->input('id');
+
+        if($existHotelId){
+            $id=$existHotelId;
+            return HotelTypeFacade::update($id, $request->all());
+        }else{
+            return HotelTypeFacade::store($request->all());
+        }
+        
     }
 
     public function all(){
@@ -44,9 +53,7 @@ class HotelTypeController extends Controller
         return $response;
     }
 
-    public function update($id, Request $request){
-        return HotelTypeFacade::update($id, $request->all());
-    }
+    
 
     public function deleteSelectedItems(Request $request){
         return HotelTypeFacade::deleteSelected($request);

@@ -116,7 +116,6 @@
                                             <th class="textClassHead">Address</th>
                                             <th class="textClassHead">Hotel Type</th>
                                             <th class="textClassHead"></th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -329,3 +328,9 @@ onMounted(() => {
 });
 
 </script>
+
+<style>
+.edit{
+    color: blue;
+}
+</style>

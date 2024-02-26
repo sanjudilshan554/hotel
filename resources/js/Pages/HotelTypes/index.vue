@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-lg-12 text-right py-1">
                             <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
-                                data-toggle="modal" data-target="#exampleModal">
+                                data-toggle="modal" data-target="#exampleModal" @click.prevent="restHotelTypeFields()">
                                 <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
                             </button>
                         </div>
@@ -88,7 +88,6 @@
                                             <th class="textClassHead">Amenities</th>
                                             <th class="textClassHead">Extra</th>
                                             <th class="textClassHead">Action</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,9 +118,9 @@
                                             <td class="textClassBody">
 
                                                 <div class="float-left">
-                                                    <a href="javascript:void(0)" class="edit"
+                                                    <button data-toggle="modal" data-target="#exampleModal" class="edit-btn"
                                                         @click.prevent="editHotelType(value.id)"> <i
-                                                            class="fas fa-edit"></i></a>
+                                                            class="fas fa-edit "></i></button>
                                                 </div>
                                                 <div class="float-left">
                                                     <a href="javascript:void(0)" class="delete"
@@ -158,7 +157,7 @@
         </template>
 
         <template #modals>
-            <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+            <div class="modal fade"  @data-saved="closeModal" id="exampleModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
                 aria-labelledby="newVendorModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-mb" role="document">
                     <div class="modal-content p-2">
@@ -166,7 +165,7 @@
                             <h5 class="modal-title font-weight-bolder breadcrumb-text text-gradient" id="add_brandLabel">
                                 New Hotel Type
                             </h5>
-                            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" >
                                 <span aria-hidden="true">
                                     <i class="fa fa-times"></i>
                                 </span>
@@ -176,6 +175,7 @@
                             <div class="card-plain">
                                 <div class="card-body">
                                     <form>
+                                        <input type="hidden" v-model="hotelTypes.id"/>
                                         <div class="row mb-1">
                                             <div for="name" class="col-md-3 col-form-label">NAME</div>
                                             <div class="col-md-9">
@@ -234,7 +234,8 @@
                                                     <font-awesome-icon />
                                                     RESET
                                                 </button>
-                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral"
+                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral" 
+                                                    data-dismiss="modal" aria-label="Close"
                                                     @click.prevent="createHotelType()">
                                                     CREATE
                                                 </button>
@@ -260,17 +261,32 @@ const selectedItems = ref([]);
 const selectAll = ref(false);
 
 const hotelTypes = ref({
+    id:'',
     name: '',
     price_range: '',
     max_occupancy: '',
     amenities: '',
     extra: '',
+    deleted_at:'',
+    created_at:'',
+    updated_at:'',
 });
 
 const hotelTypeData = ref([]);
 
+const closeModal = () => {
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    myModal.hide();
+}
+
 const editHotelType = async (hotelId) => {
-    window.location.href = route('hotelType.edit', hotelId);
+    try{
+        const response = await axios.get(route('hotelType.get',hotelId));
+        console.log('hotel type data',response.data.hotel_type);
+        hotelTypes.value = response.data.hotel_type;
+    }catch(error){
+        console.log('Error:',error);
+    }
 }
 
 const createHotelType = async () => {
@@ -278,7 +294,9 @@ const createHotelType = async () => {
         const response = await axios.post(route('hotelType.store'), hotelTypes.value);
         getHotelTypes();
         restHotelTypeFields();
-
+        EventBus.$emit('data-saved');
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        myModal.hide();
     } catch (error) {
         console.log('Error:', error);
     }
@@ -300,11 +318,15 @@ const deleteHotelType = async (id) => {
 };
 
 const restHotelTypeFields = () => {
+    hotelTypes.value.id = '';
     hotelTypes.value.name = '';
     hotelTypes.value.price_range = '';
     hotelTypes.value.max_occupancy = '';
     hotelTypes.value.amenities = '';
     hotelTypes.value.extra = '';
+    hotelTypes.value.created_at = '';
+    hotelTypes.value.updated_at = '';
+    hotelTypes.value.deleted_at = '';
 }
 
 const deleteSelectedItems = async () => {
@@ -359,14 +381,20 @@ onBeforeMount(getHotelTypes);
     margin-right: 10px;
 }
 
-.edit {
+.edit-btn{
     color: blue;
-    background-color: none;
-    border: none;
-    border-style: none;
+    background-color: transparent;
+
+}
+
+.edit-btn:focus {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.9);
+    outline: none;
 }
 
 .delete {
     color: red;
 }
+
 </style>

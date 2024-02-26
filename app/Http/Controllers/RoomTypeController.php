@@ -12,8 +12,16 @@ class RoomTypeController extends Controller
         return Inertia::render("RoomTypes/index");
     }
 
-    public function store(Request $request){
-        return RoomTypeFacade::store($request->all());
+    public function store(Request $request){  
+
+        $existRoomId = $request->input('id');
+        if($existRoomId){
+            $response= RoomTypeFacade::update($existRoomId , $request->all());
+            return $response;
+        }else{
+            return RoomTypeFacade::store($request->all());
+        }
+        
     }
 
     public function all(){
@@ -35,10 +43,7 @@ class RoomTypeController extends Controller
         return $response;
     }
 
-    public function update($id,Request $request) {
-        $response= RoomTypeFacade::update($id, $request->all());
-        return $response;
-    }
+   
 
     public function deleteSelectedItems(Request $request){
 

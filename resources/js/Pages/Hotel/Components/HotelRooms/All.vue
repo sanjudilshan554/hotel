@@ -5,7 +5,7 @@
                 <div class="col-md-2">
                     <h5>Hotel Rooms</h5>
                 </div>
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                     <div class="form-group col-form-label">
                         <label for="exampleFormControlSelect2">Avilable room</label>
                         <select v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2"
@@ -15,10 +15,10 @@
                             </option>
                         </select>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-        <div class="card-body pt-0 mt-1">
+        <div class="card-body pt-0 mt-1 pt-4">
             <form enctype="multipart/form-data">
                 <div class="row mb-1">
                     <div for="name" class="col-md-2 col-form-label">ROOM TYPE</div>
@@ -95,6 +95,29 @@
                 </div>
             </form>
         </div>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2">
+                    <h5>Avilable Rooms</h5>
+                </div>
+                <div class="image-setup image-top-header border mt-2">
+                    <div v-for="value in hotelRoom" class="card image-section text-center"
+                        style="width: 22rem; height: 18rem;">
+                        <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
+                        <div class="image-card-body pt-4">{{ value.name }}
+                            <div class="">
+                                <div class="" >
+                                    <button class="btn btn-sm btn-round btn-outline-danger mb-0"
+                                        @click.prevent="deleteImage(value.id)">DELETE</button>
+                                    <a href="#" class="btn btn-round custom-button btn-sm mb-0"
+                                        @click.prevent="makePrimary(value.id)">MAKE PRIMARY</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
   
@@ -128,16 +151,18 @@ const hotelRoom = ref({
 const getHotelRooms = async () => {
     try {
         const response = await axios.get(route('hotel.rooms.get', props.hotelId));
-        roomCount.value = response.data.hotel_rooms;
+        hotelRoom = response.data.hotel_rooms;
+        // roomCount.value = response.data.hotel_rooms;
+        console.log('hotel rooms',response.data.hotel_rooms[0].url);
+        // const selectedRoom = roomCount.value.find(room => room.id === hotel_room_id.value);
+        // if (selectedRoom) {
+        //     const roomKeys = Object.keys(selectedRoom);
+        //     for (let i = 0; i < roomKeys.length; i++) {
+        //         const key = roomKeys[i];
+        //         hotelRoom.value[key] = selectedRoom[key];
+        //     }
+        // }
 
-        const selectedRoom = roomCount.value.find(room => room.id === hotel_room_id.value);
-        if (selectedRoom) {
-            const roomKeys = Object.keys(selectedRoom);
-            for (let i = 0; i < roomKeys.length; i++) {
-                const key = roomKeys[i];
-                hotelRoom.value[key] = selectedRoom[key];
-            }
-        }
     } catch (error) {
         console.log('Error: ', error);
     }
@@ -158,7 +183,6 @@ const resetData = () => {
     if (inputElement) {
         inputElement.value = '';
     }
-
     hotelRoom.value.image = null;
 }
 
@@ -208,13 +232,13 @@ const onImageChange = (e) => {
 }
 
 const deleteHotelRoom = async () => {
-    try{
-        const response = await axios.get(route('hotel.rooms.delete',hotel_room_id.value));
+    try {
+        const response = await axios.get(route('hotel.rooms.delete', hotel_room_id.value));
         resetData();
         getHotelRooms();
-        console.log('heelo',response);
-    }catch(error){
-        console.log('Error:',error);
+        console.log('heelo', response);
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
@@ -237,5 +261,18 @@ onMounted(() => {
     background-color: #6343e9;
     color: #ffffff !important;
 }
+
+.image-section {
+    background-color: white;
+}
+
+.image-section {
+    float: left;
+    overflow: hidden;
+    margin: 2vh;
+    align-items: center;
+    justify-content: center;
+}
+
 </style>
   

@@ -11,7 +11,6 @@
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li class="breadcrumb-item">
                                             <i class="fas fa-home"></i>
-
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
                                             Types / Room Type
@@ -21,7 +20,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12 text-right py-4">
-                            <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
+                            <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end" @click="resetData()"
                                 data-toggle="modal" data-target="#exampleModal">
                                 <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
                             </button>
@@ -30,7 +29,7 @@
                 </div>
             </div>
         </template>
-
+ 
         <template #content>
             <div class="row">
                 <div class="col-lg-12">
@@ -44,26 +43,21 @@
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-arrow-up-from-bracket icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-cloud-arrow-down icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-wrench icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-check icon_item-icon" color="#505050"></i>
-
                                             </a>
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-minus icon_item-icon" color="#505050"></i>
-
                                             </a>
                                         </div>
                                         <div class="p-2 border ">
@@ -126,9 +120,10 @@
                                             <td class="textClassBody">
 
                                                 <div class="float-left">
-                                                    <a href="javascript:void(0)" class="edit"
+                                                    <button  class="edit"
+                                                        data-toggle="modal" data-target="#exampleModal"
                                                         @click.prevent="editRoomType(value.id)"> <i
-                                                            class="fas fa-edit"></i></a>
+                                                            class="fas fa-edit"></i></button>
                                                 </div>
                                                 <div class="float-left">
                                                     <a href="javascript:void(0)" class="delete"
@@ -233,6 +228,7 @@
                                         </div>
                                         <div class="text-right mt-2">
                                             <button type="submit" class="btn btn-round custom-button btn-sm mb-0"
+                                                data-dismiss="modal" aria-label="Close"
                                                 @click.prevent="createRoomType()">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                                                 CREATE
@@ -278,11 +274,14 @@ const createRoomType = async () => {
 
 const resetData = () => {
     roomType.value = {
+        id:'',
         name: '',
         price_range: '',
         max_occupancy: '',
         bed_step: '',
         extra: '',
+        created_at:'',
+        updated_at:'',
     };
 }
 const getRoomTypes = async () => {
@@ -305,7 +304,13 @@ const deleteRoomType = async (id) => {
 }
 
 const editRoomType = async (roomTypeId) => {
-    window.location.href = route('roomType.edit', roomTypeId);
+    try{
+        const response = await axios.get(route('roomType.get',roomTypeId));
+        console.log('room type:', response);
+        roomType.value = response.data.room_type;
+    }catch(error){
+        console.log(error);
+    }
 }
 
 const deleteSelectedItems = async () => {
@@ -315,7 +320,6 @@ const deleteSelectedItems = async () => {
 
     try {
         const response = await axios.delete(route('roomTypes.delete.selected'), { data: { ids: selectedIds } });
-
         if (response.data.success) {
             roomTypeData.value = roomTypeData.value.filter(item => !selectedIds.includes(item.id));
             selectedItems.value = [];
@@ -365,8 +369,8 @@ onMounted(getRoomTypes);
     background-color: none;
     border: none;
     border-style: none;
+    outline:none;
 }
-
 .delete {
     color: red;
 }
