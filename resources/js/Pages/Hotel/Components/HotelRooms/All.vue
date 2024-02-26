@@ -101,16 +101,16 @@
                     <h5>Avilable Rooms</h5>
                 </div>
                 <div class="image-setup image-top-header border mt-2">
-                    <div v-for="value in hotelRoom" class="card image-section text-center"
+                    <div v-for="value in hotelRoom"  class="card image-section text-center"
                         style="width: 22rem; height: 18rem;">
-                        <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
-                        <div class="image-card-body pt-4">{{ value.name }}
+                        <img class="card-img-top" :src=" value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
+                        <div class="image-card-body pt-4">
                             <div class="">
                                 <div class="" >
                                     <button class="btn btn-sm btn-round btn-outline-danger mb-0"
-                                        @click.prevent="deleteImage(value.id)">DELETE</button>
+                                        @click.prevent="deleteImage(value.id)">DELETE ROOM</button>
                                     <a href="#" class="btn btn-round custom-button btn-sm mb-0"
-                                        @click.prevent="makePrimary(value.id)">MAKE PRIMARY</a>
+                                        @click.prevent="makePrimary(value.id)">EDIT DETAILS</a>
                                 </div>
                             </div>
                         </div>
@@ -151,9 +151,11 @@ const hotelRoom = ref({
 const getHotelRooms = async () => {
     try {
         const response = await axios.get(route('hotel.rooms.get', props.hotelId));
-        hotelRoom = response.data.hotel_rooms;
+        // hotelRoom = response.data.hotel_rooms;
         // roomCount.value = response.data.hotel_rooms;
+        // console.log('hotel rooms',response.data.hotel_rooms[0].url);
         console.log('hotel rooms',response.data.hotel_rooms[0].url);
+        hotelRoom.value= response.data.hotel_rooms;
         // const selectedRoom = roomCount.value.find(room => room.id === hotel_room_id.value);
         // if (selectedRoom) {
         //     const roomKeys = Object.keys(selectedRoom);
