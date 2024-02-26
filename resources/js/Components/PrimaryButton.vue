@@ -1,7 +1,6 @@
 <template>
     <button
-        class="btn btn-dark login"
-    >
+        class="btn btn-dark login">
         <slot />
     </button>
 </template>

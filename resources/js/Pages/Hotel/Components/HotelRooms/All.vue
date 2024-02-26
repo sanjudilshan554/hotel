@@ -10,6 +10,7 @@
                         <label for="exampleFormControlSelect2">Avilable room</label>
                         <select v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2"
                             @click="getHotelRooms">
+                            <option value="select" selected hidden>select</option>
                             <option v-for="value in roomCount" :key="value.id" :value="value.id">RN: {{ value.room_number }}
                             </option>
                         </select>
@@ -194,6 +195,7 @@ const createHotelRoom = async () => {
         formData.append('room_type_id', hotelRoom.value.room_type);
         formData.append('exist_id', hotel_room_id.value);
         const response = await axios.post(route('hotel.rooms.store'), formData);
+        resetData();
         getHotelRooms();
         console.log('response', response);
     } catch (error) {

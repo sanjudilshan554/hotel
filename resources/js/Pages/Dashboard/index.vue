@@ -41,7 +41,7 @@
                                         <div class="col-4 text-end">
                                             <div
                                                 class="text-center icon icon-shape bg-gradient-danger shadow-danger rounded-circle">
-                                              <i class="fa-solid fa-hotel"></i>
+                                                <i class="fa-solid fa-bell-concierge"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
                                         <div class="col-4 text-end">
                                             <div
                                                 class="text-center icon icon-shape bg-gradient-success shadow-success rounded-circle">
-                                                <i class="text-lg ni ni-paper-diploma opacity-10" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-hotel"></i>
                                             </div>
                                         </div>
                                     </div>
