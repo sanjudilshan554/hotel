@@ -11,11 +11,15 @@ class HotelImages extends Model
 
     protected $fillable = [
         'status',
-        'url',
+        'image_id',
         'hotel_id'
     ];
 
     public function hotels(){
         return $this->belongsTo(Hotel::class, 'id', 'hotel_id');
+    }
+
+    public function images(){
+        return $this->hasOne(Image::class,'id','image_id');
     }
 }

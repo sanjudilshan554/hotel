@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HotelImages;
 use domain\Facades\HotelImageFacade\HotelImageFacade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class HotelImageController extends Controller
 {
@@ -16,6 +17,7 @@ class HotelImageController extends Controller
 
     public function store(Request $request){
         
+       
         $hotelId= $request->input("hotel_id");
 
         $firstImageid= $this->image->where('hotel_id',$hotelId)->first();
@@ -23,21 +25,32 @@ class HotelImageController extends Controller
         if($firstImageid){
             $response['hotel_image']=HotelImageFacade::store($request);
             return $response;
+
         }else{
             $status = 1;
             $request->merge(['status'=>$status]);
             $response['hotel_image']=HotelImageFacade::store($request);
             return $response;
+
         } 
     }
 
     public function all($id){
-        $response['hotel_images']=HotelImageFacade::all($id);
+
+        $accessPath = Config::get('images.access_path');
+
+        $response = [
+            'access_path' => $accessPath,
+            'hotel_images' => HotelImageFacade::all($id),
+        ];
+
         return $response;
     }
 
     public function delete($id){
+
         return HotelImageFacade::delete($id);
+        
     }
 
     public function update(Request $request){

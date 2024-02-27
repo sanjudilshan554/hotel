@@ -11,9 +11,10 @@
                     class="btn btn-sm btn-round btn-outline-success">Upload</button>
                 </div>
             </div>
+
             <div class="image-setup image-top-header border mt-2">
                 <div  v-for="value in hotelImageData" class="card image-section text-center" style="width: 22rem; height: 18rem;">
-                    <img class="card-img-top" :src="value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
+                    <img class="card-img-top" :src=" access_path + '/' + value.images?.name  " alt="dfdsfds" style="width: 18rem; height: 14rem;">
                     <div class="image-card-body pt-4">
                         <div class="">
                             <div class="" v-if="value.id == firstImageId">
@@ -49,10 +50,9 @@ const props = defineProps({
 });
 
 const hotelImage = ref([]);
-
 const hotelImageData = ref([]);
-
 const firstImageId = ref(0);
+const access_path = ref({});
 
 const createHotelImage = async () => {
     try {
@@ -72,7 +72,9 @@ const getHotelImages = async (id) => {
     try{
         const response = await axios.get(route('hotel.image.all',id));
         hotelImageData.value=response.data.hotel_images;
-
+        console.log('hotel data',response.data.hotel_images);
+        console.log('access path',response.data.access_path);
+        access_path.value = response.data.access_path;
         for(let i=0; i<hotelImageData.value.length; i++){
             if(hotelImageData.value[i].status==1){
                 firstImageId.value=hotelImageData.value[i].id;

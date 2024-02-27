@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('hotel_images', function (Blueprint $table) {
             $table->id();
             $table->integer('status')->default(0);
-            $table->string('url');
-            $table->foreignId('hotel_id')->constrained('hotels')->onDelete('cascade');
+            $table->bigInteger('image_id');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onDelete('cascade');
             $table->timestamps();
         });
     }

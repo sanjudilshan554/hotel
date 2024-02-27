@@ -5,17 +5,6 @@
                 <div class="col-md-2">
                     <h5>Hotel Rooms</h5>
                 </div>
-                <!-- <div class="col-md-2">
-                    <div class="form-group col-form-label">
-                        <label for="exampleFormControlSelect2">Avilable room</label>
-                        <select v-model="hotel_room_id" class="form-control  form-control-sm" id="exampleFormControlSelect2"
-                            @click="getHotelRooms">
-                            <option value="select" selected hidden>select</option>
-                            <option v-for="value in roomCount" :key="value.id" :value="value.id">RN: {{ value.room_number }}
-                            </option>
-                        </select>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="card-body pt-0 mt-1 pt-4">
@@ -75,7 +64,7 @@
                     <div for="name" class="col-md-2 col-form-label">IMAGE</div>
                     <div class="col-md-10">
                         <input type="file" class="form-control form-control-sm" name="image" id="image"
-                            @change="onImageChange" />
+                            @input="hotelRoom.image = $event.target.files[0]"  />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -144,7 +133,7 @@ const hotelRoom = ref({
     room_number: '',
     view: '',
     amenities: '',
-    image: '',
+    image: [],
     hotel_id: '',
     avilability: 0,
 });
@@ -220,9 +209,9 @@ const createHotelRoom = async () => {
     }
 }
 
-const onImageChange = (e) => {
-    hotelRoom.value.image = e.target.files[0];
-}
+// const onImageChange = (e) => {
+//     hotelRoom.value.image = e.target.files[0];
+// }
 
 const deleteHotelRoom = async () => {
     try {
