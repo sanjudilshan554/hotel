@@ -21,11 +21,11 @@
                         </div>
                     </div>
                     <div class="col-lg-12 text-right py-1">
-                                <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
-                                    data-toggle="modal" data-target="#exampleModal">
-                                    <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
-                                </button>
-                            </div>
+                        <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end" data-toggle="modal"
+                            data-target="#exampleModal">
+                            <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
+                        </button>
+                    </div>
                 </div>
             </div>
         </template>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="text-muted ml-auto mx-4 mt-4">
                                 <div class="inline-block">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -66,26 +66,21 @@
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-arrow-up-from-bracket icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-cloud-arrow-down icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <i class="fa-solid fa-wrench icon_item-icon" color="#505050"></i>
-
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-check icon_item-icon" color="#505050"></i>
-
                                             </a>
                                         </div>
                                         <div class="p-2 border icon_item">
                                             <a>
                                                 <i class="fa-solid fa-circle-minus icon_item-icon" color="#505050"></i>
-
                                             </a>
                                         </div>
                                         <div class="p-2 border ">
@@ -246,7 +241,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import axios from 'axios';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
+import Swal from 'sweetalert2';
 
 const hotel = ref({
     name: '',
@@ -272,7 +268,15 @@ const createHotel = async (id) => {
     try {
         const response = await axios.post(route('hotels.store'), hotel.value);
         const hotelId = response.data.id;
-        window.location.href = route('hotels.edit', hotelId);
+        await Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+        }).then(() => {
+            window.location.href = route('hotels.edit', hotelId);
+        });
     } catch (error) {
         console.log('Error:', error);
     }
@@ -318,7 +322,7 @@ const selectAllItems = () => {
 
 const editHotelType = (id) => {
 
-    window.location.href=route('hotels.edit',id);
+    window.location.href = route('hotels.edit', id);
 
 }
 
@@ -330,7 +334,7 @@ onMounted(() => {
 </script>
 
 <style>
-.edit{
+.edit {
     color: blue;
 }
 </style>

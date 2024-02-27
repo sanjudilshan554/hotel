@@ -86,9 +86,9 @@
         </div>
         <div class="card-header">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 text-center">
                   <div class="" v-if="roomCount > 0"><h5>All Rooms</h5></div>  
-                  <div class="" v-else><h5>No Room Avilable yet</h5></div>  
+                  <div class="" v-else><h6>No Room Avilable yet</h6></div>  
                 </div>
                 <div class="image-setup image-top-header border mt-2">
                     <div v-for="value in hotelRoom"  class="card image-section text-center"

@@ -9,7 +9,7 @@
                     <div for="name" class="col-md-2 col-form-label">NAME</div>
                     <div class="col-md-10">
                         <input type="text" class="form-control form-control-sm" name="name" id="name"
-                            v-model="hotelData.name" disabled/>
+                            v-model="hotelData.name" disabled />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
                     <div for="name" class="col-md-2 col-form-label">HOTEL TYPE</div>
                     <div class="col-md-10">
                         <select class="form-control form-control-sm" aria-label="Default select example" disabled
-                            v-model="hotelData.type " >
-                            <option :value="hotelData.typeName " class="text-dark" hidden>{{ hotelData.typeName }}</option>
+                            v-model="hotelData.type">
+                            <option :value="hotelData.typeName" class="text-dark" hidden>{{ hotelData.typeName }}</option>
                             <option v-for="value in hotelTypes" :key="value.id" :value="value.id">{{ value.name }}</option>
                         </select>
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
@@ -71,7 +71,7 @@
                     <div for="name" class="col-md-2 col-form-label">CITY</div>
                     <div class="col-md-10">
                         <input type="text" class="form-control form-control-sm" name="city" id="city"
-                            v-model="hotelData.city" disabled/>
+                            v-model="hotelData.city" disabled />
                         <small id="msg_name" class="text-danger form-text text-error-msg error"></small>
                     </div>
                 </div>
@@ -107,11 +107,13 @@
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         RESET
                     </button>
-                    <button type="button" class="btn btn-sm btn-round btn-outline-danger mb-0" @click.prevent=deleteHotel(hotelData.id)>
+                    <button type="button" class="btn btn-sm btn-round btn-outline-danger mb-0"
+                        @click.prevent=deleteHotel(hotelData.id)>
                         <font-awesome-icon icon="fa-solid fa-trash" />
                         DELETE
                     </button>
-                    <button type="submit" class="btn btn-round custom-button btn-sm mb-0" @click.prevent="updateBasicData(hotelData.id)">
+                    <button type="submit" class="btn btn-round custom-button btn-sm mb-0"
+                        @click.prevent="updateBasicData(hotelData.id)">
                         <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                         SAVE
                     </button>
@@ -124,6 +126,7 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, defineProps } from 'vue';
+import Swal from 'sweetalert2';
 
 const hotelData = ref([]);
 
@@ -139,11 +142,11 @@ const props = defineProps({
 const getHotelType = async (hotelTypeId) => {
     try {
         const response = await axios.get(route('hotelType.get', hotelTypeId));
-        console.log('selected hotel type data',response.data);
+        console.log('selected hotel type data', response.data);
         const selectedHotelType = response.data.hotel_type
         hotelData.value.typeName = selectedHotelType.name;
-        hotelData.value.type  = selectedHotelType.name;
-        console.log(hotelData.hotelData.value.hotel_type_id );
+        hotelData.value.type = selectedHotelType.name;
+        console.log(hotelData.hotelData.value.hotel_type_id);
     } catch (error) {
         console.log('Error:', error);
     }
@@ -153,7 +156,7 @@ const getHotelTypes = async () => {
     try {
         const response = await axios.get(route('hotelType.all'));
         hotelTypes.value = response.data.hotel_types;
-        console.log('hotel types:',hotelTypes.value);
+        console.log('hotel types:', hotelTypes.value);
     } catch (error) {
         console.log(error);
     }
@@ -172,28 +175,35 @@ const getHotelData = async () => {
 }
 
 const updateBasicData = async (id) => {
-    try{
-        const response = await axios.post(route('hotels.basic.update',id),hotelData.value);
+    try {
+        const response = await axios.post(route('hotels.basic.update', id), hotelData.value);
         resetData();
         resetSavedData();
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+        });
         console.log(response);
-    }catch(error){
-        console.log('Error:',error);
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
-const resetData = () =>{
+const resetData = () => {
     hotelData.value.email = '';
     hotelData.value.address = '';
     hotelData.value.contact_1 = '';
     hotelData.value.contact_2 = '';
     hotelData.value.web_site = '';
     hotelData.value.check_in_date = '';
-    hotelData.value.check_oute_date ='';
-    hotelData.value.description ='';
+    hotelData.value.check_oute_date = '';
+    hotelData.value.description = '';
 }
 
-const resetSavedData = () =>{
+const resetSavedData = () => {
     hotelData.value.name = '';
     hotelData.value.type = '';
     hotelData.value.city = '';
@@ -202,13 +212,47 @@ const resetSavedData = () =>{
 }
 
 const deleteHotel = async (id) => {
-    try{
-        const response = await axios.delete(route('hotels.basic.delete',id));
-        resetData();
-        resetSavedData();
-    }catch(error){
-        console.log('Error:',error);
+
+
+    try {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(route('hotels.basic.delete', id));
+                    resetData();
+                    resetSavedData();
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+
+    } catch (error) {
+        console.log('Error:', error);
     }
+
+
+
+
+
+
+
+
+
 }
 
 onMounted(() => {
@@ -228,5 +272,6 @@ onMounted(() => {
 .custom-button:hover {
     background-color: #6343e9;
     color: #ffffff !important;
-}</style>
+}
+</style>
   
