@@ -20,8 +20,8 @@
                             </div>
                         </div>
                         <div class="col-lg-12 text-right py-4">
-                            <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end" @click="resetData()"
-                                data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-primary btn btn-sm btn-neutral float-end"
+                                @click="resetData()" data-toggle="modal" data-target="#exampleModal">
                                 <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
                             </button>
                         </div>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </template>
- 
+
         <template #content>
             <div class="row">
                 <div class="col-lg-12">
@@ -120,8 +120,7 @@
                                             <td class="textClassBody">
 
                                                 <div class="float-left">
-                                                    <button  class="edit"
-                                                        data-toggle="modal" data-target="#exampleModal"
+                                                    <button class="edit" data-toggle="modal" data-target="#exampleModal"
                                                         @click.prevent="editRoomType(value.id)"> <i
                                                             class="fas fa-edit"></i></button>
                                                 </div>
@@ -228,8 +227,7 @@
                                         </div>
                                         <div class="text-right mt-2">
                                             <button type="submit" class="btn btn-round custom-button btn-sm mb-0"
-                                                data-dismiss="modal" aria-label="Close"
-                                                @click.prevent="createRoomType()">
+                                                data-dismiss="modal" aria-label="Close" @click.prevent="createRoomType()">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
                                                 CREATE
                                             </button>
@@ -249,7 +247,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue'
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
-
+import Swal from 'sweetalert2';
 const roomType = ref({
     name: '',
     price_range: '',
@@ -267,6 +265,13 @@ const createRoomType = async () => {
         const response = await axios.post(route('roomType.store'), roomType.value);
         getRoomTypes();
         resetData();
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+        });
     } catch (error) {
         console.log('Error:', error);
     }
@@ -274,14 +279,14 @@ const createRoomType = async () => {
 
 const resetData = () => {
     roomType.value = {
-        id:'',
+        id: '',
         name: '',
         price_range: '',
         max_occupancy: '',
         bed_step: '',
         extra: '',
-        created_at:'',
-        updated_at:'',
+        created_at: '',
+        updated_at: '',
     };
 }
 const getRoomTypes = async () => {
@@ -295,20 +300,41 @@ const getRoomTypes = async () => {
 
 const deleteRoomType = async (id) => {
     try {
-        const response = await axios.delete(route('roomType.delete', id));
-        getRoomTypes();
-        console.log(response.data);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(route('roomType.delete', id));
+                    getRoomTypes();
+                    console.log(response.data);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                } catch (error) {
+                    console.log('Eroor:', error);
+                }
+            }
+        });
     } catch (error) {
-        console.log('Eroor:', error);
+        console.log('Error:', error);
     }
 }
 
 const editRoomType = async (roomTypeId) => {
-    try{
-        const response = await axios.get(route('roomType.get',roomTypeId));
+    try {
+        const response = await axios.get(route('roomType.get', roomTypeId));
         console.log('room type:', response);
         roomType.value = response.data.room_type;
-    }catch(error){
+    } catch (error) {
         console.log(error);
     }
 }
@@ -317,16 +343,36 @@ const deleteSelectedItems = async () => {
 
     console.log('for deleted', roomTypeData.value);
     const selectedIds = selectedItems.value.map(index => roomTypeData.value[index].id);
-
     try {
-        const response = await axios.delete(route('roomTypes.delete.selected'), { data: { ids: selectedIds } });
-        if (response.data.success) {
-            roomTypeData.value = roomTypeData.value.filter(item => !selectedIds.includes(item.id));
-            selectedItems.value = [];
-            selectAll.value = false;
-        } else {
-            console.error('Failed to delete items', response.data.message);
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(route('roomTypes.delete.selected'), { data: { ids: selectedIds } });
+                    if (response.data.success) {
+                        roomTypeData.value = roomTypeData.value.filter(item => !selectedIds.includes(item.id));
+                        selectedItems.value = [];
+                        selectAll.value = false;
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                    } else {
+                        console.error('Failed to delete items', response.data.message);
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            }
+        });
     } catch (error) {
         console.log('Error:', error);
     }
@@ -369,8 +415,9 @@ onMounted(getRoomTypes);
     background-color: none;
     border: none;
     border-style: none;
-    outline:none;
+    outline: none;
 }
+
 .delete {
     color: red;
 }

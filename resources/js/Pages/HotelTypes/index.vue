@@ -157,15 +157,15 @@
         </template>
 
         <template #modals>
-            <div class="modal fade"  @data-saved="closeModal" id="exampleModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
-                aria-labelledby="newVendorModal" aria-hidden="true">
+            <div class="modal fade" @data-saved="closeModal" id="exampleModal" data-bs-backdrop="static" tabindex="-1"
+                role="dialog" aria-labelledby="newVendorModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-mb" role="document">
                     <div class="modal-content p-2">
                         <div class="modal-header">
                             <h5 class="modal-title font-weight-bolder breadcrumb-text text-gradient" id="add_brandLabel">
                                 New Hotel Type
                             </h5>
-                            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" >
+                            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">
                                     <i class="fa fa-times"></i>
                                 </span>
@@ -175,7 +175,7 @@
                             <div class="card-plain">
                                 <div class="card-body">
                                     <form>
-                                        <input type="hidden" v-model="hotelTypes.id"/>
+                                        <input type="hidden" v-model="hotelTypes.id" />
                                         <div class="row mb-1">
                                             <div for="name" class="col-md-3 col-form-label">NAME</div>
                                             <div class="col-md-9">
@@ -234,7 +234,7 @@
                                                     <font-awesome-icon />
                                                     RESET
                                                 </button>
-                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral" 
+                                                <button type="submit" class="btn btn-primary btn btn-sm btn-neutral"
                                                     data-dismiss="modal" aria-label="Close"
                                                     @click.prevent="createHotelType()">
                                                     CREATE
@@ -256,20 +256,21 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import axios from 'axios';
 import { ref, onBeforeMount } from 'vue';
+import Swal from 'sweetalert2';
 
 const selectedItems = ref([]);
 const selectAll = ref(false);
 
 const hotelTypes = ref({
-    id:'',
+    id: '',
     name: '',
     price_range: '',
     max_occupancy: '',
     amenities: '',
     extra: '',
-    deleted_at:'',
-    created_at:'',
-    updated_at:'',
+    deleted_at: '',
+    created_at: '',
+    updated_at: '',
 });
 
 const hotelTypeData = ref([]);
@@ -280,23 +281,31 @@ const closeModal = () => {
 }
 
 const editHotelType = async (hotelId) => {
-    try{
-        const response = await axios.get(route('hotelType.get',hotelId));
-        console.log('hotel type data',response.data.hotel_type);
+    try {
+        const response = await axios.get(route('hotelType.get', hotelId));
+        console.log('hotel type data', response.data.hotel_type);
         hotelTypes.value = response.data.hotel_type;
-    }catch(error){
-        console.log('Error:',error);
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
 const createHotelType = async () => {
     try {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1200
+        });
         const response = await axios.post(route('hotelType.store'), hotelTypes.value);
         getHotelTypes();
         restHotelTypeFields();
         EventBus.$emit('data-saved');
         var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
         myModal.hide();
+
     } catch (error) {
         console.log('Error:', error);
     }
@@ -309,12 +318,31 @@ const getHotelTypes = async () => {
 }
 
 const deleteHotelType = async (id) => {
+
     try {
-        const response = await axios.delete(route('hotelType.delete', id));
-        getHotelTypes();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const response = axios.delete(route('hotelType.delete', id));
+                getHotelTypes();
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error', error);
     }
+
 };
 
 const restHotelTypeFields = () => {
@@ -334,16 +362,37 @@ const deleteSelectedItems = async () => {
     console.log('for deleted', hotelTypeData.value);
     const selectedIds = selectedItems.value.map(index => hotelTypeData.value[index].id);
 
+
+
     try {
         const response = await axios.delete(route('hotelTypes.delete.selected'), { data: { ids: selectedIds } });
 
-        if (response.data.success) {
-            hotelTypeData.value = hotelTypeData.value.filter(item => !selectedIds.includes(item.id));
-            selectedItems.value = [];
-            selectAll.value = false;
-        } else {
-            console.error('Failed to delete items', response.data.message);
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+
+                if (response.data.success) {
+                    hotelTypeData.value = hotelTypeData.value.filter(item => !selectedIds.includes(item.id));
+                    selectedItems.value = [];
+                    selectAll.value = false;
+                } else {
+                    console.error('Failed to delete items', response.data.message);
+                }
+            }
+        });
+
     } catch (error) {
         console.log('Error:', error);
     }
@@ -381,7 +430,7 @@ onBeforeMount(getHotelTypes);
     margin-right: 10px;
 }
 
-.edit-btn{
+.edit-btn {
     color: blue;
     background-color: transparent;
 
@@ -396,5 +445,4 @@ onBeforeMount(getHotelTypes);
 .delete {
     color: red;
 }
-
 </style>
