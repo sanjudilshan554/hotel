@@ -2,6 +2,9 @@
 
 namespace domain\Services\HotelRoomService;
 use App\Models\HotelRooms;
+use domain\Facades\ImageFacade\ImageFacade;
+use domain\Facades\ImageFacade\ImagesFacade;
+
 
 class HotelRoomService {
 
@@ -11,8 +14,15 @@ class HotelRoomService {
         $this->hotel_room = new HotelRooms();
     }
 
-    public function store($data,$url){
-        
+    public function store($data){
+
+        //  dd($data['image']);
+
+        if(isset($data['image'])){
+            $image = ImageFacade::store($data['image']);
+            $image_id = $image->id;
+        }
+      
         $room_type = $data->input('room_type');
         $room_number= $data->input('room_number');
         $avilability= $data->input('avilability');
@@ -20,6 +30,7 @@ class HotelRoomService {
         $ameninies= $data->input('amenities');
         $hotel_id=$data->input('hotel_id');
         $room_type_id=$data->input('room_type_id');
+       
 
         return $this->hotel_room->create([
          'room_type' => $room_type,
@@ -27,7 +38,7 @@ class HotelRoomService {
          'avilability'=> $avilability,
          'view'=> $view,
          'amenities'=> $ameninies,
-         'url' => 'http://127.0.0.1:8000/' . $url,
+         'image_id' => $image_id,
          'hotel_id' => $hotel_id,
          'room_type_id'=> $room_type_id,
         ]);
@@ -60,7 +71,7 @@ class HotelRoomService {
     }
 
     public function get($hotelId){
-        return $this->hotel_room->where('hotel_id',$hotelId)->get();
+        return $this->hotel_room->where('hotel_id',$hotelId)->with('images')->get();
     }
 
     public function count(){

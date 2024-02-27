@@ -15,7 +15,7 @@ class HotelRooms extends Model
         'avilability',
         'view',
         'amenities',
-        'url',
+        'image_id',
         'hotel_id',
         'room_type_id'
     ];
@@ -27,5 +27,9 @@ class HotelRooms extends Model
     public function roomType()
     {
         return $this->belongsTo(RoomType::class, 'room_type_id', 'id');
+    }
+
+    public function images(){
+        return $this->hasOne(Image::class,'id','image_id');
     }
 }

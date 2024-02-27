@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('avilability')->nullable();
             $table->string('view')->nullable();
             $table->string('amenities')->nullable();
-            $table->string('url')->nullable();
+            $table->bigInteger('image_id')->nullable();
             $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onDelete('cascade');
             $table->integer('room_type_id')->nullable()->constrained('room_types')->onDelete('cascade');
             $table->timestamps();

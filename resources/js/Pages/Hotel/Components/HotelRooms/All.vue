@@ -101,9 +101,10 @@
                     <h5>Avilable Rooms</h5>
                 </div>
                 <div class="image-setup image-top-header border mt-2">
+                
                     <div v-for="value in hotelRoom"  class="card image-section text-center"
                         style="width: 22rem; height: 18rem;">
-                        <img class="card-img-top" :src=" value.url" alt="dfdsfds" style="width: 18rem; height: 14rem;">
+                        <img class="card-img-top" :src="access_path + '/' + value.images?.name" alt="dfdsfds" style="width: 18rem; height: 14rem;">
                         <div class="image-card-body pt-4">
                             <div class="">
                                 <div class="" >
@@ -136,7 +137,7 @@ const props = defineProps({
 
 const room_type_id = ref({});
 const hotel_room_id = ref({});
-const roomCount = ref([]);
+const access_path = ref({});
 
 const hotelRoom = ref({
     room_type: '',
@@ -151,20 +152,10 @@ const hotelRoom = ref({
 const getHotelRooms = async () => {
     try {
         const response = await axios.get(route('hotel.rooms.get', props.hotelId));
-        // hotelRoom = response.data.hotel_rooms;
-        // roomCount.value = response.data.hotel_rooms;
-        // console.log('hotel rooms',response.data.hotel_rooms[0].url);
-        console.log('hotel rooms',response.data.hotel_rooms[0].url);
+        console.log('hotel rooms',response.data.hotel_rooms);
+        console.log('access_path',response.data.access_path);
         hotelRoom.value= response.data.hotel_rooms;
-        // const selectedRoom = roomCount.value.find(room => room.id === hotel_room_id.value);
-        // if (selectedRoom) {
-        //     const roomKeys = Object.keys(selectedRoom);
-        //     for (let i = 0; i < roomKeys.length; i++) {
-        //         const key = roomKeys[i];
-        //         hotelRoom.value[key] = selectedRoom[key];
-        //     }
-        // }
-
+        access_path.value = response.data.access_path;
     } catch (error) {
         console.log('Error: ', error);
     }
@@ -274,6 +265,13 @@ onMounted(() => {
     margin: 2vh;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+
+.image-section:hover{
+    box-shadow: 1px 1px 15px rgb(81, 81, 231);
+    transition: 0.2s ease-in-out;
+   
 }
 
 </style>
