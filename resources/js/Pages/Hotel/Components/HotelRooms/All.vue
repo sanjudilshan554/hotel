@@ -98,10 +98,7 @@
                         <div class="image-card-body pt-4">
                             <div class="">
                                 <div class="" >
-                                    <button class="btn btn-sm btn-round btn-outline-danger mb-0"
-                                        @click.prevent="deleteImage(value.id)">DELETE ROOM</button>
-                                    <a href="#" class="btn btn-round custom-button btn-sm mb-0"
-                                        @click.prevent="makePrimary(value.id)">EDIT DETAILS</a>
+                                    <h1>room number: {{ value.room_number }} </h1>
                                 </div>
                             </div>
                         </div>
@@ -248,6 +245,22 @@ onMounted(() => {
 });
 
 
+const hoveredRoomId = ref(null);
+
+const setHoveredRoom = (roomId) => {
+    hoveredRoomId.value = roomId;
+}
+
+const unsetHovedRoom = () => {
+    hoveredRoomId.value = null;
+}
+    
+const isRoomHoverd = (roomId) => {
+    return hoveredRoomId.value = roomId;
+}
+
+
+
 </script>
   
 <style lang="scss" scoped>
@@ -278,8 +291,9 @@ onMounted(() => {
 .image-section:hover{
     box-shadow: 1px 1px 15px rgb(81, 81, 231);
     transition: 0.2s ease-in-out;
-   
 }
+
+
 
 </style>
   
