@@ -14,8 +14,6 @@ class HotelImageService {
 
     public function store($data){
 
-        // dd($data['image']);
-
         if(isset($data['image'])){
             $image = ImageFacade::store($data['image']);
             $image_id = $image->id;

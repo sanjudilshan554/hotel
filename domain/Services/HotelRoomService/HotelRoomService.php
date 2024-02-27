@@ -44,8 +44,14 @@ class HotelRoomService {
         ]);
     }
 
-    public function update($requestId,$data,$url){
+    public function update($requestId,$data){
         
+
+        if(isset($data['image'])){
+            $image = ImageFacade::update($data['image']);
+            $image_id = $image->id;
+        }
+
         $exist_hotel_room = $this->hotel_room->where('id',$requestId)->first();
 
         $room_type = $data->input('room_type');
@@ -62,7 +68,7 @@ class HotelRoomService {
          'avilability'=> $avilability,
          'view'=> $view,
          'amenities'=> $ameninies,
-         'url' => 'http://127.0.0.1:8000/' . $url,
+         'url' => $image_id,
          'hotel_id' => $hotel_id,
          'room_type_id'=> $room_type_id,
         ]);
