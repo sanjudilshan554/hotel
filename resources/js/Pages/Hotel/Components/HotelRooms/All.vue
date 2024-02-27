@@ -92,7 +92,8 @@
                 </div>
                 <div class="image-setup image-top-header border mt-2">
                     <div v-for="value in hotelRoom"  class="card image-section text-center"
-                        style="width: 22rem; height: 18rem;">
+                        style="width: 22rem; height: 18rem;"
+                        @click.prevent="editRooms(value.id)">
                         <img class="card-img-top" :src="access_path + '/' + value.images?.name" alt="dfdsfds" style="width: 18rem; height: 14rem;">
                         <div class="image-card-body pt-4">
                             <div class="">
@@ -128,6 +129,7 @@ const room_type_id = ref({});
 const hotel_room_id = ref({});
 const access_path = ref({});
 const roomCount = ref({});
+const imageId = ref({});
 
 const hotelRoom = ref({
     room_type: '',
@@ -146,7 +148,6 @@ const getHotelRooms = async () => {
         console.log('access_path',response.data.access_path);
         hotelRoom.value= response.data.hotel_rooms;
         access_path.value = response.data.access_path;
-
         roomCount.value = response.data.hotel_rooms.length;
 
     } catch (error) {
@@ -154,6 +155,21 @@ const getHotelRooms = async () => {
     }
 }
 
+const editRooms = async (id) => {
+    try{
+        const response = await axios.get(route('hotel.rooms.edit',id));
+        hotelRoom.value.room_number = response.data.selected_room[0]?.room_number;
+        hotelRoom.value.avilability = response.data.selected_room[0]?.avilability;
+        hotelRoom.value.view = response.data.selected_room[0]?.view;
+        hotelRoom.value.amenities = response.data.selected_room[0]?.amenities;
+        hotelRoom.value.room_type = response.data.selected_room[0]?.room_type;
+        imageId.value = response.data.selected_room[0]?.image_id;
+        hotel_room_id.value = response.data.selected_room[0]?.id;
+        console.log('edit room',response.data.selected_room[0]?.room_number);
+    }catch(error){
+        console.log('Error',error);
+    }
+} 
 
 const resetData = () => {
 
@@ -204,6 +220,7 @@ const createHotelRoom = async () => {
         formData.append('hotel_id', props.hotelId);
         formData.append('room_type_id', hotelRoom.value.room_type);
         formData.append('exist_id', hotel_room_id.value);
+        formData.append('image_id', imageId.value);
         const response = await axios.post(route('hotel.rooms.store'), formData);
         resetData();
         getHotelRooms();
@@ -213,9 +230,6 @@ const createHotelRoom = async () => {
     }
 }
 
-// const onImageChange = (e) => {
-//     hotelRoom.value.image = e.target.files[0];
-// }
 
 const deleteHotelRoom = async () => {
     try {

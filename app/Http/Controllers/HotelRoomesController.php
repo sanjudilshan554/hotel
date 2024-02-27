@@ -10,13 +10,17 @@ class HotelRoomesController extends Controller
 {
     public function store(Request $request){
 
+        
 
-        $exist_id= $request->input('exist_id');
+        $exist_id = $request->input('exist_id');
+        $image_id = $request->input('image_id');
         
         // hotel room update
         if(is_numeric($exist_id) && $exist_id > 0){
-              
-            return HotelRoomFacade::update($exist_id,$request);
+
+            
+
+            return HotelRoomFacade::update($exist_id,$request,$image_id);
 
         } 
         // hotel room create
@@ -46,5 +50,10 @@ class HotelRoomesController extends Controller
 
     public function delete($id){
         return HotelRoomFacade::delete($id);
+    }
+
+    public function edit($id){
+        $response['selected_room'] = HotelRoomFacade::edit($id);
+        return $response;
     }
 }

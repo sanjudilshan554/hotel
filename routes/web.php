@@ -75,6 +75,7 @@ Route::prefix('hotel-images')->group(function (){
 // hotel rooms
 Route::prefix('hotel-rooms')->group(function (){
     Route::post('/store',[HotelRoomesController::class,'store'])->name('hotel.rooms.store');
+    Route::get('/{hotel_id}/edit',[HotelRoomesController::class,'edit'])->name('hotel.rooms.edit');
     Route::get('/{hotel_id}/get',[HotelRoomesController::class,'get'])->name('hotel.rooms.get');
     Route::get('/count',[HotelRoomesController::class,'count'])->name('hotel.rooms.count');
     Route::get('/{hotel_room_id}/delete',[HotelRoomesController::class,'delete'])->name('hotel.rooms.delete');

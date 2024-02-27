@@ -22,4 +22,18 @@ class ImageService {
         ]);
     }
 
+    public function update($file,$image_id){
+
+       $find_image = $this->images->where('id',$image_id)->first();
+
+        $name = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads'), $name);
+
+        return  $find_image->update([
+            
+            'name'=> $name,
+            
+        ]);
+    }
+
 }

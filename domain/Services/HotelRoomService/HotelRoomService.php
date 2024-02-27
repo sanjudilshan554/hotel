@@ -44,15 +44,13 @@ class HotelRoomService {
         ]);
     }
 
-    public function update($requestId,$data){
-        
+    public function update($requestId,$data,$image_id){
 
         if(isset($data['image'])){
-            $image = ImageFacade::update($data['image']);
-            $image_id = $image->id;
+            $image = ImageFacade::update($data['image'],$image_id);
         }
-
-        $exist_hotel_room = $this->hotel_room->where('id',$requestId)->first();
+        
+        $exist_hotel_room = $this->hotel_room->findOrFail($requestId);
 
         $room_type = $data->input('room_type');
         $room_number= $data->input('room_number');
@@ -68,7 +66,7 @@ class HotelRoomService {
          'avilability'=> $avilability,
          'view'=> $view,
          'amenities'=> $ameninies,
-         'url' => $image_id,
+         'image_id' => $image_id,
          'hotel_id' => $hotel_id,
          'room_type_id'=> $room_type_id,
         ]);
@@ -86,5 +84,9 @@ class HotelRoomService {
 
     public function delete($id){
         return $this->hotel_room->where('id',$id)->delete();
+    }
+
+    public function edit($id){
+        return $this->hotel_room->where('id',$id)->get();
     }
 }
