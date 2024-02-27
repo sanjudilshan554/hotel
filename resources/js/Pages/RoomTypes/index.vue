@@ -229,7 +229,7 @@
                                             <button type="submit" class="btn btn-round custom-button btn-sm mb-0"
                                                 data-dismiss="modal" aria-label="Close" @click.prevent="createRoomType()">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
-                                                CREATE
+                                                SAVE
                                             </button>
                                         </div>
                                     </form>
@@ -261,20 +261,31 @@ const selectedItems = ref([]);
 const selectAll = ref(false);
 
 const createRoomType = async () => {
+
     try {
-        const response = await axios.post(route('roomType.store'), roomType.value);
-        getRoomTypes();
-        resetData();
-        Swal.fire({
+        const Toast = Swal.mixin({
+            toast: true,
             position: "top-end",
-            icon: "success",
-            title: "Your work has been saved",
             showConfirmButton: false,
-            timer: 1500
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: async (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+                const response = await axios.post(route('roomType.store'), roomType.value);
+                getRoomTypes();
+                resetData();
+            }
         });
+        Toast.fire({
+            icon: "success",
+            title: "Data saved successfully"
+        });
+
     } catch (error) {
         console.log('Error:', error);
     }
+
 }
 
 const resetData = () => {
@@ -351,7 +362,7 @@ const deleteSelectedItems = async () => {
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, delete those!"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
@@ -362,7 +373,7 @@ const deleteSelectedItems = async () => {
                         selectAll.value = false;
                         Swal.fire({
                             title: "Deleted!",
-                            text: "Your file has been deleted.",
+                            text: "Your selected files has been deleted.",
                             icon: "success"
                         });
                     } else {

@@ -148,12 +148,10 @@
                                 </table>
                             </div>
                         </div>
-
                         <div class="flex mt-1 px-3 mx-1 card-footer table-footer align-items-center">
                             <div class="col-sm-12 col-md-6 p-0">
                                 <div class="dataTables_info column__left___padding" id="DataTables_Table_0_info"
                                     role="status" aria-live="polite">
-                                    <!-- Showing {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} entries -->
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 p-0">
@@ -161,7 +159,6 @@
                                     id="DataTables_Table_0_paginate">
                                     <nav aria-label="Page navigation" style="float: right">
                                         <ul class="pagination">
-                                            <!-- Pagination buttons  -->
                                         </ul>
                                     </nav>
                                 </div>
@@ -268,17 +265,26 @@ const createHotel = async (id) => {
     try {
         const response = await axios.post(route('hotels.store'), hotel.value);
         const hotelId = response.data.id;
-        await Swal.fire({
+        const Toast = Swal.mixin({
+            toast: true,
             position: "top-end",
-            icon: "success",
-            title: "Your work has been saved",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "New hotel has been created"
         }).then(() => {
             window.location.href = route('hotels.edit', hotelId);
         });
+
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error', error);
     }
 }
 
@@ -298,17 +304,39 @@ const deleteSelectedItems = async () => {
     const selectedIds = selectedItems.value.map(index => hotelsData.value[index].id);
 
     try {
-        const response = await axios.delete(route('hotels.delete.selected'), { data: { ids: selectedIds } });
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(route('hotels.delete.selected'), { data: { ids: selectedIds } });
 
-        if (response.data.success) {
-            hotelsData.value = hotelsData.value.filter(item => !selectedIds.includes(item.id));
-            selectedItems.value = [];
-            selectAll.value = false;
-        } else {
-            console.error('Failed to delete items', response.data.message);
-        }
+                    if (response.data.success) {
+                        hotelsData.value = hotelsData.value.filter(item => !selectedIds.includes(item.id));
+                        selectedItems.value = [];
+                        selectAll.value = false;
+                    } else {
+                        console.error('Failed to delete items', response.data.message);
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error', error);
     }
 }
 

@@ -129,7 +129,6 @@ import { ref, onMounted, defineProps } from 'vue';
 import Swal from 'sweetalert2';
 
 const hotelData = ref([]);
-
 const hotelTypes = ref([]);
 
 const props = defineProps({
@@ -213,9 +212,7 @@ const resetSavedData = () => {
 
 const deleteHotel = async (id) => {
 
-
     try {
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -244,15 +241,6 @@ const deleteHotel = async (id) => {
     } catch (error) {
         console.log('Error:', error);
     }
-
-
-
-
-
-
-
-
-
 }
 
 onMounted(() => {

@@ -237,7 +237,7 @@
                                                 <button type="submit" class="btn btn-primary btn btn-sm btn-neutral"
                                                     data-dismiss="modal" aria-label="Close"
                                                     @click.prevent="createHotelType()">
-                                                    CREATE
+                                                    SAVE
                                                 </button>
                                             </div>
                                         </div>
@@ -291,24 +291,29 @@ const editHotelType = async (hotelId) => {
 }
 
 const createHotelType = async () => {
-    try {
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Your work has been saved",
-            showConfirmButton: false,
-            timer: 1200
-        });
-        const response = await axios.post(route('hotelType.store'), hotelTypes.value);
-        getHotelTypes();
-        restHotelTypeFields();
-        EventBus.$emit('data-saved');
-        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-        myModal.hide();
 
-    } catch (error) {
-        console.log('Error:', error);
-    }
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: async (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            const response = await axios.post(route('hotelType.store'), hotelTypes.value);
+            getHotelTypes();
+            restHotelTypeFields();
+            EventBus.$emit('data-saved');
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            myModal.hide();
+        }
+    });
+    Toast.fire({
+        icon: "success",
+        title: "Data saved successfully"
+    });
+
 }
 
 const getHotelTypes = async () => {
@@ -362,8 +367,6 @@ const deleteSelectedItems = async () => {
     console.log('for deleted', hotelTypeData.value);
     const selectedIds = selectedItems.value.map(index => hotelTypeData.value[index].id);
 
-
-
     try {
         const response = await axios.delete(route('hotelTypes.delete.selected'), { data: { ids: selectedIds } });
 
@@ -374,12 +377,12 @@ const deleteSelectedItems = async () => {
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, delete those!"
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    text: "Your selected files has been deleted.",
                     icon: "success"
                 });
 

@@ -210,8 +210,6 @@ const getRoomTyepId = async (id) => {
 
 const createHotelRoom = async () => {
 
-
-
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -250,7 +248,6 @@ const createHotelRoom = async () => {
     });
 }
 
-
 const deleteHotelRoom = async () => {
 
     Swal.fire({
@@ -258,7 +255,7 @@ const deleteHotelRoom = async () => {
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor:"#d33",
+        confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
         confirmButtonText: "Yes, delete it!"
     }).then(async (result) => {
@@ -299,8 +296,6 @@ const unsetHovedRoom = () => {
 const isRoomHoverd = (roomId) => {
     return hoveredRoomId.value = roomId;
 }
-
-
 
 </script>
   

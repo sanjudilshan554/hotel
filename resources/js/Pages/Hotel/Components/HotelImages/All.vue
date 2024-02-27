@@ -71,7 +71,6 @@ const createHotelImage = async () => {
 const getHotelImages = async (id) => {
 
     try {
-
         const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -111,8 +110,6 @@ const getHotelImages = async (id) => {
 
 const makePrimary = async (imageId) => {
 
-
-
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: "btn btn-sm btn-round btn-outline-warning mb-0",
@@ -148,7 +145,6 @@ const makePrimary = async (imageId) => {
         }
     });
 
-
 }
 
 const updateImageStatus = async (firstImageId, imageId) => {
@@ -163,6 +159,7 @@ const updateImageStatus = async (firstImageId, imageId) => {
 }
 
 const onImageChange = (e) => {
+
     console.log(e.target.files[0]);
     hotelImage.value.image = e.target.files[0];
 
@@ -190,7 +187,7 @@ const deleteImage = async (id) => {
                 }
                 Swal.fire({
                     title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    text: "Your image has been deleted.",
                     icon: "success"
                 });
             }
@@ -199,7 +196,6 @@ const deleteImage = async (id) => {
     } catch (error) {
         console.log('Error', error);
     }
-
 }
 
 onMounted(() => {
@@ -208,8 +204,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
-
 .custom-button {
     background-color: #ffffff;
     border-color: #6343e9;
