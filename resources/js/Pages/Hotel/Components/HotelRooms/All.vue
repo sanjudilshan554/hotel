@@ -87,10 +87,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    <h5>Avilable Rooms</h5>
+                  <div class="" v-if="roomCount > 0"><h5>All Rooms</h5></div>  
+                  <div class="" v-else><h5>No Room Avilable yet</h5></div>  
                 </div>
                 <div class="image-setup image-top-header border mt-2">
-                
                     <div v-for="value in hotelRoom"  class="card image-section text-center"
                         style="width: 22rem; height: 18rem;">
                         <img class="card-img-top" :src="access_path + '/' + value.images?.name" alt="dfdsfds" style="width: 18rem; height: 14rem;">
@@ -127,6 +127,7 @@ const props = defineProps({
 const room_type_id = ref({});
 const hotel_room_id = ref({});
 const access_path = ref({});
+const roomCount = ref({});
 
 const hotelRoom = ref({
     room_type: '',
@@ -145,6 +146,9 @@ const getHotelRooms = async () => {
         console.log('access_path',response.data.access_path);
         hotelRoom.value= response.data.hotel_rooms;
         access_path.value = response.data.access_path;
+
+        roomCount.value = response.data.hotel_rooms.length;
+
     } catch (error) {
         console.log('Error: ', error);
     }
